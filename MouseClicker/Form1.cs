@@ -17,17 +17,32 @@ namespace MouseClicker
     {
         Idle,
         Recording,
+        Pause,
         Activated,
+    }
+
+    public enum ActionType
+    {
+        MouseClick,
+        Typing
     }
 
     public struct SingleAction
     {
+        public ActionType type;
+
+        // click
         public Point pos;
+        // typing
+        public string str;
+
         public double waitTime;
     }
 
     public partial class Form1 : Form
     {
+        private const int KEY_PRESSED = 0x80;
+
         public Mode curMode = Mode.Idle;
         TimeSpan delay = TimeSpan.FromSeconds(0.1f);
 
@@ -40,47 +55,70 @@ namespace MouseClicker
         double remainedTimerSeconds;
         bool useTimer;
 
+        bool isInputBoxOpen;
+
         public Form1()
         {
             MouseCallBack.onLeftMouseDown = OnLeftMouseClicked;
             MouseCallBack.onRightMouseDown = OnRightMouseClicked;
+            MouseCallBack.onWheelDown = OnWheelDown;
 
             InitializeComponent();
             SetMode(Mode.Idle);
+            Initialize_HandleOtherWindow();
             Loop();
         }
 
         private void OnLeftMouseClicked(int x, int y)
         {
+            if (isInputBoxOpen)
+                return;
+
             if (curMode != Mode.Recording)
                 return;
 
-            keys.Add(new SingleAction() { pos = new Point(x, y), waitTime = recordIntervalTime });
+            keys.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
             recordIntervalTime = 0;
         }
 
         private void OnRightMouseClicked(int x, int y)
         {
-            ProcessNextByContext();
+            if (isInputBoxOpen)
+                return;
+
+            if (curMode == Mode.Recording)
+            {
+                SetMode(Mode.Activated);
+            }
+            else if (curMode == Mode.Activated || curMode == Mode.Pause)
+            {
+                SetMode(Mode.Idle);
+            }
         }
 
-        void ProcessNextByContext(bool ableExecute = false)
+        private void OnWheelDown(int x, int y)
         {
-            switch (curMode)
+            if (isInputBoxOpen)
+                return;
+
+            if (curMode != Mode.Recording)
+                return;
+
+            isInputBoxOpen = true;
+
+            using (var form = new Form_InputBox())
             {
-                case Mode.Idle:
-                    if (ableExecute)
-                        SetMode(Mode.Recording);
-                    break;
-                case Mode.Recording:
-                    if (keys.Count > 0)
-                    {
-                        SetMode(Mode.Activated);
-                    }
-                    break;
-                case Mode.Activated:
-                    SetMode(Mode.Idle);
-                    break;
+                // form.WindowState = FormWindowState.Maximized;
+                ///   form.BringToFront();
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    keys.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
+                    recordIntervalTime = 0;
+                    keys.Add(new SingleAction() { type = ActionType.Typing, str = form.typedTxt, waitTime = 0.05f });
+                }
+
+                isInputBoxOpen = false;
             }
         }
 
@@ -94,7 +132,7 @@ namespace MouseClicker
             switch (mode)
             {
                 case Mode.Idle:
-                    if(prevMode == Mode.Activated)
+                    if (prevMode == Mode.Activated)
                     {
                         SystemSounds.Hand.Play();
                         MessageBox.Show("Stop");
@@ -136,6 +174,15 @@ namespace MouseClicker
         {
             while (true)
             {
+                if (isInputBoxOpen)
+                {
+                    await Task.Delay(delay);
+                    continue;
+                }
+
+                ProcessKeyDown();
+                Update_HandleOtherWindow(delay);
+
                 switch (curMode)
                 {
                     case Mode.Idle:
@@ -184,13 +231,43 @@ namespace MouseClicker
             }
         }
 
+        private void ProcessKeyDown()
+        {
+            if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F9))
+            {
+                if (curMode == Mode.Activated)
+                {
+                    SetMode(Mode.Pause);
+                }
+                else
+                {
+                    SetMode(Mode.Activated);
+                }
+            }
+        }
+
+        bool IsKeyDown(Keys key)
+        {
+            return (GetKeyState(key) & KEY_PRESSED) == KEY_PRESSED;
+        }
+
         private void DoAction(SingleAction singleAction)
         {
-            var oriPos = Cursor.Position;
-            DoMouseClick(singleAction.pos.X, singleAction.pos.Y);
-
-            Cursor.Position = oriPos;
+            if (singleAction.type == ActionType.MouseClick)
+            {
+                var oriPos = Cursor.Position;
+                DoMouseClick(singleAction.pos.X, singleAction.pos.Y);
+                Cursor.Position = oriPos;
+            }
+            else if (singleAction.type == ActionType.Typing)
+            {
+                SendKeys.SendWait(singleAction.str);
+                SendKeys.Send("{ENTER}");
+            }
         }
+
+        [DllImport("USER32.dll")]
+        public static extern short GetKeyState(Keys nVirtKey);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
@@ -211,7 +288,7 @@ namespace MouseClicker
 
         private void OnClickRecordBtn(object sender, EventArgs e)
         {
-            ProcessNextByContext(true);
+            SetMode(Mode.Recording);
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -252,6 +329,12 @@ namespace MouseClicker
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.Alt && e.Shift && e.KeyCode == Keys.F12)
+                MessageBox.Show("My message");
         }
     }
 }

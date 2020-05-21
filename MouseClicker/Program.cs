@@ -12,6 +12,8 @@ namespace MouseClicker
     {
         public static Action<int, int> onLeftMouseDown;
         public static Action<int, int> onRightMouseDown;
+        public static Action<int, int> onWheelDown;
+        public static Action<int, int> onWheelUp;
     }
 
     static class Program
@@ -32,6 +34,22 @@ namespace MouseClicker
             if (MouseCallBack.onRightMouseDown != null)
             {
                 MouseCallBack.onRightMouseDown(Cursor.Position.X, Cursor.Position.Y);
+            }
+        }
+
+        static void OnMouseWheelDown(POINT cursorPos)
+        {
+            if (MouseCallBack.onWheelDown != null)
+            {
+                MouseCallBack.onWheelDown(Cursor.Position.X, Cursor.Position.Y);
+            }
+        }
+
+        static void OnMouseWheelUp(POINT cursorPos)
+        {
+            if (MouseCallBack.onWheelUp != null)
+            {
+                MouseCallBack.onWheelUp(Cursor.Position.X, Cursor.Position.Y);
             }
         }
 
@@ -67,10 +85,21 @@ namespace MouseClicker
                 OnLeftMouseDown(new POINT() { x = Cursor.Position.X, y = Cursor.Position.Y });
                 MSLLHOOKSTRUCT hookStruct = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
                 Console.WriteLine(hookStruct.pt.x + ", " + hookStruct.pt.y);
-            }else if( nCode >= 0 && 
-                MouseMessages.WM_RBUTTONDOWN == (MouseMessages)wParam)
+            }
+            else if (nCode >= 0 &&
+               MouseMessages.WM_RBUTTONDOWN == (MouseMessages)wParam)
             {
                 OnRightMouseDown(new POINT() { x = Cursor.Position.X, y = Cursor.Position.Y });
+            }
+            else if (nCode >= 0 &&
+               MouseMessages.WM_WHEELDOWN == (MouseMessages)wParam)
+            {
+                OnMouseWheelDown(new POINT() { x = Cursor.Position.X, y = Cursor.Position.Y });
+            }
+            else if (nCode >= 0 &&
+                            MouseMessages.WM_WHEELUP == (MouseMessages)wParam)
+            {
+                OnMouseWheelUp(new POINT() { x = Cursor.Position.X, y = Cursor.Position.Y });
             }
 
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
@@ -83,9 +112,11 @@ namespace MouseClicker
             WM_LBUTTONDOWN = 0x0201,
             WM_LBUTTONUP = 0x0202,
             WM_MOUSEMOVE = 0x0200,
-            WM_MOUSEWHEEL = 0x020A,
+            WM_MOUSEWHEELMOVE = 0x020A,
             WM_RBUTTONDOWN = 0x0204,
-            WM_RBUTTONUP = 0x0205
+            WM_RBUTTONUP = 0x0205,
+            WM_WHEELDOWN = 0x207,
+            WM_WHEELUP = 0x208,
         }
 
         [StructLayout(LayoutKind.Sequential)]
