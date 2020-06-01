@@ -65,7 +65,7 @@ namespace MouseClicker
             int hwnd = ((IntPtr)FindWindow(null, "Nox")).ToInt32();
             GetWindowRect(hwnd, out rect);
 
-            label5.Text = rect.ToString();
+        //    label5.Text = rect.ToString();
         }
 
         public void Update_HandleOtherWindow(TimeSpan deltaTime)
@@ -78,9 +78,9 @@ namespace MouseClicker
                 
                 */
 
-            var col = GetColorAt(Cursor.Position);
+       //     var col = GetColorAt(Cursor.Position);
 
-            label5.Text = col.ToString();
+          //  label5.Text = "";// col.ToString();
         }
 
         Bitmap screenPixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
@@ -101,15 +101,14 @@ namespace MouseClicker
             return screenPixel.GetPixel(0, 0);
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-            //핸들을 찾는다. Spy+를 통해 찾은 클래스 이름과 캡션을 이용하면 된다. 둘 중 하나만 알경우에도 찾을 수 있다. 
-            //그때는 하나의 인자를 null로 넘겨 주면된다.
-            handle = FindWindow("SciCalc", "계산기");
-            //찾은 핸들에서 자식 윈도우 핸들을 찾기 위해서는 FindWindowEx를 이용한다.
-            handle = FindWindowEx(handle, 0, "Shell DocObject View", null);
-     //       handle = FindWindowEx(handle, 0, "Internet Explorer_Server", null);
-            label5.Text = handle.ToString();
-        }
+        //private void label5_Click(object sender, EventArgs e)
+        //{
+        //    //핸들을 찾는다. Spy+를 통해 찾은 클래스 이름과 캡션을 이용하면 된다. 둘 중 하나만 알경우에도 찾을 수 있다. 
+        //    //그때는 하나의 인자를 null로 넘겨 주면된다.
+        //    handle = FindWindow("SciCalc", "계산기");
+        //    // 찾은 핸들에서 자식 윈도우 핸들을 찾기 위해서는 FindWindowEx를 이용한다.
+        //    handle = FindWindowEx(handle, 0, "Shell DocObject View", null);
+        //    label5.Text = handle.ToString();
+        //}
     }
 }

@@ -19,3 +19,4 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.exe
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.pdb
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form_InputBox.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.AuthForm.resources
