@@ -28,6 +28,12 @@ namespace MouseClicker
         Typing
     }
 
+    public enum RecordKeyType
+    {
+        MainKey,
+        ShortCutKey
+    }
+
     public struct SingleAction
     {
         public ActionType type;
@@ -47,7 +53,7 @@ namespace MouseClicker
         private readonly string[] serials =
         {
             // Version 01 시리얼키 200 개 
-            "RKWF-OJXT-HKCE-TBRH","AFRB-RZAA-AEGI-XTOA","YDKA-ILIV-NWKU-DMKX","VFGA-RBWS-JVEK-DPVO","VCGQ-RQYO-XWOV-OGWO","UIMS-MOJX-GRRN-GYRX","AWYB-FUGE-GSCU-MADC","YQQU-CDBG-TJJZ-ZLIY","ERVR-HVIZ-CILU-LOKG","NPOQ-IXUX-VRHW-KGFV","JEQV-FLUD-HQSU-RGUF","YCLK-XSQH-WYWP-NMOV","DQKH-XPAB-UKIS-EAFO","XCYH-UVYR-NIYH-PEQV","BWRA-VMHI-CJPM-JYDW","SHSK-NGBI-RTUO-RTMQ","UNRH-JESK-VPFK-FLIP","FBOH-LFHU-VIIC-SSRI","XZRV-HVNN-PIPX-BQCG","KEJP-EFEP-FWMA-WQRC","XWNG-TMIK-OBSC-PJTE","GCRO-JCER-UCQK-JNRY","RMZE-DVMY-VYBC-NBZV","DHTT-YCSV-SVLR-WYBA","KTLC-JOBK-QTSK-ABET","DUGB-TYAO-TELH-KVCX","XAST-PWMO-FICF-KIVR","RSNC-RZGM-SWIF-CTAV","QUNA-IKDH-IRVL-VVEL","JUQS-HAFY-UGBT-NGLL","IHOP-UUIG-OGUZ-DVQX","SXWI-DINQ-OOGC-JKTB","FJCN-GORO-LJDB-GGUY","PDAQ-JDIA-TXAF-OGXE","MSUT-TDRE-GIWT-ELKI","UHNG-KDRC-BBTI-NLZF","MZPN-LBFM-MVKB-HOWI","NSLH-TQTJ-ARSR-JIRU","JQGE-WWWS-CATO-SQVM","FLVV-ZRMV-FFNU-IODD","EPRQ-IRLQ-VSFS-XFQJ","WFLX-NVVR-DKYQ-JCJN","XQJD-ZEEN-AEAG-MUYA","PDXD-CGPI-TAMX-SUHS","IRUG-VMKS-BXWJ-VPFJ","LYBF-FGKR-ABJY-SGUG","WHXU-ZRFC-TFBF-JGNE","UDMU-TCMC-GDGU-DLZV","CQNO-RKJT-TYLA-FFHT","NEEP-UANT-UVNV-LKZI","FGCT-TZNK-TSBU-RMWB","VMGY-HKAC-CUTW-WOII","YDUZ-COAO-RTWC-YSBH","YMZY-EAAU-FAQY-FQNF","JTVO-RXZH-LSHN-OYEK","SLXK-OJEX-CAUC-XBJA","FQSE-WNQB-MSMM-TMGG","WGGT-TDRZ-PYLR-DWKJ","IGIX-GZNE-VWXV-XRDP","TNFR-VPHB-ZSPY-BYYP","ICDN-EIAW-SBYX-GVCX","UWYP-RSOT-ZGXN-JPDW","XHNU-OQLK-NIZU-QJVE","PREF-AIYP-OJOY-LMND","YBZY-HIJD-LNCI-TUDP","KSYS-KXWO-IXFF-CMZB","VVVO-KXXH-IAUN-GQWU","GYNS-OUSB-FKQJ-CDBY","NBMX-YOFN-VRJK-CIIR","BLZD-ZHMA-DUIZ-HNEE","ZWZF-EYVR-TAWX-LIYW","CYHR-EXZG-OLUD-FFGH","MFKG-JCMC-PHKY-KPPU","VMXI-GNZC-XSRT-ESLO","UPKG-YSNZ-MEBW-NAWY","VAIT-IYBZ-FIIQ-LTYX","WWEV-FJWD-YYWB-LCPW","WSYE-KRFW-NLAP-KWNT","GEAR-VATL-DEUK-BANC","TLTT-UUNE-QIHU-IGTC","KDUH-CYAW-ZMAF-XVUN","XYWY-DUYL-RWAN-TZDX","LSZY-FGAV-KXUI-UHHU","OTXJ-JUYQ-EJPF-XNCZ","IDTE-VVIQ-YBNF-APRJ","OGZZ-CTNR-TJTW-QUXX","UUZQ-ODYS-LGLH-HTQP","RGQQ-OCXP-PCKM-BMZE","DPKF-PAUL-HGOV-HFJA","TEEK-DGJR-WKBM-SMRZ","HHES-IKZQ-LFJH-OCHJ","TJSW-HPAX-GTIE-ZISV","PPNA-BRSJ-ENYY-XCDU","DRTJ-TURS-GHLP-BURD","MNRY-OHIB-QJRT-QCZD","POBH-PJCU-XVTU-FDHK","WULJ-KEFV-JRSJ-CYBE","HIZN-SJOC-LWBT-NNWN","BHXV-QPTK-IGYX-RSSZ","TPMX-DURM-GJYN-DMHV","VFHU-AGNS-OPEM-LQLS","EBAY-AZJH-QLPH-QGGW","YCCM-KXYN-BUJO-QEAQ","XFIB-LIUV-VAEP-QGBH","IHNI-NZHH-DNXF-QVQL","KYJK-XFKP-HGQJ-SJWU","TBFI-QSCY-YBYY-LOFZ","KTFR-WQKD-XYAG-IYOT","RCMO-QIUS-WLMW-GMES","BRZZ-EEYC-RBLS-RVPZ","NEHI-CQJC-YMVK-EOWK","THFR-YOPN-EKXO-WBAA","WMIC-FWQK-HXBR-INYD","EAZJ-PXBZ-OUDS-TUFX","MUNR-FUFW-RVKA-NYEQ","LUJW-BQKZ-LINL-SYRM","SEFO-ZHXK-UCSU-NAMQ","PNGY-LIVV-JOFW-HUES","EXII-SQQE-XZCY-XQLK","WWVF-STBK-IKEL-BACZ","YAQP-SDYZ-WCAL-GWXT","CUAK-ZZAL-WYAI-LFCX","WCAX-AVSS-YVIP-SPDM","MLIG-ARAZ-ZFTT-DPNR","ZDPE-WZTH-BHMD-RKSG","UNVA-XVXE-BAXU-CZPJ","IQQP-ZZQM-RBFS-FXIP","MMYP-TNTD-GKCV-CYEC","RDVA-TDGV-XIIW-QEZE","SIHP-AZPU-WNIP-WVKT","WCAC-BHVJ-GDSK-EXMB","LXCT-QPCS-NADG-URYB","XPAO-DWDK-MYJW-HEQZ","BGDY-SRCG-ZIOB-EPOO","EQMP-XXYO-URGR-GGLJ","KEFO-NZJG-MTPV-IBGX","KURQ-RABD-IODA-KLZT","XFQZ-JAAE-HGDD-IDGT","LIHM-OURJ-CBFZ-VIWA","TVXC-LGNK-TMIL-XYUF","HKPB-ENFC-OGXI-UBJZ","KCJN-FEHE-UWSB-MFME","GARK-TUWG-QUOE-JFQS","DJBU-OHZD-DKGH-UEQI","USBT-KYFP-FDXK-PDVP","GAXC-ESPZ-ANHJ-NPLL","EFJQ-EWIF-DLPL-KONZ","ORBU-GNEC-DBTW-QWCP","RLGK-TFKJ-SRYT-CEOM","AIUW-ORFQ-BHNC-DMPH","JZTZ-IDFJ-HRCO-PLZY","NGWH-CFBA-FPIM-RHGG","CRJD-KPDW-DKOX-OQBQ","IOPW-PIFD-XSTS-VTRZ","KWMX-BVOX-DZER-RELP","ORDD-RKQT-LGGR-WLAJ","SOMS-DDPM-ASTP-DOMT","GEEE-POIA-FSLV-PWAS","ZUYC-STLK-CQDZ-QAPX","TNKS-GWUE-GLML-SUXD","RBQJ-QKBN-SUCZ-KIJF","COBC-LILC-ATVG-GASH","SZHP-JGHJ-LXZM-UVTX","BHIE-SVSJ-POJW-OUHS","CUGL-BUVW-GRQO-JZHF","ZXEY-RNPX-HXAV-WLVR","PGJA-OIWH-LLXB-EDAP","GEWR-QIBO-EIDD-UAAV","WZYC-PHQR-BXNG-QOSE","XKOS-ODBG-FVVG-FSNK","LCEF-EXAY-OFQS-VUXQ","PYGJ-LHGS-YRXT-LJLI","KCUN-JNZA-KPDI-NILK","XFQG-MDYD-VLHM-AGNE","UHIT-AKHC-ZGZW-EYFP","GNWG-TFWG-DRSX-FNZD","CYOF-ZSJN-XNHG-DCZX","GRGM-JGLO-LBPJ-RJWL","GVTF-JZQO-DIIF-XQCA","RUQO-HNTW-NZUX-CAVO","QVZH-JUNH-BRJB-XGRU","ZPRX-SIES-CXRK-ESLC","NUOB-QVQX-HJNP-ESYH","IAYN-IYVI-RHFM-CDDI","GGND-RPEE-YUPJ-VOOJ","YKBE-TYUP-YGKJ-PEVD","GEIX-FVPT-VUOO-IMMC","SWNR-BYOI-MYEL-FVOT","ZLCR-FRED-UIIZ-JFGL","THRS-QDCH-PALG-QENA","FUPW-KVWB-SKWT-PPYG","SSRX-EWCW-JUBF-FXMQ","UITO-QJBY-KQAG-GJRZ","CEOY-MQWJ-STNP-TRVU","YGYH-WKQI-RSMO-VWPA","CCDB-JNEE-MJWX-VMFT","UFHA-KKDR-NFHU-DHNV","DNMQ-OTLK-CUUM-NTNF","MTTQ-OPPS-YLNE-GJAE","VAUI-ZOFA-UXYQ-PREU"
+            "920623","RKWF-OJXT-HKCE-TBRH","AFRB-RZAA-AEGI-XTOA","YDKA-ILIV-NWKU-DMKX","VFGA-RBWS-JVEK-DPVO","VCGQ-RQYO-XWOV-OGWO","UIMS-MOJX-GRRN-GYRX","AWYB-FUGE-GSCU-MADC","YQQU-CDBG-TJJZ-ZLIY","ERVR-HVIZ-CILU-LOKG","NPOQ-IXUX-VRHW-KGFV","JEQV-FLUD-HQSU-RGUF","YCLK-XSQH-WYWP-NMOV","DQKH-XPAB-UKIS-EAFO","XCYH-UVYR-NIYH-PEQV","BWRA-VMHI-CJPM-JYDW","SHSK-NGBI-RTUO-RTMQ","UNRH-JESK-VPFK-FLIP","FBOH-LFHU-VIIC-SSRI","XZRV-HVNN-PIPX-BQCG","KEJP-EFEP-FWMA-WQRC","XWNG-TMIK-OBSC-PJTE","GCRO-JCER-UCQK-JNRY","RMZE-DVMY-VYBC-NBZV","DHTT-YCSV-SVLR-WYBA","KTLC-JOBK-QTSK-ABET","DUGB-TYAO-TELH-KVCX","XAST-PWMO-FICF-KIVR","RSNC-RZGM-SWIF-CTAV","QUNA-IKDH-IRVL-VVEL","JUQS-HAFY-UGBT-NGLL","IHOP-UUIG-OGUZ-DVQX","SXWI-DINQ-OOGC-JKTB","FJCN-GORO-LJDB-GGUY","PDAQ-JDIA-TXAF-OGXE","MSUT-TDRE-GIWT-ELKI","UHNG-KDRC-BBTI-NLZF","MZPN-LBFM-MVKB-HOWI","NSLH-TQTJ-ARSR-JIRU","JQGE-WWWS-CATO-SQVM","FLVV-ZRMV-FFNU-IODD","EPRQ-IRLQ-VSFS-XFQJ","WFLX-NVVR-DKYQ-JCJN","XQJD-ZEEN-AEAG-MUYA","PDXD-CGPI-TAMX-SUHS","IRUG-VMKS-BXWJ-VPFJ","LYBF-FGKR-ABJY-SGUG","WHXU-ZRFC-TFBF-JGNE","UDMU-TCMC-GDGU-DLZV","CQNO-RKJT-TYLA-FFHT","NEEP-UANT-UVNV-LKZI","FGCT-TZNK-TSBU-RMWB","VMGY-HKAC-CUTW-WOII","YDUZ-COAO-RTWC-YSBH","YMZY-EAAU-FAQY-FQNF","JTVO-RXZH-LSHN-OYEK","SLXK-OJEX-CAUC-XBJA","FQSE-WNQB-MSMM-TMGG","WGGT-TDRZ-PYLR-DWKJ","IGIX-GZNE-VWXV-XRDP","TNFR-VPHB-ZSPY-BYYP","ICDN-EIAW-SBYX-GVCX","UWYP-RSOT-ZGXN-JPDW","XHNU-OQLK-NIZU-QJVE","PREF-AIYP-OJOY-LMND","YBZY-HIJD-LNCI-TUDP","KSYS-KXWO-IXFF-CMZB","VVVO-KXXH-IAUN-GQWU","GYNS-OUSB-FKQJ-CDBY","NBMX-YOFN-VRJK-CIIR","BLZD-ZHMA-DUIZ-HNEE","ZWZF-EYVR-TAWX-LIYW","CYHR-EXZG-OLUD-FFGH","MFKG-JCMC-PHKY-KPPU","VMXI-GNZC-XSRT-ESLO","UPKG-YSNZ-MEBW-NAWY","VAIT-IYBZ-FIIQ-LTYX","WWEV-FJWD-YYWB-LCPW","WSYE-KRFW-NLAP-KWNT","GEAR-VATL-DEUK-BANC","TLTT-UUNE-QIHU-IGTC","KDUH-CYAW-ZMAF-XVUN","XYWY-DUYL-RWAN-TZDX","LSZY-FGAV-KXUI-UHHU","OTXJ-JUYQ-EJPF-XNCZ","IDTE-VVIQ-YBNF-APRJ","OGZZ-CTNR-TJTW-QUXX","UUZQ-ODYS-LGLH-HTQP","RGQQ-OCXP-PCKM-BMZE","DPKF-PAUL-HGOV-HFJA","TEEK-DGJR-WKBM-SMRZ","HHES-IKZQ-LFJH-OCHJ","TJSW-HPAX-GTIE-ZISV","PPNA-BRSJ-ENYY-XCDU","DRTJ-TURS-GHLP-BURD","MNRY-OHIB-QJRT-QCZD","POBH-PJCU-XVTU-FDHK","WULJ-KEFV-JRSJ-CYBE","HIZN-SJOC-LWBT-NNWN","BHXV-QPTK-IGYX-RSSZ","TPMX-DURM-GJYN-DMHV","VFHU-AGNS-OPEM-LQLS","EBAY-AZJH-QLPH-QGGW","YCCM-KXYN-BUJO-QEAQ","XFIB-LIUV-VAEP-QGBH","IHNI-NZHH-DNXF-QVQL","KYJK-XFKP-HGQJ-SJWU","TBFI-QSCY-YBYY-LOFZ","KTFR-WQKD-XYAG-IYOT","RCMO-QIUS-WLMW-GMES","BRZZ-EEYC-RBLS-RVPZ","NEHI-CQJC-YMVK-EOWK","THFR-YOPN-EKXO-WBAA","WMIC-FWQK-HXBR-INYD","EAZJ-PXBZ-OUDS-TUFX","MUNR-FUFW-RVKA-NYEQ","LUJW-BQKZ-LINL-SYRM","SEFO-ZHXK-UCSU-NAMQ","PNGY-LIVV-JOFW-HUES","EXII-SQQE-XZCY-XQLK","WWVF-STBK-IKEL-BACZ","YAQP-SDYZ-WCAL-GWXT","CUAK-ZZAL-WYAI-LFCX","WCAX-AVSS-YVIP-SPDM","MLIG-ARAZ-ZFTT-DPNR","ZDPE-WZTH-BHMD-RKSG","UNVA-XVXE-BAXU-CZPJ","IQQP-ZZQM-RBFS-FXIP","MMYP-TNTD-GKCV-CYEC","RDVA-TDGV-XIIW-QEZE","SIHP-AZPU-WNIP-WVKT","WCAC-BHVJ-GDSK-EXMB","LXCT-QPCS-NADG-URYB","XPAO-DWDK-MYJW-HEQZ","BGDY-SRCG-ZIOB-EPOO","EQMP-XXYO-URGR-GGLJ","KEFO-NZJG-MTPV-IBGX","KURQ-RABD-IODA-KLZT","XFQZ-JAAE-HGDD-IDGT","LIHM-OURJ-CBFZ-VIWA","TVXC-LGNK-TMIL-XYUF","HKPB-ENFC-OGXI-UBJZ","KCJN-FEHE-UWSB-MFME","GARK-TUWG-QUOE-JFQS","DJBU-OHZD-DKGH-UEQI","USBT-KYFP-FDXK-PDVP","GAXC-ESPZ-ANHJ-NPLL","EFJQ-EWIF-DLPL-KONZ","ORBU-GNEC-DBTW-QWCP","RLGK-TFKJ-SRYT-CEOM","AIUW-ORFQ-BHNC-DMPH","JZTZ-IDFJ-HRCO-PLZY","NGWH-CFBA-FPIM-RHGG","CRJD-KPDW-DKOX-OQBQ","IOPW-PIFD-XSTS-VTRZ","KWMX-BVOX-DZER-RELP","ORDD-RKQT-LGGR-WLAJ","SOMS-DDPM-ASTP-DOMT","GEEE-POIA-FSLV-PWAS","ZUYC-STLK-CQDZ-QAPX","TNKS-GWUE-GLML-SUXD","RBQJ-QKBN-SUCZ-KIJF","COBC-LILC-ATVG-GASH","SZHP-JGHJ-LXZM-UVTX","BHIE-SVSJ-POJW-OUHS","CUGL-BUVW-GRQO-JZHF","ZXEY-RNPX-HXAV-WLVR","PGJA-OIWH-LLXB-EDAP","GEWR-QIBO-EIDD-UAAV","WZYC-PHQR-BXNG-QOSE","XKOS-ODBG-FVVG-FSNK","LCEF-EXAY-OFQS-VUXQ","PYGJ-LHGS-YRXT-LJLI","KCUN-JNZA-KPDI-NILK","XFQG-MDYD-VLHM-AGNE","UHIT-AKHC-ZGZW-EYFP","GNWG-TFWG-DRSX-FNZD","CYOF-ZSJN-XNHG-DCZX","GRGM-JGLO-LBPJ-RJWL","GVTF-JZQO-DIIF-XQCA","RUQO-HNTW-NZUX-CAVO","QVZH-JUNH-BRJB-XGRU","ZPRX-SIES-CXRK-ESLC","NUOB-QVQX-HJNP-ESYH","IAYN-IYVI-RHFM-CDDI","GGND-RPEE-YUPJ-VOOJ","YKBE-TYUP-YGKJ-PEVD","GEIX-FVPT-VUOO-IMMC","SWNR-BYOI-MYEL-FVOT","ZLCR-FRED-UIIZ-JFGL","THRS-QDCH-PALG-QENA","FUPW-KVWB-SKWT-PPYG","SSRX-EWCW-JUBF-FXMQ","UITO-QJBY-KQAG-GJRZ","CEOY-MQWJ-STNP-TRVU","YGYH-WKQI-RSMO-VWPA","CCDB-JNEE-MJWX-VMFT","UFHA-KKDR-NFHU-DHNV","DNMQ-OTLK-CUUM-NTNF","MTTQ-OPPS-YLNE-GJAE","VAUI-ZOFA-UXYQ-PREU"
         };
 
         bool authenticated = false;
@@ -56,11 +62,19 @@ namespace MouseClicker
         public Mode curMode = Mode.Idle;
         TimeSpan delay = TimeSpan.FromSeconds(0.1f);
 
-        List<SingleAction> keys = new List<SingleAction>();
+        RecordKeyType curRecordKeyType;
+        RecordKeyType curActivatedKeyType;
+        List<SingleAction> mainTrackKeys = new List<SingleAction>();
+        Dictionary<string, List<SingleAction>> shortCutKeys = new Dictionary<string, List<SingleAction>>();
+        List<SingleAction> curTrack;
+        string desiredRecordShortCut;
+        string desiredExeShortCut;
         int curIndex;
         double remainedTimeForNextClick;
 
         double recordIntervalTime;
+
+        double curSpeedMutliplier;
 
         bool useAutoDisableTimer;
         double remainedTimerSeconds;
@@ -77,6 +91,14 @@ namespace MouseClicker
             MouseCallBack.onWheelDown = OnWheelDown;
 
             InitializeComponent();
+            speedMultiplier.Value = 1;
+
+            foreach (var item in shortCutKeySelections.Items)
+            {
+                shortCutKeys.Add(item.ToString(), new List<SingleAction>());
+            }
+
+            ApplySpeed();
             SetMode(Mode.Idle);
             Initialize_HandleOtherWindow();
             Loop();
@@ -90,13 +112,24 @@ namespace MouseClicker
             if (curMode != Mode.Recording)
                 return;
 
-            keys.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
+            List<SingleAction> targetTrack = null;
+
+            if (curRecordKeyType == RecordKeyType.MainKey)
+                targetTrack = mainTrackKeys;
+            else if (curRecordKeyType == RecordKeyType.ShortCutKey)
+                targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
+
+            targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
             recordIntervalTime = 0;
         }
 
-        void TryActivate()
+        void TryActivate(string shortCut = "")
         {
-            if (keys != null && keys.Count > 0)
+            if (curRecordKeyType == RecordKeyType.MainKey && mainTrackKeys != null && mainTrackKeys.Count > 0)
+            {
+                SetMode(Mode.Activated);
+            }
+            else if (curRecordKeyType == RecordKeyType.ShortCutKey && shortCutKeys[shortCut].Count > 0)
             {
                 SetMode(Mode.Activated);
             }
@@ -114,7 +147,14 @@ namespace MouseClicker
 
             if (curMode == Mode.Recording)
             {
-                TryActivate();
+                if (curRecordKeyType == RecordKeyType.MainKey)
+                {
+                    TryActivate();
+                }
+                else if (curRecordKeyType == RecordKeyType.ShortCutKey)
+                {
+                    SetMode(Mode.Idle);
+                }
             }
             else if (curMode == Mode.Activated || curMode == Mode.Pause)
             {
@@ -132,6 +172,17 @@ namespace MouseClicker
 
             isInsertTextInputBoxOpen = true;
 
+            List<SingleAction> targetTrack = null;
+
+            if (curRecordKeyType == RecordKeyType.MainKey)
+            {
+                targetTrack = mainTrackKeys;
+            }
+            else if (curRecordKeyType == RecordKeyType.ShortCutKey)
+            {
+                targetTrack = shortCutKeys[desiredRecordShortCut];
+            }
+
             using (var form = new Form_InputBox())
             {
                 // form.WindowState = FormWindowState.Maximized;
@@ -139,9 +190,9 @@ namespace MouseClicker
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    keys.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
+                    targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
                     recordIntervalTime = 0;
-                    keys.Add(new SingleAction() { type = ActionType.Typing, str = form.typedTxt, waitTime = 0.05f });
+                    targetTrack.Add(new SingleAction() { type = ActionType.Typing, str = form.typedTxt, waitTime = 0.05f });
                 }
 
                 isInsertTextInputBoxOpen = false;
@@ -151,6 +202,8 @@ namespace MouseClicker
         void SetMode(Mode mode, string subInfo = "")
         {
             var prevMode = curMode;
+            var prevActivateKeyMode = curActivatedKeyType;
+
             curMode = mode;
 
             label4.Text = "현재 모드 : " + mode.ToString();
@@ -158,34 +211,87 @@ namespace MouseClicker
 
             btnPause.Visible = false;
 
+            btnMainKeyFunction.Enabled = true;
+            btnShortCutFunction.Enabled = true;
+
+            curActivatedKeyType = RecordKeyType.MainKey;
+
             switch (mode)
             {
                 case Mode.Idle:
-                    btnFunction.Text = "녹화시작";
-
-                    if (prevMode == Mode.Activated)
                     {
-                        SystemSounds.Hand.Play();
+                        desiredRecordShortCut = string.Empty;
+                        desiredExeShortCut = string.Empty;
 
-                        string txtStop = "Stop";
+                        curRecordKeyType = RecordKeyType.MainKey;
 
-                        if (string.IsNullOrEmpty(subInfo) == false)
+                        btnMainKeyFunction.Text = "녹화시작";
+                        btnShortCutFunction.Text = "녹화시작";
+
+                        if (prevMode == Mode.Activated)
                         {
-                            txtStop += " : " + subInfo;
-                        }
+                            SystemSounds.Hand.Play();
 
-                        MessageBox.Show(txtStop);
+                            if (prevActivateKeyMode == RecordKeyType.MainKey)
+                            {
+                                string txtStop = "Stop";
+
+                                if (string.IsNullOrEmpty(subInfo) == false)
+                                {
+                                    txtStop += " : " + subInfo;
+                                }
+
+                                MessageBox.Show(txtStop);
+                            }
+                        }
                     }
                     break;
                 case Mode.Recording:
-                    btnFunction.Text = "매크로 시작";
-                    keys.Clear();
-                    SystemSounds.Hand.Play();
-                    WindowState = FormWindowState.Minimized;
+                    {
+                        btnMainKeyFunction.Enabled = false;
+                        btnShortCutFunction.Enabled = false;
+
+                        if (subInfo.Equals(RecordKeyType.MainKey.ToString()))
+                        {
+                            btnMainKeyFunction.Enabled = true;
+                            btnMainKeyFunction.Text = "매크로 시작";
+                            curRecordKeyType = RecordKeyType.MainKey;
+                            mainTrackKeys.Clear();
+                        }
+                        else if (subInfo.Equals(RecordKeyType.ShortCutKey.ToString()))
+                        {
+                            btnShortCutFunction.Enabled = true;
+                            btnShortCutFunction.Text = "녹화 중단";
+                            curRecordKeyType = RecordKeyType.ShortCutKey;
+                            shortCutKeys[shortCutKeySelections.SelectedItem.ToString()].Clear();
+                        }
+
+                        SystemSounds.Hand.Play();
+                        WindowState = FormWindowState.Minimized;
+                    }
                     break;
                 case Mode.Activated:
-                    btnPause.Visible = true;
-                    btnFunction.Text = "중지";
+                    if (subInfo.Equals(string.Empty) ||
+                        subInfo == RecordKeyType.MainKey.ToString())
+                    {
+                        btnPause.Visible = true;
+                        curActivatedKeyType = RecordKeyType.MainKey;
+                        curTrack = mainTrackKeys;
+                        btnMainKeyFunction.Text = "중지";
+                    }
+                    else if (subInfo == RecordKeyType.ShortCutKey.ToString())
+                    {
+                        curActivatedKeyType = RecordKeyType.ShortCutKey;
+                        curTrack = shortCutKeys[desiredExeShortCut];
+                        btnShortCutFunction.Text = "중지";
+
+                        if (currentPosAutoClickShortCutCheck.Checked)
+                        {
+                            var oriPos = Cursor.Position;
+                            DoMouseClick(oriPos.X, oriPos.Y);
+                        }
+                    }
+
                     //  string str = "";
 
                     //     for (int i = 0; i < keys.Count; i++)
@@ -194,23 +300,27 @@ namespace MouseClicker
                     //     }
 
                     curIndex = 0;
-                    remainedTimeForNextClick = keys[0].waitTime;
+                    remainedTimeForNextClick = curTrack[0].waitTime;
                     useAutoDisableTimer = false;
                     useAutoDisableRemainedCnt = false;
 
-                    if (autoDisableTimerCheckBox.Checked)
+                    if (subInfo == string.Empty ||
+                        subInfo == RecordKeyType.MainKey.ToString())
                     {
-                        if (double.TryParse(remainedTimeTextBox.Text, out remainedTimerSeconds))
+                        if (autoDisableTimerCheckBox.Checked)
                         {
-                            useAutoDisableTimer = remainedTimerSeconds > 0;
+                            if (double.TryParse(remainedTimeTextBox.Text, out remainedTimerSeconds))
+                            {
+                                useAutoDisableTimer = remainedTimerSeconds > 0;
+                            }
                         }
-                    }
 
-                    if (autoDisableRemainedCntCheckBox.Checked)
-                    {
-                        if (int.TryParse(remainedCntTextBox.Text, out remainedCnt))
+                        if (autoDisableRemainedCntCheckBox.Checked)
                         {
-                            useAutoDisableRemainedCnt = remainedCnt > 0;
+                            if (int.TryParse(remainedCntTextBox.Text, out remainedCnt))
+                            {
+                                useAutoDisableRemainedCnt = remainedCnt > 0;
+                            }
                         }
                     }
 
@@ -218,7 +328,7 @@ namespace MouseClicker
                     break;
                 case Mode.Pause:
                     {
-                        btnFunction.Text = "다시 시작";
+                        btnMainKeyFunction.Text = "다시 시작";
                     }
                     break;
                 default:
@@ -307,21 +417,21 @@ namespace MouseClicker
                         {
                             bool cycleDone = false;
 
-                            remainedTimeForNextClick -= delay.TotalSeconds;
-                            remainedTimerSeconds -= delay.TotalSeconds;
+                            remainedTimeForNextClick -= delay.TotalSeconds * curSpeedMutliplier;
+                            remainedTimerSeconds -= delay.TotalSeconds * curSpeedMutliplier;
 
                             if (remainedTimeForNextClick <= 0)
                             {
-                                DoAction(keys[curIndex]);
+                                DoAction(curTrack[curIndex]);
                                 curIndex++;
 
-                                if (curIndex >= keys.Count)
+                                if (curIndex >= curTrack.Count)
                                 {
                                     curIndex = 0;
                                     cycleDone = true;
                                 }
 
-                                remainedTimeForNextClick = keys[curIndex].waitTime;
+                                remainedTimeForNextClick = curTrack[curIndex].waitTime;
                             }
 
                             if (useAutoDisableTimer)
@@ -333,17 +443,27 @@ namespace MouseClicker
                                 }
                             }
 
-                            if (useAutoDisableRemainedCnt)
+                            if (curActivatedKeyType == RecordKeyType.MainKey)
+                            {
+                                if (useAutoDisableRemainedCnt)
+                                {
+                                    if (cycleDone)
+                                    {
+                                        remainedCnt--;
+
+                                        if (remainedCnt <= 0)
+                                        {
+                                            SetMode(Mode.Idle, "횟수에 의한 종료");
+                                            remainedCnt = 0;
+                                        }
+                                    }
+                                }
+                            }
+                            if (curActivatedKeyType == RecordKeyType.ShortCutKey)
                             {
                                 if (cycleDone)
                                 {
-                                    remainedCnt--;
-
-                                    if (remainedCnt <= 0)
-                                    {
-                                        SetMode(Mode.Idle, "횟수에 의한 종료");
-                                        remainedCnt = 0;
-                                    }
+                                    SetMode(Mode.Idle);
                                 }
                             }
 
@@ -364,6 +484,8 @@ namespace MouseClicker
 
         private void ProcessKeyDown()
         {
+            desiredExeShortCut = string.Empty;
+
             if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F9))
             {
                 if (curMode == Mode.Activated)
@@ -373,6 +495,39 @@ namespace MouseClicker
                 else if (curMode == Mode.Pause)
                 {
                     SetMode(Mode.Activated);
+                }
+            }
+            else if (curMode != Mode.Recording && curMode != Mode.Activated)
+            {
+                if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F1))
+                {
+                    string key = shortCutKeySelections.Items[0].ToString();
+
+                    if (shortCutKeys[key].Count > 0)
+                    {
+                        desiredExeShortCut = key;
+                        SetMode(Mode.Activated, RecordKeyType.ShortCutKey.ToString());
+                    }
+                }
+                else if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F2))
+                {
+                    string key = shortCutKeySelections.Items[1].ToString();
+
+                    if (shortCutKeys[key].Count > 0)
+                    {
+                        desiredExeShortCut = key;
+                        SetMode(Mode.Activated, RecordKeyType.ShortCutKey.ToString());
+                    }
+                }
+                else if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F3))
+                {
+                    string key = shortCutKeySelections.Items[2].ToString();
+
+                    if (shortCutKeys[key].Count > 0)
+                    {
+                        desiredExeShortCut = key;
+                        SetMode(Mode.Activated, RecordKeyType.ShortCutKey.ToString());
+                    }
                 }
             }
         }
@@ -389,7 +544,7 @@ namespace MouseClicker
                 var oriPos = Cursor.Position;
                 DoMouseClick(singleAction.pos.X, singleAction.pos.Y);
 
-                if(resetCursorPosCheckBox.Checked)
+                if (resetCursorPosCheckBox.Checked)
                     Cursor.Position = oriPos;
             }
             else if (singleAction.type == ActionType.Typing)
@@ -419,7 +574,7 @@ namespace MouseClicker
 
         }
 
-        private void OnClickFunctionButton(object sender, EventArgs e)
+        private void OnClickMainKeyFunctionButton(object sender, EventArgs e)
         {
             if (authenticated == false)
             {
@@ -428,13 +583,39 @@ namespace MouseClicker
             }
 
             if (curMode == Mode.Idle)
-                SetMode(Mode.Recording);
+                SetMode(Mode.Recording, RecordKeyType.MainKey.ToString());
             else if (curMode == Mode.Recording)
                 TryActivate();
             else if (curMode == Mode.Activated)
                 SetMode(Mode.Idle);
             else if (curMode == Mode.Pause)
                 SetMode(Mode.Activated);
+        }
+
+        private void btnShortCutFunction_Click(object sender, EventArgs e)
+        {
+            if (authenticated == false)
+            {
+                MessageBox.Show("인증 안됨");
+                return;
+            }
+
+            desiredRecordShortCut = string.Empty;
+
+            if (curMode == Mode.Idle)
+            {
+                if (shortCutKeySelections.SelectedIndex == -1)
+                {
+                    MessageBox.Show("녹화타겟 ShortCut 을 선택해주세요");
+                }
+                else
+                {
+                    desiredRecordShortCut = shortCutKeySelections.SelectedItem.ToString();
+                    SetMode(Mode.Recording, RecordKeyType.ShortCutKey.ToString());
+                }
+            }
+            else
+                SetMode(Mode.Idle);
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -451,6 +632,11 @@ namespace MouseClicker
             uint X = (uint)x;
             uint Y = (uint)y;
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+        }
+
+        private void ApplySpeed()
+        {
+            curSpeedMutliplier = (double)speedMultiplier.Value;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -514,5 +700,38 @@ namespace MouseClicker
                 SetMode(Mode.Activated);
             }
         }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void speedMultiplier_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSpeedApply_Click(object sender, EventArgs e)
+        {
+            if (authenticated == false)
+            {
+                MessageBox.Show("인증 안됨");
+                return;
+            }
+
+            ApplySpeed();
+        }
+
+        private void shortCutKeySelections_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (authenticated == false)
+            {
+                MessageBox.Show("인증 안됨");
+                return;
+            }
+
+            txtShortCutKeyStatus.Text = shortCutKeySelections.SelectedItem.ToString() + " 녹화 준비 완료";
+        }
+
     }
 }

@@ -33,7 +33,8 @@ namespace MouseClicker
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnFunction = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.btnMainKeyFunction = new System.Windows.Forms.Button();
             this.remainedTimeTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.remainedTimeInfoTxt = new System.Windows.Forms.Label();
@@ -52,184 +53,209 @@ namespace MouseClicker
             this.remainedCntTextBox = new System.Windows.Forms.TextBox();
             this.remainedCntInfoText = new System.Windows.Forms.Label();
             this.resetCursorPosCheckBox = new System.Windows.Forms.CheckBox();
+            this.speedMultiplier = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSpeedApply = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.shortCutKeySelections = new System.Windows.Forms.ListBox();
+            this.txtShortCutKeyStatus = new System.Windows.Forms.Label();
+            this.btnShortCutFunction = new System.Windows.Forms.Button();
+            this.currentPosAutoClickShortCutCheck = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnFunction
+            // btnMainKeyFunction
             // 
-            this.btnFunction.Location = new System.Drawing.Point(12, 225);
-            this.btnFunction.Name = "btnFunction";
-            this.btnFunction.Size = new System.Drawing.Size(105, 53);
-            this.btnFunction.TabIndex = 2;
-            this.btnFunction.Text = "Record";
-            this.btnFunction.UseVisualStyleBackColor = true;
-            this.btnFunction.Click += new System.EventHandler(this.OnClickFunctionButton);
+            resources.ApplyResources(this.btnMainKeyFunction, "btnMainKeyFunction");
+            this.btnMainKeyFunction.Name = "btnMainKeyFunction";
+            this.btnMainKeyFunction.UseVisualStyleBackColor = true;
+            this.btnMainKeyFunction.Click += new System.EventHandler(this.OnClickMainKeyFunctionButton);
             // 
             // remainedTimeTextBox
             // 
-            this.remainedTimeTextBox.Location = new System.Drawing.Point(30, 114);
+            resources.ApplyResources(this.remainedTimeTextBox, "remainedTimeTextBox");
             this.remainedTimeTextBox.Name = "remainedTimeTextBox";
-            this.remainedTimeTextBox.Size = new System.Drawing.Size(114, 21);
-            this.remainedTimeTextBox.TabIndex = 4;
             this.remainedTimeTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 72);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 12);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "자동 종료 옵션";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // remainedTimeInfoTxt
             // 
-            this.remainedTimeInfoTxt.AutoSize = true;
-            this.remainedTimeInfoTxt.Location = new System.Drawing.Point(150, 117);
+            resources.ApplyResources(this.remainedTimeInfoTxt, "remainedTimeInfoTxt");
             this.remainedTimeInfoTxt.Name = "remainedTimeInfoTxt";
-            this.remainedTimeInfoTxt.Size = new System.Drawing.Size(57, 12);
-            this.remainedTimeInfoTxt.TabIndex = 6;
-            this.remainedTimeInfoTxt.Text = "남은 시간";
             this.remainedTimeInfoTxt.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
+            resources.ApplyResources(this.label4, "label4");
             this.label4.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label4.Font = new System.Drawing.Font("Cambria", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 43);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "State";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 290);
+            resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 12);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "-사용법-";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 315);
+            resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(181, 12);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Record 클릭하면 녹화 모드 진입";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 337);
+            resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(321, 12);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "단순 클릭은 마우스 왼쪽 버튼 클릭, 채팅 보내기는 휠 클릭";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 359);
+            resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(217, 12);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "녹화 후 마우스 오른쪽 클릭하면 시작됨";
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 383);
+            resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(221, 12);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "마우스 오른쪽 한번 더 누르면 기능 종료";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(292, 9);
+            resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(41, 12);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Author";
             this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(292, 34);
+            resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(47, 12);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "Mr.LEE";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // btnPause
             // 
-            this.btnPause.Location = new System.Drawing.Point(130, 231);
+            resources.ApplyResources(this.btnPause, "btnPause");
             this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(89, 41);
-            this.btnPause.TabIndex = 16;
-            this.btnPause.Text = "Pause";
             this.btnPause.UseVisualStyleBackColor = true;
             this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
             // autoDisableTimerCheckBox
             // 
-            this.autoDisableTimerCheckBox.AutoSize = true;
-            this.autoDisableTimerCheckBox.Location = new System.Drawing.Point(30, 92);
+            resources.ApplyResources(this.autoDisableTimerCheckBox, "autoDisableTimerCheckBox");
             this.autoDisableTimerCheckBox.Name = "autoDisableTimerCheckBox";
-            this.autoDisableTimerCheckBox.Size = new System.Drawing.Size(124, 16);
-            this.autoDisableTimerCheckBox.TabIndex = 17;
-            this.autoDisableTimerCheckBox.Text = "타이머 (Seconds)";
             this.autoDisableTimerCheckBox.UseVisualStyleBackColor = true;
             // 
             // autoDisableRemainedCntCheckBox
             // 
-            this.autoDisableRemainedCntCheckBox.AutoSize = true;
-            this.autoDisableRemainedCntCheckBox.Location = new System.Drawing.Point(30, 141);
+            resources.ApplyResources(this.autoDisableRemainedCntCheckBox, "autoDisableRemainedCntCheckBox");
             this.autoDisableRemainedCntCheckBox.Name = "autoDisableRemainedCntCheckBox";
-            this.autoDisableRemainedCntCheckBox.Size = new System.Drawing.Size(126, 16);
-            this.autoDisableRemainedCntCheckBox.TabIndex = 18;
-            this.autoDisableRemainedCntCheckBox.Text = "횟수 (사이클 단위)";
             this.autoDisableRemainedCntCheckBox.UseVisualStyleBackColor = true;
             // 
             // remainedCntTextBox
             // 
-            this.remainedCntTextBox.Location = new System.Drawing.Point(30, 163);
+            resources.ApplyResources(this.remainedCntTextBox, "remainedCntTextBox");
             this.remainedCntTextBox.Name = "remainedCntTextBox";
-            this.remainedCntTextBox.Size = new System.Drawing.Size(114, 21);
-            this.remainedCntTextBox.TabIndex = 19;
             // 
             // remainedCntInfoText
             // 
-            this.remainedCntInfoText.AutoSize = true;
-            this.remainedCntInfoText.Location = new System.Drawing.Point(150, 166);
+            resources.ApplyResources(this.remainedCntInfoText, "remainedCntInfoText");
             this.remainedCntInfoText.Name = "remainedCntInfoText";
-            this.remainedCntInfoText.Size = new System.Drawing.Size(57, 12);
-            this.remainedCntInfoText.TabIndex = 20;
-            this.remainedCntInfoText.Text = "남은 횟수";
             // 
             // resetCursorPosCheckBox
             // 
-            this.resetCursorPosCheckBox.AutoSize = true;
-            this.resetCursorPosCheckBox.Location = new System.Drawing.Point(12, 203);
+            resources.ApplyResources(this.resetCursorPosCheckBox, "resetCursorPosCheckBox");
             this.resetCursorPosCheckBox.Name = "resetCursorPosCheckBox";
-            this.resetCursorPosCheckBox.Size = new System.Drawing.Size(140, 16);
-            this.resetCursorPosCheckBox.TabIndex = 21;
-            this.resetCursorPosCheckBox.Text = "마우스 위치 원상복귀";
             this.resetCursorPosCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // speedMultiplier
+            // 
+            this.speedMultiplier.DecimalPlaces = 2;
+            this.speedMultiplier.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            resources.ApplyResources(this.speedMultiplier, "speedMultiplier");
+            this.speedMultiplier.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.speedMultiplier.Name = "speedMultiplier";
+            this.speedMultiplier.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            this.speedMultiplier.ValueChanged += new System.EventHandler(this.speedMultiplier_ValueChanged);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // btnSpeedApply
+            // 
+            resources.ApplyResources(this.btnSpeedApply, "btnSpeedApply");
+            this.btnSpeedApply.Name = "btnSpeedApply";
+            this.btnSpeedApply.UseVisualStyleBackColor = true;
+            this.btnSpeedApply.Click += new System.EventHandler(this.btnSpeedApply_Click);
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // shortCutKeySelections
+            // 
+            this.shortCutKeySelections.FormattingEnabled = true;
+            resources.ApplyResources(this.shortCutKeySelections, "shortCutKeySelections");
+            this.shortCutKeySelections.Items.AddRange(new object[] {
+            resources.GetString("shortCutKeySelections.Items"),
+            resources.GetString("shortCutKeySelections.Items1"),
+            resources.GetString("shortCutKeySelections.Items2")});
+            this.shortCutKeySelections.Name = "shortCutKeySelections";
+            this.shortCutKeySelections.SelectedIndexChanged += new System.EventHandler(this.shortCutKeySelections_SelectedIndexChanged);
+            // 
+            // txtShortCutKeyStatus
+            // 
+            resources.ApplyResources(this.txtShortCutKeyStatus, "txtShortCutKeyStatus");
+            this.txtShortCutKeyStatus.Name = "txtShortCutKeyStatus";
+            // 
+            // btnShortCutFunction
+            // 
+            resources.ApplyResources(this.btnShortCutFunction, "btnShortCutFunction");
+            this.btnShortCutFunction.Name = "btnShortCutFunction";
+            this.btnShortCutFunction.UseVisualStyleBackColor = true;
+            this.btnShortCutFunction.Click += new System.EventHandler(this.btnShortCutFunction_Click);
+            // 
+            // currentPosAutoClickShortCutCheck
+            // 
+            resources.ApplyResources(this.currentPosAutoClickShortCutCheck, "currentPosAutoClickShortCutCheck");
+            this.currentPosAutoClickShortCutCheck.Name = "currentPosAutoClickShortCutCheck";
+            this.currentPosAutoClickShortCutCheck.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(345, 403);
+            this.Controls.Add(this.currentPosAutoClickShortCutCheck);
+            this.Controls.Add(this.btnShortCutFunction);
+            this.Controls.Add(this.txtShortCutKeyStatus);
+            this.Controls.Add(this.shortCutKeySelections);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnSpeedApply);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.speedMultiplier);
             this.Controls.Add(this.resetCursorPosCheckBox);
             this.Controls.Add(this.remainedCntInfoText);
             this.Controls.Add(this.remainedCntTextBox);
@@ -247,12 +273,12 @@ namespace MouseClicker
             this.Controls.Add(this.remainedTimeInfoTxt);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.remainedTimeTextBox);
-            this.Controls.Add(this.btnFunction);
+            this.Controls.Add(this.btnMainKeyFunction);
             this.Name = "Form1";
-            this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,7 +289,7 @@ namespace MouseClicker
         }
 
         #endregion
-        private Button btnFunction;
+        private Button btnMainKeyFunction;
         private TextBox remainedTimeTextBox;
         private Label label2;
         private Label remainedTimeInfoTxt;
@@ -282,6 +308,15 @@ namespace MouseClicker
         private TextBox remainedCntTextBox;
         private Label remainedCntInfoText;
         private CheckBox resetCursorPosCheckBox;
+        private NumericUpDown speedMultiplier;
+        private Label label1;
+        private Button btnSpeedApply;
+        private Label label3;
+        private Label label5;
+        private ListBox shortCutKeySelections;
+        private Label txtShortCutKeyStatus;
+        private Button btnShortCutFunction;
+        private CheckBox currentPosAutoClickShortCutCheck;
     }
 }
 
