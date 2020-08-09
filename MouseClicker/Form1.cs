@@ -120,6 +120,12 @@ namespace MouseClicker
                 targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
 
             targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
+
+            if (IsKeyDown(Keys.LShiftKey))
+            {
+                targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
+            }
+
             recordIntervalTime = 0;
         }
 
@@ -135,8 +141,8 @@ namespace MouseClicker
             }
             else
             {
-                MessageBox.Show("Nothing Recorded");
                 SetMode(Mode.Idle);
+                MessageBox.Show("Nothing Recorded");
             }
         }
 
@@ -167,35 +173,43 @@ namespace MouseClicker
             if (isInsertTextInputBoxOpen)
                 return;
 
-            if (curMode != Mode.Recording)
-                return;
-
-            isInsertTextInputBoxOpen = true;
-
-            List<SingleAction> targetTrack = null;
-
-            if (curRecordKeyType == RecordKeyType.MainKey)
+            if (curMode == Mode.Recording)
             {
-                targetTrack = mainTrackKeys;
-            }
-            else if (curRecordKeyType == RecordKeyType.ShortCutKey)
-            {
-                targetTrack = shortCutKeys[desiredRecordShortCut];
-            }
+                isInsertTextInputBoxOpen = true;
 
-            using (var form = new Form_InputBox())
-            {
-                // form.WindowState = FormWindowState.Maximized;
-                ///   form.BringToFront();
+                List<SingleAction> targetTrack = null;
 
-                if (form.ShowDialog() == DialogResult.OK)
+                if (curRecordKeyType == RecordKeyType.MainKey)
                 {
-                    targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
-                    recordIntervalTime = 0;
-                    targetTrack.Add(new SingleAction() { type = ActionType.Typing, str = form.typedTxt, waitTime = 0.05f });
+                    targetTrack = mainTrackKeys;
+                }
+                else if (curRecordKeyType == RecordKeyType.ShortCutKey)
+                {
+                    targetTrack = shortCutKeys[desiredRecordShortCut];
                 }
 
-                isInsertTextInputBoxOpen = false;
+                using (var form = new Form_InputBox())
+                {
+                    // form.WindowState = FormWindowState.Maximized;
+                    ///   form.BringToFront();
+
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
+                        recordIntervalTime = 0;
+                        targetTrack.Add(new SingleAction() { type = ActionType.Typing, str = form.typedTxt, waitTime = 0.05f });
+                    }
+
+                    isInsertTextInputBoxOpen = false;
+                }
+            }
+            else if (curMode == Mode.Activated)
+            {
+                SetMode(Mode.Pause);
+            }
+            else if (curMode == Mode.Pause)
+            {
+                SetMode(Mode.Activated);
             }
         }
 
@@ -234,14 +248,14 @@ namespace MouseClicker
 
                             if (prevActivateKeyMode == RecordKeyType.MainKey)
                             {
-                                string txtStop = "Stop";
+                                //     string txtStop = "Stop";
 
-                                if (string.IsNullOrEmpty(subInfo) == false)
+                                //     if (string.IsNullOrEmpty(subInfo) == false)
                                 {
-                                    txtStop += " : " + subInfo;
+                                    //         txtStop += " : " + subInfo;
                                 }
 
-                                MessageBox.Show(txtStop);
+                                // MessageBox.Show(txtStop);
                             }
                         }
                     }
@@ -299,8 +313,12 @@ namespace MouseClicker
                     //        str += keys[i].waitTime + " ";
                     //     }
 
-                    curIndex = 0;
-                    remainedTimeForNextClick = curTrack[0].waitTime;
+                    if (prevMode != Mode.Pause)
+                    {
+                        curIndex = 0;
+                        remainedTimeForNextClick = curTrack[0].waitTime;
+                    }
+
                     useAutoDisableTimer = false;
                     useAutoDisableRemainedCnt = false;
 
@@ -637,6 +655,7 @@ namespace MouseClicker
         private void ApplySpeed()
         {
             curSpeedMutliplier = (double)speedMultiplier.Value;
+            txtCurrentSpeed.Text = "현재 스피드 : " + curSpeedMutliplier.ToString();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -719,6 +738,7 @@ namespace MouseClicker
                 return;
             }
 
+            SystemSounds.Hand.Play();
             ApplySpeed();
         }
 

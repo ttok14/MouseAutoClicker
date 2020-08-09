@@ -41,10 +41,6 @@ namespace MouseClicker
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.btnPause = new System.Windows.Forms.Button();
@@ -62,6 +58,8 @@ namespace MouseClicker
             this.txtShortCutKeyStatus = new System.Windows.Forms.Label();
             this.btnShortCutFunction = new System.Windows.Forms.Button();
             this.currentPosAutoClickShortCutCheck = new System.Windows.Forms.CheckBox();
+            this.txtCurrentSpeed = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,27 +99,6 @@ namespace MouseClicker
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
             // 
             // label11
             // 
@@ -199,6 +176,7 @@ namespace MouseClicker
             // 
             // btnSpeedApply
             // 
+            this.btnSpeedApply.DialogResult = System.Windows.Forms.DialogResult.Ignore;
             resources.ApplyResources(this.btnSpeedApply, "btnSpeedApply");
             this.btnSpeedApply.Name = "btnSpeedApply";
             this.btnSpeedApply.UseVisualStyleBackColor = true;
@@ -243,10 +221,22 @@ namespace MouseClicker
             this.currentPosAutoClickShortCutCheck.Name = "currentPosAutoClickShortCutCheck";
             this.currentPosAutoClickShortCutCheck.UseVisualStyleBackColor = true;
             // 
+            // txtCurrentSpeed
+            // 
+            resources.ApplyResources(this.txtCurrentSpeed, "txtCurrentSpeed");
+            this.txtCurrentSpeed.Name = "txtCurrentSpeed";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtCurrentSpeed);
             this.Controls.Add(this.currentPosAutoClickShortCutCheck);
             this.Controls.Add(this.btnShortCutFunction);
             this.Controls.Add(this.txtShortCutKeyStatus);
@@ -264,10 +254,6 @@ namespace MouseClicker
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.remainedTimeInfoTxt);
@@ -296,10 +282,6 @@ namespace MouseClicker
         private Label label4;
         private ToolTip toolTip1;
         private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
-        private Label label10;
         private Label label11;
         private Label label12;
         private Button btnPause;
@@ -317,6 +299,8 @@ namespace MouseClicker
         private Label txtShortCutKeyStatus;
         private Button btnShortCutFunction;
         private CheckBox currentPosAutoClickShortCutCheck;
+        private Label txtCurrentSpeed;
+        private Label label7;
     }
 }
 

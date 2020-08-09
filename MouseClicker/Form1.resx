@@ -141,7 +141,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnMainKeyFunction.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>24</value>
   </data>
   <data name="remainedTimeTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 181</value>
@@ -162,7 +162,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;remainedTimeTextBox.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>23</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -189,7 +189,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>22</value>
   </data>
   <data name="remainedTimeInfoTxt.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -216,7 +216,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;remainedTimeInfoTxt.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>21</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -246,7 +246,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>20</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -276,121 +276,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 567</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 12</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Record 클릭하면 녹화 모드 진입</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 589</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 12</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>단순 클릭은 마우스 왼쪽 버튼 클릭, 채팅 보내기는 휠 클릭</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>19</value>
-  </data>
-  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 611</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 12</value>
-  </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>녹화 후 마우스 오른쪽 클릭하면 시작됨</value>
-  </data>
-  <data name="&gt;&gt;label9.Name" xml:space="preserve">
-    <value>label9</value>
-  </data>
-  <data name="&gt;&gt;label9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 635</value>
-  </data>
-  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 12</value>
-  </data>
-  <data name="label10.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>마우스 오른쪽 한번 더 누르면 기능 종료</value>
-  </data>
-  <data name="&gt;&gt;label10.Name" xml:space="preserve">
-    <value>label10</value>
-  </data>
-  <data name="&gt;&gt;label10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>17</value>
   </data>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>292, 9</value>
+    <value>10, 9</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 12</value>
@@ -411,13 +303,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>292, 34</value>
+    <value>10, 34</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 12</value>
@@ -438,7 +330,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="btnPause.Location" type="System.Drawing.Point, System.Drawing">
     <value>128, 298</value>
@@ -462,7 +354,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnPause.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="autoDisableTimerCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -489,7 +381,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;autoDisableTimerCheckBox.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="autoDisableRemainedCntCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -516,7 +408,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;autoDisableRemainedCntCheckBox.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="remainedCntTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 230</value>
@@ -537,7 +429,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;remainedCntTextBox.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="remainedCntInfoText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -564,7 +456,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;remainedCntInfoText.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="resetCursorPosCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -591,10 +483,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;resetCursorPosCheckBox.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="speedMultiplier.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 29</value>
+    <value>232, 36</value>
   </data>
   <data name="speedMultiplier.Size" type="System.Drawing.Size, System.Drawing">
     <value>62, 21</value>
@@ -612,13 +504,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;speedMultiplier.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 9</value>
+    <value>230, 16</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 12</value>
@@ -639,10 +531,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="btnSpeedApply.Location" type="System.Drawing.Point, System.Drawing">
-    <value>78, 27</value>
+    <value>300, 34</value>
   </data>
   <data name="btnSpeedApply.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 23</value>
@@ -663,7 +555,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnSpeedApply.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -693,7 +585,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -723,7 +615,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="shortCutKeySelections.ItemHeight" type="System.Int32, mscorlib">
     <value>12</value>
@@ -756,7 +648,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;shortCutKeySelections.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="txtShortCutKeyStatus.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -786,7 +678,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtShortCutKeyStatus.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="btnShortCutFunction.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 485</value>
@@ -810,7 +702,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnShortCutFunction.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="currentPosAutoClickShortCutCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -837,6 +729,68 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;currentPosAutoClickShortCutCheck.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="txtCurrentSpeed.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txtCurrentSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>230, 63</value>
+  </data>
+  <data name="txtCurrentSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 12</value>
+  </data>
+  <data name="txtCurrentSpeed.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="txtCurrentSpeed.Text" xml:space="preserve">
+    <value>현재 스피드</value>
+  </data>
+  <data name="&gt;&gt;txtCurrentSpeed.Name" xml:space="preserve">
+    <value>txtCurrentSpeed</value>
+  </data>
+  <data name="&gt;&gt;txtCurrentSpeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtCurrentSpeed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtCurrentSpeed.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 558</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>375, 108</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>1. Record 버튼을 눌러서 녹화모드 진입 
+2. 녹화
+    - 왼쪽 마우스 클릭은 그대로 왼쪽마우스 클릭
+    - 마우스 휠은 왼쪽 마우스 클릭 + 텍스트 입력 + 엔터 이벤트 조합
+              (예로 자동 메시지 보내기)
+    - 오른쪽 마우스 클릭은 녹화 중단 및 기능 활성화
+3. 일시정지
+    - Pause 버튼을 누르거나 마우스 휠 클릭 
+4. 녹화중단은 오른쪽 마우스 클릭 </value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -846,7 +800,7 @@
     <value>7, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>358, 675</value>
+    <value>383, 675</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Form1</value>
