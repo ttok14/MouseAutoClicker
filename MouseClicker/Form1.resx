@@ -765,7 +765,7 @@
     <value>4, 558</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 108</value>
+    <value>375, 120</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -773,9 +773,10 @@
   <data name="label7.Text" xml:space="preserve">
     <value>1. Record 버튼을 눌러서 녹화모드 진입 
 2. 녹화
-    - 왼쪽 마우스 클릭은 그대로 왼쪽마우스 클릭
+    - 왼쪽 마우스 클릭은 그대로 왼쪽마우스 클릭 (또는 스페이스키)
     - 마우스 휠은 왼쪽 마우스 클릭 + 텍스트 입력 + 엔터 이벤트 조합
               (예로 자동 메시지 보내기)
+    - 왼쪽 쉬프트 누른 상태에서 클릭시 더블 클릭 처리됨
     - 오른쪽 마우스 클릭은 녹화 중단 및 기능 활성화
 3. 일시정지
     - Pause 버튼을 누르거나 마우스 휠 클릭 
@@ -800,7 +801,7 @@
     <value>7, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>383, 675</value>
+    <value>383, 694</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Form1</value>

@@ -99,6 +99,7 @@ namespace MouseClicker
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label11
             // 
@@ -230,6 +231,7 @@ namespace MouseClicker
             // 
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
+            this.label7.Click += new System.EventHandler(this.label7_Click_1);
             // 
             // Form1
             // 

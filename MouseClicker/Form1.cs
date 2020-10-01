@@ -112,6 +112,20 @@ namespace MouseClicker
             if (curMode != Mode.Recording)
                 return;
 
+            var intervalTime = recordIntervalTime;
+            Point pos = new Point(x, y);
+
+            /// 왼쪽 Shift 를 누른 상태서 왼쪽 클릭하면 더블 클릭으로 판정 
+            if (IsKeyDown(Keys.LShiftKey))
+            {
+                AddMouseClickKey(pos, intervalTime);
+            }
+
+            AddMouseClickKey(pos, intervalTime);
+        }
+
+        void AddMouseClickKey(Point pos, double? desiredRecordIntervalTime = null)
+        {
             List<SingleAction> targetTrack = null;
 
             if (curRecordKeyType == RecordKeyType.MainKey)
@@ -119,12 +133,12 @@ namespace MouseClicker
             else if (curRecordKeyType == RecordKeyType.ShortCutKey)
                 targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
 
-            targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
-
-            if (IsKeyDown(Keys.LShiftKey))
+            targetTrack.Add(new SingleAction()
             {
-                targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
-            }
+                type = ActionType.MouseClick,
+                pos = new Point(pos.X, pos.Y),
+                waitTime = desiredRecordIntervalTime != null && desiredRecordIntervalTime.HasValue ? desiredRecordIntervalTime.Value : recordIntervalTime
+            });
 
             recordIntervalTime = 0;
         }
@@ -504,7 +518,15 @@ namespace MouseClicker
         {
             desiredExeShortCut = string.Empty;
 
-            if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F9))
+            /// space 키 누르면 왼쪽 클릭 녹화 기능 추가 
+            if (IsKeyDown(Keys.Space))
+            {
+                if (curMode == Mode.Recording)
+                {
+                    AddMouseClickKey(new Point(Cursor.Position.X, Cursor.Position.Y));
+                }
+            }
+            else if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F9))
             {
                 if (curMode == Mode.Activated)
                 {
@@ -753,5 +775,14 @@ namespace MouseClicker
             txtShortCutKeyStatus.Text = shortCutKeySelections.SelectedItem.ToString() + " 녹화 준비 완료";
         }
 
+        private void label7_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
