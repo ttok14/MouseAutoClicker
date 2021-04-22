@@ -22,18 +22,28 @@ namespace MouseClicker
         Activated,
     }
 
+    /// <summary>
+    /// 기능 타입들 
+    /// </summary>
     public enum ActionType
     {
-        MouseClick,
-        Typing
+        MouseClick, // 마우스 클릭
+        Typing, // 텍스트 타이핑 
+        Esc // Esc 키 누름
     }
 
+    /// <summary>
+    /// 녹화 키 타입 
+    /// </summary>
     public enum RecordKeyType
     {
-        MainKey,
-        ShortCutKey
+        MainKey, // 주 타입
+        ShortCutKey // 쇼컷 타입 
     }
 
+    /// <summary>
+    /// 하나의 액션 정의 
+    /// </summary>
     public struct SingleAction
     {
         public ActionType type;
@@ -41,9 +51,24 @@ namespace MouseClicker
         // click
         public Point pos;
         // typing
-        public string str;
+        public List<string> str;
 
         public double waitTime;
+
+        public SingleAction(ActionType type, Point pos, List<string> str, double waitTime)
+        {
+            this.type = type;
+            this.pos = pos;
+            this.str = str;
+            this.waitTime = waitTime;
+        }
+
+        internal string PickRandomString()
+        {
+            if (str.Count == 0)
+                return "empty";
+            return str[Form1.Randomize.GetRandomNum(0, str.Count)];
+        }
     }
 
     public partial class Form1 : Form
@@ -64,7 +89,13 @@ namespace MouseClicker
 
         RecordKeyType curRecordKeyType;
         RecordKeyType curActivatedKeyType;
+        /// <summary>
+        /// 주 action 
+        /// </summary>
         List<SingleAction> mainTrackKeys = new List<SingleAction>();
+        /// <summary>
+        /// short action 
+        /// </summary>
         Dictionary<string, List<SingleAction>> shortCutKeys = new Dictionary<string, List<SingleAction>>();
         List<SingleAction> curTrack;
         string desiredRecordShortCut;
@@ -102,6 +133,16 @@ namespace MouseClicker
             SetMode(Mode.Idle);
             Initialize_HandleOtherWindow();
             Loop();
+        }
+
+        public class Randomize
+        {
+            static Random random = new Random();
+
+            public static int GetRandomNum(int min, int max)
+            {
+                return random.Next(min, max);
+            }
         }
 
         private void OnLeftMouseClicked(int x, int y)
@@ -202,16 +243,18 @@ namespace MouseClicker
                     targetTrack = shortCutKeys[desiredRecordShortCut];
                 }
 
+                /// InputBox Form 할당 
                 using (var form = new Form_InputBox())
                 {
                     // form.WindowState = FormWindowState.Maximized;
                     ///   form.BringToFront();
 
+                    /// Open 함과 동시에 블록
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
                         recordIntervalTime = 0;
-                        targetTrack.Add(new SingleAction() { type = ActionType.Typing, str = form.typedTxt, waitTime = 0.05f });
+                        targetTrack.Add(new SingleAction() { type = ActionType.Typing, str = form.Txts, waitTime = 0.05f });
                     }
 
                     isInsertTextInputBoxOpen = false;
@@ -400,29 +443,30 @@ namespace MouseClicker
 
                     if (authenticated == false)
                     {
-                        using (var form = new AuthForm())
-                        {
-                            var result = form.ShowDialog();
+                        authenticated = true;
+                        //using (var form = new AuthForm())
+                        //{
+                        //    var result = form.ShowDialog();
 
-                            if (result == DialogResult.OK)
-                            {
-                                if (serials.Contains(form.typedSerial))
-                                {
-                                    using (var writer = new StreamWriter(fullPath))
-                                    {
-                                        writer.Write(form.typedSerial);
-                                    }
+                        //    if (result == DialogResult.OK)
+                        //    {
+                        //        if (serials.Contains(form.typedSerial))
+                        //        {
+                        //            using (var writer = new StreamWriter(fullPath))
+                        //            {
+                        //                writer.Write(form.typedSerial);
+                        //            }
 
-                                    MessageBox.Show("인증에 성공하였습니다. 감사합니다.");
+                        //            MessageBox.Show("인증에 성공하였습니다. 감사합니다.");
 
-                                    authenticated = true;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("존재하지 않는 시리얼 키입니다");
-                                }
-                            }
-                        }
+                        //            authenticated = true;
+                        //        }
+                        //        else
+                        //        {
+                        //            MessageBox.Show("존재하지 않는 시리얼 키입니다");
+                        //        }
+                        //    }
+                        //}
                     }
 
                     await Task.Delay(delay);
@@ -514,6 +558,9 @@ namespace MouseClicker
             }
         }
 
+        /// <summary>
+        /// 실시간 키 누름 감지
+        /// </summary>
         private void ProcessKeyDown()
         {
             desiredExeShortCut = string.Empty;
@@ -524,6 +571,28 @@ namespace MouseClicker
                 if (curMode == Mode.Recording)
                 {
                     AddMouseClickKey(new Point(Cursor.Position.X, Cursor.Position.Y));
+                }
+            }
+            /// ESC && Shift 
+            /// => ESC 키 send 
+            else if (IsKeyDown(Keys.Escape) && IsKeyDown(Keys.LShiftKey))
+            {
+                if (curMode == Mode.Recording)
+                {
+                    List<SingleAction> targetTrack = null;
+
+                    if (curRecordKeyType == RecordKeyType.MainKey)
+                        targetTrack = mainTrackKeys;
+                    else if (curRecordKeyType == RecordKeyType.ShortCutKey)
+                        targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
+
+                    targetTrack.Add(new SingleAction()
+                    {
+                        type = ActionType.Esc,
+                        waitTime = recordIntervalTime
+                    });
+
+                    recordIntervalTime = 0;
                 }
             }
             else if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F9))
@@ -589,8 +658,12 @@ namespace MouseClicker
             }
             else if (singleAction.type == ActionType.Typing)
             {
-                SendKeys.SendWait(singleAction.str);
+                SendKeys.SendWait(singleAction.PickRandomString());
                 SendKeys.Send("{ENTER}");
+            }
+            else if (singleAction.type == ActionType.Esc)
+            {
+                SendKeys.Send("{ESC}");
             }
         }
 

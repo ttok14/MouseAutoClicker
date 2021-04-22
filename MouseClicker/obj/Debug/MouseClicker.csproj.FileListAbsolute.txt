@@ -12,7 +12,6 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug\MouseClicker.exe
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug\MouseClicker.pdb
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.csprojAssemblyReference.cache
-C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Properties.Resources.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.csproj.GenerateResource.cache
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.csproj.CoreCompileInputs.cache
@@ -21,5 +20,6 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form_InputBox.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.AuthForm.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug\lg\MouseClicker.resources.dll
-C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.lg.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\lg\MouseClicker.resources.dll
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.lg.resources

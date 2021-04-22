@@ -765,7 +765,7 @@
     <value>4, 558</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 120</value>
+    <value>375, 144</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -778,6 +778,8 @@
               (예로 자동 메시지 보내기)
     - 왼쪽 쉬프트 누른 상태에서 클릭시 더블 클릭 처리됨
     - 오른쪽 마우스 클릭은 녹화 중단 및 기능 활성화
+    - Esc 키 입력 
+         =&gt; 왼쪽 Shift + ESC
 3. 일시정지
     - Pause 버튼을 누르거나 마우스 휠 클릭 
 4. 녹화중단은 오른쪽 마우스 클릭 </value>
