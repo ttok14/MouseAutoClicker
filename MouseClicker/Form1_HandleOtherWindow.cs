@@ -44,7 +44,7 @@ namespace MouseClicker
 
         uint handle;
 
-      public struct RECT
+        public struct RECT
         {
             public int Left;        // x position of upper-left corner
             public int Top;         // y position of upper-left corner
@@ -65,7 +65,7 @@ namespace MouseClicker
             int hwnd = ((IntPtr)FindWindow(null, "Nox")).ToInt32();
             GetWindowRect(hwnd, out rect);
 
-        //    label5.Text = rect.ToString();
+            //    label5.Text = rect.ToString();
         }
 
         public void Update_HandleOtherWindow(TimeSpan deltaTime)
@@ -78,9 +78,9 @@ namespace MouseClicker
                 
                 */
 
-       //     var col = GetColorAt(Cursor.Position);
+            //     var col = GetColorAt(Cursor.Position);
 
-          //  label5.Text = "";// col.ToString();
+            //  label5.Text = "";// col.ToString();
         }
 
         Bitmap screenPixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);

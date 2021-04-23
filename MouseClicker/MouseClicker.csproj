@@ -52,6 +52,12 @@
     <Compile Include="AuthForm.Designer.cs">
       <DependentUpon>AuthForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConditionSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConditionSelectionForm.Designer.cs">
+      <DependentUpon>ConditionSelectionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AuthForm.resx">
       <DependentUpon>AuthForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConditionSelectionForm.resx">
+      <DependentUpon>ConditionSelectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.lg.resx">
       <DependentUpon>Form1.cs</DependentUpon>

@@ -60,6 +60,8 @@ namespace MouseClicker
             this.currentPosAutoClickShortCutCheck = new System.Windows.Forms.CheckBox();
             this.txtCurrentSpeed = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtCursorColor = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
@@ -150,13 +152,13 @@ namespace MouseClicker
             // 
             // speedMultiplier
             // 
+            resources.ApplyResources(this.speedMultiplier, "speedMultiplier");
             this.speedMultiplier.DecimalPlaces = 2;
             this.speedMultiplier.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-            resources.ApplyResources(this.speedMultiplier, "speedMultiplier");
             this.speedMultiplier.Minimum = new decimal(new int[] {
             1,
             0,
@@ -177,8 +179,8 @@ namespace MouseClicker
             // 
             // btnSpeedApply
             // 
-            this.btnSpeedApply.DialogResult = System.Windows.Forms.DialogResult.Ignore;
             resources.ApplyResources(this.btnSpeedApply, "btnSpeedApply");
+            this.btnSpeedApply.DialogResult = System.Windows.Forms.DialogResult.Ignore;
             this.btnSpeedApply.Name = "btnSpeedApply";
             this.btnSpeedApply.UseVisualStyleBackColor = true;
             this.btnSpeedApply.Click += new System.EventHandler(this.btnSpeedApply_Click);
@@ -233,10 +235,22 @@ namespace MouseClicker
             this.label7.Name = "label7";
             this.label7.Click += new System.EventHandler(this.label7_Click_1);
             // 
+            // txtCursorColor
+            // 
+            resources.ApplyResources(this.txtCursorColor, "txtCursorColor");
+            this.txtCursorColor.Name = "txtCursorColor";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtCursorColor);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtCurrentSpeed);
             this.Controls.Add(this.currentPosAutoClickShortCutCheck);
@@ -303,6 +317,8 @@ namespace MouseClicker
         private CheckBox currentPosAutoClickShortCutCheck;
         private Label txtCurrentSpeed;
         private Label label7;
+        private Label txtCursorColor;
+        private Label label9;
     }
 }
 

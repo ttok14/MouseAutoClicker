@@ -23,3 +23,4 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\lg\MouseClicker.resources.dll
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.lg.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ConditionSelectionForm.resources

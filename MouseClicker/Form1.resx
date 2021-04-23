@@ -141,7 +141,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnMainKeyFunction.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>26</value>
   </data>
   <data name="remainedTimeTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 181</value>
@@ -162,7 +162,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;remainedTimeTextBox.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>25</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -189,7 +189,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>24</value>
   </data>
   <data name="remainedTimeInfoTxt.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -216,7 +216,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;remainedTimeInfoTxt.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>23</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -246,7 +246,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -276,7 +276,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -303,7 +303,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -330,7 +330,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="btnPause.Location" type="System.Drawing.Point, System.Drawing">
     <value>128, 298</value>
@@ -354,7 +354,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnPause.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="autoDisableTimerCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -381,7 +381,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;autoDisableTimerCheckBox.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="autoDisableRemainedCntCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -408,7 +408,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;autoDisableRemainedCntCheckBox.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="remainedCntTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 230</value>
@@ -429,7 +429,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;remainedCntTextBox.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="remainedCntInfoText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -456,7 +456,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;remainedCntInfoText.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="resetCursorPosCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -483,10 +483,14 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;resetCursorPosCheckBox.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="speedMultiplier.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="speedMultiplier.Location" type="System.Drawing.Point, System.Drawing">
-    <value>232, 36</value>
+    <value>259, 36</value>
   </data>
   <data name="speedMultiplier.Size" type="System.Drawing.Size, System.Drawing">
     <value>62, 21</value>
@@ -504,13 +508,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;speedMultiplier.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
+  </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 16</value>
+    <value>257, 16</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 12</value>
@@ -531,10 +538,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
+  </data>
+  <data name="btnSpeedApply.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="btnSpeedApply.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 34</value>
+    <value>327, 34</value>
   </data>
   <data name="btnSpeedApply.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 23</value>
@@ -555,7 +565,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnSpeedApply.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -585,7 +595,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -615,7 +625,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="shortCutKeySelections.ItemHeight" type="System.Int32, mscorlib">
     <value>12</value>
@@ -648,7 +658,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;shortCutKeySelections.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="txtShortCutKeyStatus.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -678,7 +688,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtShortCutKeyStatus.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="btnShortCutFunction.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 485</value>
@@ -702,7 +712,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnShortCutFunction.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="currentPosAutoClickShortCutCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -729,13 +739,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;currentPosAutoClickShortCutCheck.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
+  </data>
+  <data name="txtCurrentSpeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="txtCurrentSpeed.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="txtCurrentSpeed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 63</value>
+    <value>257, 63</value>
   </data>
   <data name="txtCurrentSpeed.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 12</value>
@@ -756,7 +769,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtCurrentSpeed.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -765,7 +778,7 @@
     <value>4, 558</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 144</value>
+    <value>375, 180</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -776,7 +789,10 @@
     - 왼쪽 마우스 클릭은 그대로 왼쪽마우스 클릭 (또는 스페이스키)
     - 마우스 휠은 왼쪽 마우스 클릭 + 텍스트 입력 + 엔터 이벤트 조합
               (예로 자동 메시지 보내기)
-    - 왼쪽 쉬프트 누른 상태에서 클릭시 더블 클릭 처리됨
+    - 더블 클릭 기능 
+         =&gt; 왼쪽 쉬프트 누른 상태에서 클릭시 더블 클릭 처리됨
+    - 조건부 클릭 기능 
+         =&gt; 오른쪽 쉬프트 누른 상태에서 클릭시 조건창 출력
     - 오른쪽 마우스 클릭은 녹화 중단 및 기능 활성화
     - Esc 키 입력 
          =&gt; 왼쪽 Shift + ESC
@@ -794,6 +810,72 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="txtCursorColor.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="txtCursorColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>177, 157</value>
+  </data>
+  <data name="txtCursorColor.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="txtCursorColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 23</value>
+  </data>
+  <data name="txtCursorColor.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="txtCursorColor.Text" xml:space="preserve">
+    <value>Color_AtCursor</value>
+  </data>
+  <data name="txtCursorColor.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;txtCursorColor.Name" xml:space="preserve">
+    <value>txtCursorColor</value>
+  </data>
+  <data name="&gt;&gt;txtCursorColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtCursorColor.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtCursorColor.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>325, 116</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 12</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>부가 정보</value>
+  </data>
+  <data name="label9.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -803,7 +885,7 @@
     <value>7, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>383, 694</value>
+    <value>386, 746</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Form1</value>
