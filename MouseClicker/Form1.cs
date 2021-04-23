@@ -252,6 +252,9 @@ namespace MouseClicker
 
             public bool Check(ActionConditionFlag flags, ConditionCheckParam param)
             {
+                if (flags == ActionConditionFlag.None)
+                    return true;
+
                 foreach (var condition in checkers)
                 {
                     if ((condition.Key & flags) != 0)
@@ -773,6 +776,20 @@ namespace MouseClicker
                     else if (curRecordKeyType == RecordKeyType.ShortCutKey)
                         targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
 
+                    if (targetTrack.Count > 0)
+                    {
+                        var last = targetTrack[targetTrack.Count - 1];
+
+                        /// 이 경우에는 의도치않게 더블로 들어온걸로 간주하고 abort 함. 
+                        /// => 원래는 getKeyUp 체크해야하는데 귀찮음 
+                        if (last.type == ActionType.Esc
+                            && last.waitTime <= 0.2f)
+                        {
+                            return;
+                        }
+                    }
+
+                    SystemSounds.Hand.Play();
                     targetTrack.Add(new SingleAction()
                     {
                         type = ActionType.Esc,
