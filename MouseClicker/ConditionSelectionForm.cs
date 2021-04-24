@@ -31,6 +31,11 @@ namespace MouseClicker
                     flags |= ActionConditionFlag.ColorEquality;
                 }
 
+                if (this.checkBox_posibbilityCheck.Checked)
+                {
+                    flags |= ActionConditionFlag.Possibility;
+                }
+
                 return flags;
             }
         }
@@ -39,6 +44,7 @@ namespace MouseClicker
         {
             get
             {
+                #region 색상 매칭 값 세팅
                 int r, g, b;
                 int x, y;
 
@@ -52,10 +58,17 @@ namespace MouseClicker
                 Point colorEquality_cursorPos = new Point(x, y);
 
                 Color colorEquality_color = Color.FromArgb(255, r, g, b);
+                #endregion
+
+                #region 랜덤 값 세팅 
+                int possibility = 0;
+                int.TryParse(textBox_possibilityCheck.Text, out possibility);
+                #endregion
 
                 Form1.ConditionChecker.ConditionCheckParam param = new Form1.ConditionChecker.ConditionCheckParam(
                     colorEquality_cursorPos
-                    , colorEquality_color);
+                    , colorEquality_color
+                    , possibility);
 
                 return param;
             }
@@ -120,6 +133,16 @@ namespace MouseClicker
             {
                 b = Clamp(b, 0, 255);
                 textBox_colorCheck_rgbB.Text = b.ToString();
+            }
+        }
+
+        private void textBox_possibilityCheck_TextChanged(object sender, EventArgs e)
+        {
+            int v = 0;
+            if (int.TryParse(textBox_possibilityCheck.Text, out v))
+            {
+                v = Clamp(v, 0, 100);
+                textBox_possibilityCheck.Text = v.ToString();
             }
         }
     }

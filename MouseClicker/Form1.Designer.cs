@@ -40,7 +40,6 @@ namespace MouseClicker
             this.remainedTimeInfoTxt = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label6 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.btnPause = new System.Windows.Forms.Button();
@@ -59,9 +58,9 @@ namespace MouseClicker
             this.btnShortCutFunction = new System.Windows.Forms.Button();
             this.currentPosAutoClickShortCutCheck = new System.Windows.Forms.CheckBox();
             this.txtCurrentSpeed = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.txtCursorColor = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.btnShowInstruction = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,12 +95,6 @@ namespace MouseClicker
             this.label4.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.label4.Name = "label4";
             this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label11
             // 
@@ -229,12 +222,6 @@ namespace MouseClicker
             resources.ApplyResources(this.txtCurrentSpeed, "txtCurrentSpeed");
             this.txtCurrentSpeed.Name = "txtCurrentSpeed";
             // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            this.label7.Click += new System.EventHandler(this.label7_Click_1);
-            // 
             // txtCursorColor
             // 
             resources.ApplyResources(this.txtCursorColor, "txtCursorColor");
@@ -245,13 +232,20 @@ namespace MouseClicker
             resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
             // 
+            // btnShowInstruction
+            // 
+            resources.ApplyResources(this.btnShowInstruction, "btnShowInstruction");
+            this.btnShowInstruction.Name = "btnShowInstruction";
+            this.btnShowInstruction.UseVisualStyleBackColor = true;
+            this.btnShowInstruction.Click += new System.EventHandler(this.btnShowInstruction_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnShowInstruction);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtCursorColor);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.txtCurrentSpeed);
             this.Controls.Add(this.currentPosAutoClickShortCutCheck);
             this.Controls.Add(this.btnShortCutFunction);
@@ -270,7 +264,6 @@ namespace MouseClicker
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.remainedTimeInfoTxt);
             this.Controls.Add(this.label2);
@@ -297,7 +290,6 @@ namespace MouseClicker
         private Label remainedTimeInfoTxt;
         private Label label4;
         private ToolTip toolTip1;
-        private Label label6;
         private Label label11;
         private Label label12;
         private Button btnPause;
@@ -316,9 +308,9 @@ namespace MouseClicker
         private Button btnShortCutFunction;
         private CheckBox currentPosAutoClickShortCutCheck;
         private Label txtCurrentSpeed;
-        private Label label7;
         private Label txtCursorColor;
         private Label label9;
+        private Button btnShowInstruction;
     }
 }
 

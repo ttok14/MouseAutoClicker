@@ -46,6 +46,9 @@
             this.txtCursorPos_conditionForm = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.checkBox_posibbilityCheck = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox_possibilityCheck = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -82,7 +85,7 @@
             // checkBox_colorEqualityCheck
             // 
             this.checkBox_colorEqualityCheck.AutoSize = true;
-            this.checkBox_colorEqualityCheck.Location = new System.Drawing.Point(59, 115);
+            this.checkBox_colorEqualityCheck.Location = new System.Drawing.Point(64, 117);
             this.checkBox_colorEqualityCheck.Name = "checkBox_colorEqualityCheck";
             this.checkBox_colorEqualityCheck.Size = new System.Drawing.Size(228, 16);
             this.checkBox_colorEqualityCheck.TabIndex = 3;
@@ -211,11 +214,41 @@
             this.button2.Text = "취소";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // checkBox_posibbilityCheck
+            // 
+            this.checkBox_posibbilityCheck.AutoSize = true;
+            this.checkBox_posibbilityCheck.Location = new System.Drawing.Point(64, 235);
+            this.checkBox_posibbilityCheck.Name = "checkBox_posibbilityCheck";
+            this.checkBox_posibbilityCheck.Size = new System.Drawing.Size(104, 16);
+            this.checkBox_posibbilityCheck.TabIndex = 18;
+            this.checkBox_posibbilityCheck.Text = "랜덤 확률 설정";
+            this.checkBox_posibbilityCheck.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(51, 262);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(76, 12);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "확률 (0~100)";
+            // 
+            // textBox_possibilityCheck
+            // 
+            this.textBox_possibilityCheck.Location = new System.Drawing.Point(25, 277);
+            this.textBox_possibilityCheck.Name = "textBox_possibilityCheck";
+            this.textBox_possibilityCheck.Size = new System.Drawing.Size(100, 21);
+            this.textBox_possibilityCheck.TabIndex = 19;
+            this.textBox_possibilityCheck.TextChanged += new System.EventHandler(this.textBox_possibilityCheck_TextChanged);
+            // 
             // ConditionSelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 450);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBox_possibilityCheck);
+            this.Controls.Add(this.checkBox_posibbilityCheck);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtCursorPos_conditionForm);
@@ -261,5 +294,8 @@
         private System.Windows.Forms.Label txtCursorPos_conditionForm;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox checkBox_posibbilityCheck;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox_possibilityCheck;
     }
 }

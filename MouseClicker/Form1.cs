@@ -30,6 +30,7 @@ namespace MouseClicker
     {
         None = 0,
         ColorEquality = 0x1, // 특정 스크린 위치에 특정 Color RGB 값인 경우에만 Action 을 취함 
+        Possibility = 0x1 << 1, // 확률로 Action 을 취함
     }
 
     /// <summary>
@@ -181,8 +182,7 @@ namespace MouseClicker
         bool useAutoDisableRemainedCnt;
         int remainedCnt;
 
-        bool isInsertTextInputBoxOpen;
-        bool isConditionFormOpen;
+        bool lockState;
 
         public Form1()
         {
@@ -226,13 +226,25 @@ namespace MouseClicker
         {
             public struct ConditionCheckParam
             {
+                /// <summary>
+                /// 색상 체크용 
+                /// </summary>
                 public Point targetCursorPos;
                 public Color targetColor;
 
-                public ConditionCheckParam(Point targetCursorPos, Color targetColor)
+                /// <summary>
+                /// 랜덤 확률용 
+                /// </summary>
+                public int percentage;
+
+                public ConditionCheckParam(
+                    Point targetCursorPos
+                    , Color targetColor
+                    , int percentage)
                 {
                     this.targetCursorPos = targetCursorPos;
                     this.targetColor = targetColor;
+                    this.percentage = percentage;
                 }
             }
 
@@ -244,6 +256,11 @@ namespace MouseClicker
                 checkers.Add(ActionConditionFlag.ColorEquality, (param) =>
                 {
                     return colorGetter(param.targetCursorPos) == param.targetColor;
+                });
+
+                checkers.Add(ActionConditionFlag.Possibility, (param) =>
+                {
+                    return Randomize.GetRandomNum(0, 101) <= param.percentage;
                 });
             }
 
@@ -274,8 +291,7 @@ namespace MouseClicker
 
         private void OnLeftMouseClicked(int x, int y)
         {
-            if (isInsertTextInputBoxOpen
-                || isConditionFormOpen)
+            if (lockState)
                 return;
 
             if (curMode != Mode.Recording)
@@ -290,7 +306,8 @@ namespace MouseClicker
             {
                 using (var form = new ConditionSelectionForm(GetColorAt))
                 {
-                    isConditionFormOpen = true;
+                    lockState = true;
+                    form.TopMost = true;
 
                     form.Update();
 
@@ -301,7 +318,7 @@ namespace MouseClicker
                     }
 
                     /// 이 시점에는 꺼진거 
-                    isConditionFormOpen = false;
+                    lockState = false;
                 }
             }
             else
@@ -361,8 +378,7 @@ namespace MouseClicker
 
         private void OnRightMouseClicked(int x, int y)
         {
-            if (isInsertTextInputBoxOpen
-                || isConditionFormOpen)
+            if (lockState)
                 return;
 
             if (curMode == Mode.Recording)
@@ -384,14 +400,11 @@ namespace MouseClicker
 
         private void OnWheelDown(int x, int y)
         {
-            if (isInsertTextInputBoxOpen
-                || isConditionFormOpen)
+            if (lockState)
                 return;
 
             if (curMode == Mode.Recording)
             {
-                isInsertTextInputBoxOpen = true;
-
                 List<SingleAction> targetTrack = null;
 
                 if (curRecordKeyType == RecordKeyType.MainKey)
@@ -406,6 +419,9 @@ namespace MouseClicker
                 /// InputBox Form 할당 
                 using (var form = new Form_InputBox())
                 {
+                    lockState = true;
+                    form.TopMost = true;
+
                     // form.WindowState = FormWindowState.Maximized;
                     ///   form.BringToFront();
 
@@ -417,7 +433,7 @@ namespace MouseClicker
                         targetTrack.Add(new SingleAction(ActionType.Typing, form.Txts, 0.05f));
                     }
 
-                    isInsertTextInputBoxOpen = false;
+                    lockState = false;
                 }
             }
             else if (curMode == Mode.Activated)
@@ -638,7 +654,7 @@ namespace MouseClicker
 
                 /// Form open 체크 및 
                 /// 업데이트 루프 막음. 
-                if (isInsertTextInputBoxOpen || isConditionFormOpen)
+                if (lockState)
                 {
                     await Task.Delay(delay);
                     continue;
@@ -1064,6 +1080,19 @@ namespace MouseClicker
         private void label6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// 사용법 form 오픈 
+        /// </summary>
+        private void btnShowInstruction_Click(object sender, EventArgs e)
+        {
+            using (var form = new Usage())
+            {
+                lockState = true;
+                form.ShowDialog();
+                lockState = false;
+            }
         }
     }
 }
