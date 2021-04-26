@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace MouseClicker
 {
-    public partial class Usage : Form
+    public partial class ColorDataEditorForm : Form
     {
-        public Usage()
+        public ColorDataEditorForm()
         {
             InitializeComponent();
-        }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-            MessageBox.Show("asd");
         }
     }
 }

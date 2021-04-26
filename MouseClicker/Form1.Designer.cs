@@ -61,6 +61,8 @@ namespace MouseClicker
             this.txtCursorColor = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnShowInstruction = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txt_cursorPos = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
@@ -239,10 +241,22 @@ namespace MouseClicker
             this.btnShowInstruction.UseVisualStyleBackColor = true;
             this.btnShowInstruction.Click += new System.EventHandler(this.btnShowInstruction_Click);
             // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // txt_cursorPos
+            // 
+            resources.ApplyResources(this.txt_cursorPos, "txt_cursorPos");
+            this.txt_cursorPos.Name = "txt_cursorPos";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txt_cursorPos);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnShowInstruction);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtCursorColor);
@@ -311,6 +325,8 @@ namespace MouseClicker
         private Label txtCursorColor;
         private Label label9;
         private Button btnShowInstruction;
+        private Label label6;
+        private Label txt_cursorPos;
     }
 }
 

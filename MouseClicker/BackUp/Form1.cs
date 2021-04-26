@@ -22,39 +22,28 @@ namespace MouseClicker
         Activated,
     }
 
-    /// <summary>
-    /// Action 의 조건 타입 
-    /// </summary>
-    [Flags]
-    public enum ActionConditionFlag
-    {
-        None = 0,
-        ColorEquality = 0x1, // 특정 스크린 위치에 특정 Color RGB 값인 경우에만 Action 을 취함 
-        Possibility = 0x1 << 1, // 확률로 Action 을 취함
-    }
-
-    /// <summary>
-    /// 기능 타입들 
-    /// </summary>
     public enum ActionType
     {
-        MouseClick, // 마우스 클릭
-        Typing, // 텍스트 타이핑 
-        Esc // Esc 키 누름
+        MouseClick,
+        Typing
     }
 
-    /// <summary>
-    /// 녹화 키 타입 
-    /// </summary>
     public enum RecordKeyType
     {
-        MainKey, // 주 타입
-        ShortCutKey // 쇼컷 타입 
+        MainKey,
+        ShortCutKey
     }
 
-    /// <summary>
-    /// 하나의 액션 정의 
-    /// </summary>
+    public class Randomize
+    {
+        static Random random = new Random();
+
+        public static int GetRandomNum(int min, int max)
+        {
+            return random.Next(min, max);
+        }
+    }
+
     public struct SingleAction
     {
         public ActionType type;
@@ -64,68 +53,13 @@ namespace MouseClicker
         // typing
         public List<string> str;
 
-        public ActionConditionFlag conditionFlags;
-        public Form1.ConditionChecker.ConditionCheckParam conditionParam;
-
         public double waitTime;
 
-        /// <summary>
-        /// 클릭 데이터 생성자 - 조건 X 
-        /// </summary>
-        public SingleAction(ActionType type, Point pos, double waitTime)
-        {
-            this.type = type;
-            this.pos = pos;
-            this.waitTime = waitTime;
-
-            this.str = null;
-            conditionFlags = ActionConditionFlag.None;
-            conditionParam = default(Form1.ConditionChecker.ConditionCheckParam);
-        }
-
-        /// <summary>
-        /// 클릭 데이터 생성자 - 조건 O
-        /// </summary>
-        public SingleAction(
-            ActionType type
-            , Point pos
-            , double waitTime
-            , ActionConditionFlag conditionFlag
-            , Form1.ConditionChecker.ConditionCheckParam conditionParam)
-        {
-            this.type = type;
-            this.pos = pos;
-            this.waitTime = waitTime;
-            this.conditionFlags = conditionFlag;
-            this.conditionParam = conditionParam;
-
-            this.str = null;
-        }
-
-        /// <summary>
-        /// 타이핑 데이터 생성자
-        /// </summary>
-        public SingleAction(ActionType type, List<string> str, double waitTime)
-        {
-            this.type = type;
-            this.str = str;
-            this.waitTime = waitTime;
-
-            pos = default(Point);
-            conditionFlags = ActionConditionFlag.None;
-            conditionParam = default(Form1.ConditionChecker.ConditionCheckParam);
-        }
-
-        /// <summary>
-        /// 모든 데이터 생성자 
-        /// </summary>
-        public SingleAction(ActionType type, Point pos, List<string> str, ActionConditionFlag conditionFlags, Form1.ConditionChecker.ConditionCheckParam conditionParam, double waitTime)
+        public SingleAction(ActionType type, Point pos, List<string> str, double waitTime)
         {
             this.type = type;
             this.pos = pos;
             this.str = str;
-            this.conditionFlags = conditionFlags;
-            this.conditionParam = conditionParam;
             this.waitTime = waitTime;
         }
 
@@ -133,7 +67,7 @@ namespace MouseClicker
         {
             if (str.Count == 0)
                 return "empty";
-            return str[Form1.Randomize.GetRandomNum(0, str.Count)];
+            return str[Randomize.GetRandomNum(0, str.Count)];
         }
     }
 
@@ -155,16 +89,7 @@ namespace MouseClicker
 
         RecordKeyType curRecordKeyType;
         RecordKeyType curActivatedKeyType;
-
-        ConditionChecker conditionChecker;
-
-        /// <summary>
-        /// 주 action 
-        /// </summary>
         List<SingleAction> mainTrackKeys = new List<SingleAction>();
-        /// <summary>
-        /// short action 
-        /// </summary>
         Dictionary<string, List<SingleAction>> shortCutKeys = new Dictionary<string, List<SingleAction>>();
         List<SingleAction> curTrack;
         string desiredRecordShortCut;
@@ -182,7 +107,7 @@ namespace MouseClicker
         bool useAutoDisableRemainedCnt;
         int remainedCnt;
 
-        bool lockState;
+        bool isInsertTextInputBoxOpen;
 
         public Form1()
         {
@@ -198,100 +123,15 @@ namespace MouseClicker
                 shortCutKeys.Add(item.ToString(), new List<SingleAction>());
             }
 
-            this.conditionChecker = new ConditionChecker(GetColorAt);
-
             ApplySpeed();
             SetMode(Mode.Idle);
             Initialize_HandleOtherWindow();
             Loop();
         }
 
-        /// <summary>
-        /// 랜덤값 생성기
-        /// </summary>
-        public class Randomize
-        {
-            static Random random = new Random();
-
-            public static int GetRandomNum(int min, int max)
-            {
-                return random.Next(min, max);
-            }
-        }
-
-        /// <summary>
-        /// 조건 검사 담당 클래스 
-        /// </summary>
-        public class ConditionChecker
-        {
-            public struct ConditionCheckParam
-            {
-                /// <summary>
-                /// 색상 체크용 
-                /// </summary>
-                public Point targetCursorPos;
-                public Color targetColor;
-
-                /// <summary>
-                /// 랜덤 확률용 
-                /// </summary>
-                public int percentage;
-
-                public ConditionCheckParam(
-                    Point targetCursorPos
-                    , Color targetColor
-                    , int percentage)
-                {
-                    this.targetCursorPos = targetCursorPos;
-                    this.targetColor = targetColor;
-                    this.percentage = percentage;
-                }
-            }
-
-            public ConditionChecker(Func<Point, Color> colorGetter)
-            {
-                this.colorGetter = colorGetter;
-
-                /// 색상 일치 체커
-                checkers.Add(ActionConditionFlag.ColorEquality, (param) =>
-                {
-                    return colorGetter(param.targetCursorPos) == param.targetColor;
-                });
-
-                checkers.Add(ActionConditionFlag.Possibility, (param) =>
-                {
-                    return Randomize.GetRandomNum(0, 101) <= param.percentage;
-                });
-            }
-
-            Func<Point, Color> colorGetter;
-            Dictionary<ActionConditionFlag, Predicate<ConditionCheckParam>> checkers = new Dictionary<ActionConditionFlag, Predicate<ConditionCheckParam>>();
-
-            public bool Check(ActionConditionFlag flags, ConditionCheckParam param)
-            {
-                if (flags == ActionConditionFlag.None)
-                    return true;
-
-                foreach (var condition in checkers)
-                {
-                    if ((condition.Key & flags) != 0)
-                    {
-                        /// 210423 기준 하나라도 충족
-                        /// => 충족 판정 
-                        if (condition.Value.Invoke(param))
-                        {
-                            return true;
-                        }
-                    }
-                }
-
-                return false;
-            }
-        }
-
         private void OnLeftMouseClicked(int x, int y)
         {
-            if (lockState)
+            if (isInsertTextInputBoxOpen)
                 return;
 
             if (curMode != Mode.Recording)
@@ -300,47 +140,16 @@ namespace MouseClicker
             var intervalTime = recordIntervalTime;
             Point pos = new Point(x, y);
 
-            /// RShift 클릭
-            /// => 조건부 마우스 클릭 기능 발동 
-            if (IsKeyDown(Keys.RShiftKey))
+            /// 왼쪽 Shift 를 누른 상태서 왼쪽 클릭하면 더블 클릭으로 판정 
+            if (IsKeyDown(Keys.LShiftKey))
             {
-                using (var form = new ConditionSelectionForm(GetColorAt))
-                {
-                    lockState = true;
-                    form.TopMost = true;
-
-                    form.Update();
-
-                    /// Open 함과 동시에 블록
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        AddMouseClickAction(new Point(x, y), form.Flags, form.Param);
-                    }
-
-                    /// 이 시점에는 꺼진거 
-                    lockState = false;
-                }
+                AddMouseClickKey(pos, intervalTime);
             }
-            else
-            {
-                /// 왼쪽 Shift 를 누른 상태서 왼쪽 클릭하면 더블 클릭으로 판정 
-                if (IsKeyDown(Keys.LShiftKey))
-                {
-                    AddMouseClickAction(pos: pos, desiredRecordIntervalTime: intervalTime);
-                }
 
-                AddMouseClickAction(pos: pos, desiredRecordIntervalTime: intervalTime);
-            }
+            AddMouseClickKey(pos, intervalTime);
         }
 
-        /// <summary>
-        /// 하나의 마우스 클릭 액션 추가 
-        /// </summary>
-        void AddMouseClickAction(
-            Point pos
-            , ActionConditionFlag conditionFlags = ActionConditionFlag.None
-            , ConditionChecker.ConditionCheckParam conditionParam = default(ConditionChecker.ConditionCheckParam)
-            , double? desiredRecordIntervalTime = null)
+        void AddMouseClickKey(Point pos, double? desiredRecordIntervalTime = null)
         {
             List<SingleAction> targetTrack = null;
 
@@ -349,12 +158,12 @@ namespace MouseClicker
             else if (curRecordKeyType == RecordKeyType.ShortCutKey)
                 targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
 
-            targetTrack.Add(new SingleAction(
-                ActionType.MouseClick,
-                new Point(pos.X, pos.Y),
-                desiredRecordIntervalTime != null && desiredRecordIntervalTime.HasValue ? desiredRecordIntervalTime.Value : recordIntervalTime,
-                conditionFlags,
-                conditionParam));
+            targetTrack.Add(new SingleAction()
+            {
+                type = ActionType.MouseClick,
+                pos = new Point(pos.X, pos.Y),
+                waitTime = desiredRecordIntervalTime != null && desiredRecordIntervalTime.HasValue ? desiredRecordIntervalTime.Value : recordIntervalTime
+            });
 
             recordIntervalTime = 0;
         }
@@ -378,7 +187,7 @@ namespace MouseClicker
 
         private void OnRightMouseClicked(int x, int y)
         {
-            if (lockState)
+            if (isInsertTextInputBoxOpen)
                 return;
 
             if (curMode == Mode.Recording)
@@ -400,11 +209,13 @@ namespace MouseClicker
 
         private void OnWheelDown(int x, int y)
         {
-            if (lockState)
+            if (isInsertTextInputBoxOpen)
                 return;
 
             if (curMode == Mode.Recording)
             {
+                isInsertTextInputBoxOpen = true;
+
                 List<SingleAction> targetTrack = null;
 
                 if (curRecordKeyType == RecordKeyType.MainKey)
@@ -419,21 +230,18 @@ namespace MouseClicker
                 /// InputBox Form 할당 
                 using (var form = new Form_InputBox())
                 {
-                    lockState = true;
-                    form.TopMost = true;
-
                     // form.WindowState = FormWindowState.Maximized;
                     ///   form.BringToFront();
 
                     /// Open 함과 동시에 블록
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        targetTrack.Add(new SingleAction(ActionType.MouseClick, new Point(x, y), recordIntervalTime));
+                        targetTrack.Add(new SingleAction() { type = ActionType.MouseClick, pos = new Point(x, y), waitTime = recordIntervalTime });
                         recordIntervalTime = 0;
-                        targetTrack.Add(new SingleAction(ActionType.Typing, form.Txts, 0.05f));
+                        targetTrack.Add(new SingleAction() { type = ActionType.Typing, str = form.Txts, waitTime = 0.05f });
                     }
 
-                    lockState = false;
+                    isInsertTextInputBoxOpen = false;
                 }
             }
             else if (curMode == Mode.Activated)
@@ -587,9 +395,6 @@ namespace MouseClicker
             }
         }
 
-        /// <summary>
-        /// 업데이트 루프 
-        /// </summary>
         async void Loop()
         {
             while (true)
@@ -622,7 +427,7 @@ namespace MouseClicker
 
                     if (authenticated == false)
                     {
-                        authenticated = true;
+                        authenticated = true; 
                         //using (var form = new AuthForm())
                         //{
                         //    var result = form.ShowDialog();
@@ -652,9 +457,7 @@ namespace MouseClicker
                     continue;
                 }
 
-                /// Form open 체크 및 
-                /// 업데이트 루프 막음. 
-                if (lockState)
+                if (isInsertTextInputBoxOpen)
                 {
                     await Task.Delay(delay);
                     continue;
@@ -662,7 +465,6 @@ namespace MouseClicker
 
                 ProcessKeyDown();
                 Update_HandleOtherWindow(delay);
-                Update_SubInfo();
 
                 switch (curMode)
                 {
@@ -740,119 +542,16 @@ namespace MouseClicker
             }
         }
 
-        /// <summary>
-        /// 부가정보 업데이트
-        /// </summary>
-        public void Update_SubInfo()
-        {
-            var col = GetColorAt(Cursor.Position);
-            /// 알파값 출력 안함 
-            /// => e.g A=n 값 제거 처리
-            string strColor = col.ToString();
-            int alphaIndex = strColor.IndexOf("A=");
-
-            if (alphaIndex != -1)
-            {
-                int commaIndex = strColor.IndexOf(",");
-                if (commaIndex != -1)
-                {
-                    /// 뒤에 공백까지 전부 제거 . 
-                    strColor = strColor.Remove(alphaIndex, commaIndex - alphaIndex + 2);
-                }
-            }
-
-            txtCursorColor.Text = strColor;
-            txt_cursorPos.Text = Cursor.Position.ToString();
-        }
-
-        /// <summary>
-        /// 실시간 키 누름 감지 
-        /// </summary>
         private void ProcessKeyDown()
         {
             desiredExeShortCut = string.Empty;
-
-            /// 마우스 스크롤
-            /// => 안드로이드 에뮬레이터에선 작동안함 
-            //if(IsKeyDown(Keys.O))
-            //{
-            //    mouse_event(0x0800, 100, 10, -1000, 0);
-            //}
-
-            if (IsKeyDown(Keys.P))
-            {
-                MessageBox.Show("Test");
-
-                using (var form = new SelectArea())
-                {
-                    var result = form.ShowDialog();
-                    if (result == DialogResult.OK)
-                    {
-                        label6.Text = form.Output[0, 0].ToString();
-                    }
-                }
-            }
-            if (IsKeyDown(Keys.O))
-            {
-                MessageBox.Show("Test");
-
-                using (var form = new NumberColorSetForm())
-                {
-                    var result = form.ShowDialog();
-                }
-            }
-            if (IsKeyDown(Keys.I))
-            {
-                MessageBox.Show("Test");
-
-                using (var form = new ScreenColorInfoExtractor())
-                {
-                    var result = form.ShowDialog();
-                }
-            }
 
             /// space 키 누르면 왼쪽 클릭 녹화 기능 추가 
             if (IsKeyDown(Keys.Space))
             {
                 if (curMode == Mode.Recording)
                 {
-                    AddMouseClickAction(new Point(Cursor.Position.X, Cursor.Position.Y));
-                }
-            }
-            /// ESC && Shift 
-            /// => ESC 키 send 
-            else if (IsKeyDown(Keys.Escape) && IsKeyDown(Keys.LShiftKey))
-            {
-                if (curMode == Mode.Recording)
-                {
-                    List<SingleAction> targetTrack = null;
-
-                    if (curRecordKeyType == RecordKeyType.MainKey)
-                        targetTrack = mainTrackKeys;
-                    else if (curRecordKeyType == RecordKeyType.ShortCutKey)
-                        targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
-
-                    if (targetTrack.Count > 0)
-                    {
-                        var last = targetTrack[targetTrack.Count - 1];
-
-                        /// 이 경우에는 의도치않게 더블로 들어온걸로 간주하고 abort 함. 
-                        /// => 원래는 getKeyUp 체크해야하는데 귀찮음 
-                        if (last.type == ActionType.Esc
-                            && last.waitTime <= 0.2f)
-                        {
-                            return;
-                        }
-                    }
-
-                    SystemSounds.Hand.Play();
-                    targetTrack.Add(new SingleAction()
-                    {
-                        type = ActionType.Esc,
-                        waitTime = recordIntervalTime
-                    });
-
-                    recordIntervalTime = 0;
+                    AddMouseClickKey(new Point(Cursor.Position.X, Cursor.Position.Y));
                 }
             }
             else if (IsKeyDown(Keys.LShiftKey) && IsKeyDown(Keys.F9))
@@ -908,10 +607,6 @@ namespace MouseClicker
 
         private void DoAction(SingleAction singleAction)
         {
-            /// 조건 체크 
-            if (this.conditionChecker.Check(singleAction.conditionFlags, singleAction.conditionParam) == false)
-                return;
-
             if (singleAction.type == ActionType.MouseClick)
             {
                 var oriPos = Cursor.Position;
@@ -925,17 +620,13 @@ namespace MouseClicker
                 SendKeys.SendWait(singleAction.PickRandomString());
                 SendKeys.Send("{ENTER}");
             }
-            else if (singleAction.type == ActionType.Esc)
-            {
-                SendKeys.Send("{ESC}");
-            }
         }
 
         [DllImport("USER32.dll")]
         public static extern short GetKeyState(Keys nVirtKey);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, int cButtons, uint dwExtraInfo);
+        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
         //Mouse actions
         private const int MOUSEEVENTF_LEFTDOWN = 0x02;
         private const int MOUSEEVENTF_LEFTUP = 0x04;
@@ -1120,19 +811,6 @@ namespace MouseClicker
         private void label6_Click(object sender, EventArgs e)
         {
 
-        }
-
-        /// <summary>
-        /// 사용법 form 오픈 
-        /// </summary>
-        private void btnShowInstruction_Click(object sender, EventArgs e)
-        {
-            using (var form = new Usage())
-            {
-                lockState = true;
-                form.ShowDialog();
-                lockState = false;
-            }
         }
     }
 }

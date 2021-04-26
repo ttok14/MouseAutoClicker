@@ -52,12 +52,21 @@
     <Compile Include="AuthForm.Designer.cs">
       <DependentUpon>AuthForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="ColorDataEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColorDataEditorForm.Designer.cs">
+      <DependentUpon>ColorDataEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConditionSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConditionSelectionForm.Designer.cs">
       <DependentUpon>ConditionSelectionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContainer.cs" />
+    <Compile Include="Dictionary.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,8 +82,28 @@
     <Compile Include="Form_InputBox.Designer.cs">
       <DependentUpon>Form_InputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="NumberColorSetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumberColorSetForm.Designer.cs">
+      <DependentUpon>NumberColorSetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenColorInfoExtractor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScreenColorInfoExtractor.Designer.cs">
+      <DependentUpon>ScreenColorInfoExtractor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenColorParser.cs" />
+    <Compile Include="ScreenTxtConverter.cs" />
+    <Compile Include="SelectArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectArea.Designer.cs">
+      <DependentUpon>SelectArea.cs</DependentUpon>
+    </Compile>
     <Compile Include="Usage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +125,9 @@
     <EmbeddedResource Include="Form_InputBox.resx">
       <DependentUpon>Form_InputBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NumberColorSetForm.resx">
+      <DependentUpon>NumberColorSetForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -105,6 +137,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ScreenColorInfoExtractor.resx">
+      <DependentUpon>ScreenColorInfoExtractor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectArea.resx">
+      <DependentUpon>SelectArea.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Usage.resx">
       <DependentUpon>Usage.cs</DependentUpon>
     </EmbeddedResource>
