@@ -49,7 +49,8 @@ namespace MouseClicker
     public enum RecordKeyType
     {
         MainKey, // 주 타입
-        ShortCutKey // 쇼컷 타입 
+        ShortCutKey, // 쇼컷 타입 
+        IdleConvenient // idle 상태 편의기능
     }
 
     /// <summary>
@@ -155,6 +156,7 @@ namespace MouseClicker
 
         RecordKeyType curRecordKeyType;
         RecordKeyType curActivatedKeyType;
+        RecordKeyType curIdleConvenientKeyType;
 
         ConditionChecker conditionChecker;
 
@@ -162,10 +164,16 @@ namespace MouseClicker
         /// 주 action 
         /// </summary>
         List<SingleAction> mainTrackKeys = new List<SingleAction>();
+
         /// <summary>
-        /// short action 
+        /// ShotCut Action 
         /// </summary>
         Dictionary<string, List<SingleAction>> shortCutKeys = new Dictionary<string, List<SingleAction>>();
+        /// <summary>
+        /// Idle 편의 기능용 action 
+        /// </summary>
+        List<SingleAction> idleConvenientKeys = new List<SingleAction>();
+
         List<SingleAction> curTrack;
         string desiredRecordShortCut;
         string desiredExeShortCut;
@@ -204,6 +212,22 @@ namespace MouseClicker
             SetMode(Mode.Idle);
             Initialize_HandleOtherWindow();
             Loop();
+        }
+
+        /// <summary>
+        /// float 형 point
+        /// </summary>
+        [Serializable]
+        public class PointFloat
+        {
+            public float x;
+            public float y;
+
+            public PointFloat(float x, float y)
+            {
+                this.x = x;
+                this.y = y;
+            }
         }
 
         /// <summary>
@@ -348,6 +372,12 @@ namespace MouseClicker
                 targetTrack = mainTrackKeys;
             else if (curRecordKeyType == RecordKeyType.ShortCutKey)
                 targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
+            else if (curRecordKeyType == RecordKeyType.IdleConvenient)
+                targetTrack = idleConvenientKeys;
+            else
+            {
+                MessageBox.Show($"Handle this type. {curRecordKeyType}");
+            }
 
             targetTrack.Add(new SingleAction(
                 ActionType.MouseClick,
@@ -369,6 +399,10 @@ namespace MouseClicker
             {
                 SetMode(Mode.Activated);
             }
+            else if (curRecordKeyType == RecordKeyType.IdleConvenient && idleConvenientKeys != null && idleConvenientKeys.Count > 0)
+            {
+                SetMode(Mode.Activated);
+            }
             else
             {
                 SetMode(Mode.Idle);
@@ -381,13 +415,24 @@ namespace MouseClicker
             if (lockState)
                 return;
 
-            if (curMode == Mode.Recording)
+            if (curMode == Mode.Idle)
+            {
+                if (useIdleConvenientFeature.Checked)
+                {
+                    SetMode(Mode.Activated, RecordKeyType.IdleConvenient.ToString());
+                }
+            }
+            else if (curMode == Mode.Recording)
             {
                 if (curRecordKeyType == RecordKeyType.MainKey)
                 {
                     TryActivate();
                 }
                 else if (curRecordKeyType == RecordKeyType.ShortCutKey)
+                {
+                    SetMode(Mode.Idle);
+                }
+                else if (curRecordKeyType == RecordKeyType.IdleConvenient)
                 {
                     SetMode(Mode.Idle);
                 }
@@ -403,7 +448,14 @@ namespace MouseClicker
             if (lockState)
                 return;
 
-            if (curMode == Mode.Recording)
+            if (curMode == Mode.Idle)
+            {
+                if (useIdleConvenientFeature.Checked)
+                {
+                    SendKeys.Send("{ESC}");
+                }
+            }
+            else if (curMode == Mode.Recording)
             {
                 List<SingleAction> targetTrack = null;
 
@@ -460,6 +512,7 @@ namespace MouseClicker
 
             btnMainKeyFunction.Enabled = true;
             btnShortCutFunction.Enabled = true;
+            btnRecordIdle.Enabled = true;
 
             curActivatedKeyType = RecordKeyType.MainKey;
 
@@ -474,22 +527,11 @@ namespace MouseClicker
 
                         btnMainKeyFunction.Text = "녹화시작";
                         btnShortCutFunction.Text = "녹화시작";
+                        btnRecordIdle.Text = "녹화시작";
 
                         if (prevMode == Mode.Activated)
                         {
                             SystemSounds.Hand.Play();
-
-                            if (prevActivateKeyMode == RecordKeyType.MainKey)
-                            {
-                                //     string txtStop = "Stop";
-
-                                //     if (string.IsNullOrEmpty(subInfo) == false)
-                                {
-                                    //         txtStop += " : " + subInfo;
-                                }
-
-                                // MessageBox.Show(txtStop);
-                            }
                         }
                     }
                     break;
@@ -497,7 +539,9 @@ namespace MouseClicker
                     {
                         btnMainKeyFunction.Enabled = false;
                         btnShortCutFunction.Enabled = false;
+                        btnRecordIdle.Enabled = false;
 
+                        /// subInfo 에 어떤 모드로 녹화하는지 식별 타입이 있음 
                         if (subInfo.Equals(RecordKeyType.MainKey.ToString()))
                         {
                             btnMainKeyFunction.Enabled = true;
@@ -511,6 +555,13 @@ namespace MouseClicker
                             btnShortCutFunction.Text = "녹화 중단";
                             curRecordKeyType = RecordKeyType.ShortCutKey;
                             shortCutKeys[shortCutKeySelections.SelectedItem.ToString()].Clear();
+                        }
+                        else if (subInfo.Equals(RecordKeyType.IdleConvenient.ToString()))
+                        {
+                            btnRecordIdle.Enabled = true;
+                            btnRecordIdle.Text = "녹화 중단";
+                            curRecordKeyType = RecordKeyType.IdleConvenient;
+                            idleConvenientKeys.Clear();
                         }
 
                         SystemSounds.Hand.Play();
@@ -532,10 +583,24 @@ namespace MouseClicker
                         curTrack = shortCutKeys[desiredExeShortCut];
                         btnShortCutFunction.Text = "중지";
 
+                        /// 시작시 클릭 효과 기능 사용
                         if (currentPosAutoClickShortCutCheck.Checked)
                         {
                             var oriPos = Cursor.Position;
                             DoMouseClick(oriPos.X, oriPos.Y);
+                        }
+                    }
+                    else if (subInfo == RecordKeyType.IdleConvenient.ToString())
+                    {
+                        btnRecordIdle.Enabled = true;
+                        btnRecordIdle.Text = "중지";
+                        curActivatedKeyType = RecordKeyType.IdleConvenient;
+                        curTrack = idleConvenientKeys;
+
+                        /// 시작시 클릭 효과 기능 사용
+                        if (idleConv_clickAtFirst.Checked)
+                        {
+                            DoMouseClick(Cursor.Position.X, Cursor.Position.Y);
                         }
                     }
 
@@ -724,6 +789,13 @@ namespace MouseClicker
                                     SetMode(Mode.Idle);
                                 }
                             }
+                            if (curActivatedKeyType == RecordKeyType.IdleConvenient)
+                            {
+                                if (cycleDone)
+                                {
+                                    SetMode(Mode.Idle);
+                                }
+                            }
 
                             remainedTimeInfoTxt.Text = useAutoDisableTimer ? "남은 시간 : " + remainedTimerSeconds.ToString() : "기능 꺼짐";
                             remainedCntInfoText.Text = useAutoDisableRemainedCnt ? "남은 횟수 : " + remainedCnt.ToString() : "기능 꺼짐";
@@ -779,37 +851,46 @@ namespace MouseClicker
             //    mouse_event(0x0800, 100, 10, -1000, 0);
             //}
 
-            if (IsKeyDown(Keys.P))
-            {
-                MessageBox.Show("Test");
+            //if (IsKeyDown(Keys.P))
+            //{
+            //    MessageBox.Show("Test");
 
-                using (var form = new SelectArea())
-                {
-                    var result = form.ShowDialog();
-                    if (result == DialogResult.OK)
-                    {
-                        label6.Text = form.Output[0, 0].ToString();
-                    }
-                }
-            }
-            if (IsKeyDown(Keys.O))
-            {
-                MessageBox.Show("Test");
+            //    using (var form = new SelectArea())
+            //    {
+            //        var result = form.ShowDialog();
+            //        if (result == DialogResult.OK)
+            //        {
 
-                using (var form = new NumberColorSetForm())
-                {
-                    var result = form.ShowDialog();
-                }
-            }
-            if (IsKeyDown(Keys.I))
-            {
-                MessageBox.Show("Test");
+            //        }
+            //    }
+            //}
+            //if (IsKeyDown(Keys.O))
+            //{
+            //    MessageBox.Show("Test");
 
-                using (var form = new ScreenColorInfoExtractor())
-                {
-                    var result = form.ShowDialog();
-                }
-            }
+            //    using (var form = new NumberColorSetForm())
+            //    {
+            //        var result = form.ShowDialog();
+            //    }
+            //}
+            //if (IsKeyDown(Keys.I))
+            //{
+            //    MessageBox.Show("Test");
+
+            //    using (var form = new ScreenColorInfoExtractor())
+            //    {
+            //        var result = form.ShowDialog();
+            //    }
+            //}
+            //if (IsKeyDown(Keys.U))
+            //{
+            //    MessageBox.Show("Test");
+
+            //    using (var form = new ColorDataEditorForm())
+            //    {
+            //        var result = form.ShowDialog();
+            //    }
+            //}
 
             /// space 키 누르면 왼쪽 클릭 녹화 기능 추가 
             if (IsKeyDown(Keys.Space))
@@ -831,6 +912,8 @@ namespace MouseClicker
                         targetTrack = mainTrackKeys;
                     else if (curRecordKeyType == RecordKeyType.ShortCutKey)
                         targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
+                    else if (curRecordKeyType == RecordKeyType.IdleConvenient)
+                        targetTrack = idleConvenientKeys;
 
                     if (targetTrack.Count > 0)
                     {
@@ -995,6 +1078,24 @@ namespace MouseClicker
                 SetMode(Mode.Idle);
         }
 
+        private void btnRecordIdle_Click(object sender, EventArgs e)
+        {
+            if (authenticated == false)
+            {
+                MessageBox.Show("인증 안됨");
+                return;
+            }
+
+            if (curMode == Mode.Idle)
+            {
+                SetMode(Mode.Recording, RecordKeyType.IdleConvenient.ToString());
+            }
+            else
+            {
+                SetMode(Mode.Idle);
+            }
+        }
+
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -1132,6 +1233,22 @@ namespace MouseClicker
                 lockState = true;
                 form.ShowDialog();
                 lockState = false;
+            }
+        }
+
+        private void useIdleConvenientFeature_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 색상 매칭 관련 편집기 오픈 
+        /// </summary>
+        private void btnColorExtractor_Click(object sender, EventArgs e)
+        {
+            using (var form = new ColorDataEditorForm())
+            {
+                var result = form.ShowDialog();
             }
         }
     }

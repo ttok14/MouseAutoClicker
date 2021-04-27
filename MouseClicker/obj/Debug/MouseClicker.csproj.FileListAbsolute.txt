@@ -28,3 +28,7 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.lg.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ScreenColorInfoExtractor.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.csproj.CopyComplete
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ColorDataEditorForm.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.PromptForm.resources

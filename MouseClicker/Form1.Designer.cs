@@ -61,8 +61,14 @@ namespace MouseClicker
             this.txtCursorColor = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnShowInstruction = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
             this.txt_cursorPos = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnRecordIdle = new System.Windows.Forms.Button();
+            this.useIdleConvenientFeature = new System.Windows.Forms.CheckBox();
+            this.idleConv_clickAtFirst = new System.Windows.Forms.CheckBox();
+            this.btnColorExtractor = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
@@ -241,22 +247,65 @@ namespace MouseClicker
             this.btnShowInstruction.UseVisualStyleBackColor = true;
             this.btnShowInstruction.Click += new System.EventHandler(this.btnShowInstruction_Click);
             // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
             // txt_cursorPos
             // 
             resources.ApplyResources(this.txt_cursorPos, "txt_cursorPos");
             this.txt_cursorPos.Name = "txt_cursorPos";
             // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // btnRecordIdle
+            // 
+            resources.ApplyResources(this.btnRecordIdle, "btnRecordIdle");
+            this.btnRecordIdle.Name = "btnRecordIdle";
+            this.btnRecordIdle.UseVisualStyleBackColor = true;
+            this.btnRecordIdle.Click += new System.EventHandler(this.btnRecordIdle_Click);
+            // 
+            // useIdleConvenientFeature
+            // 
+            resources.ApplyResources(this.useIdleConvenientFeature, "useIdleConvenientFeature");
+            this.useIdleConvenientFeature.Name = "useIdleConvenientFeature";
+            this.useIdleConvenientFeature.UseVisualStyleBackColor = true;
+            this.useIdleConvenientFeature.CheckedChanged += new System.EventHandler(this.useIdleConvenientFeature_CheckedChanged);
+            // 
+            // idleConv_clickAtFirst
+            // 
+            resources.ApplyResources(this.idleConv_clickAtFirst, "idleConv_clickAtFirst");
+            this.idleConv_clickAtFirst.Name = "idleConv_clickAtFirst";
+            this.idleConv_clickAtFirst.UseVisualStyleBackColor = true;
+            // 
+            // btnColorExtractor
+            // 
+            resources.ApplyResources(this.btnColorExtractor, "btnColorExtractor");
+            this.btnColorExtractor.Name = "btnColorExtractor";
+            this.btnColorExtractor.UseVisualStyleBackColor = true;
+            this.btnColorExtractor.Click += new System.EventHandler(this.btnColorExtractor_Click);
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.txt_cursorPos);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.btnColorExtractor);
+            this.Controls.Add(this.idleConv_clickAtFirst);
+            this.Controls.Add(this.useIdleConvenientFeature);
+            this.Controls.Add(this.btnRecordIdle);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.txt_cursorPos);
             this.Controls.Add(this.btnShowInstruction);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtCursorColor);
@@ -325,8 +374,14 @@ namespace MouseClicker
         private Label txtCursorColor;
         private Label label9;
         private Button btnShowInstruction;
-        private Label label6;
         private Label txt_cursorPos;
+        private Label label6;
+        private Label label7;
+        private Button btnRecordIdle;
+        private CheckBox useIdleConvenientFeature;
+        private CheckBox idleConv_clickAtFirst;
+        private Button btnColorExtractor;
+        private Label label8;
     }
 }
 

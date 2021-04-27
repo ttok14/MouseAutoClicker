@@ -6,7 +6,7 @@ namespace MouseClicker
 {
     /// <summary>
     /// 영역 선택 후에
-    /// <see cref="Output"/> 프로퍼티를 이용해서 선택한 영역에 대한 값 리턴
+    /// <see cref="Output_ColorInfo"/> 프로퍼티를 이용해서 선택한 영역에 대한 값 리턴
     /// </summary>
     public partial class SelectArea : Form
     {
@@ -24,7 +24,9 @@ namespace MouseClicker
         Rectangle area;
         Type type = Type.None;
 
-        public Color[,] Output { get; private set; }
+        public Color[,] Output_ColorInfo { get; private set; }
+        public int Output_Width { get; private set; }
+        public int Output_Height { get; private set; }
 
         // Rectangle clearArea;
 
@@ -115,8 +117,10 @@ namespace MouseClicker
             else if (type == Type.PickPixel)
             {
                 this.DialogResult = DialogResult.OK;
-                Output = new Color[1, 1];
-                Output[0, 0] = this.screen_bmp.GetPixel(Cursor.Position.X, Cursor.Position.Y);
+                Output_ColorInfo = new Color[1, 1];
+                Output_ColorInfo[0, 0] = this.screen_bmp.GetPixel(Cursor.Position.X, Cursor.Position.Y);
+                Output_Width = 1;
+                Output_Height = 1;
                 Close();
             }
 
@@ -141,7 +145,10 @@ namespace MouseClicker
             {
                 this.DialogResult = DialogResult.OK;
 
-                Output = new Color[area.Width, area.Height];
+                Output_ColorInfo = new Color[area.Width, area.Height];
+
+                Output_Width = area.Width;
+                Output_Height = area.Height;
 
                 for (int i = 0; i < area.Width; i++)
                 {
@@ -149,7 +156,7 @@ namespace MouseClicker
                     {
                         /// GetPixel 이 존나 빠름 
                         /// DC 로 복사하고 긁어오고 그거 존나느림 진짜 
-                        Output[i, j] = this.screen_bmp.GetPixel(area.X + i, area.Y + j);
+                        Output_ColorInfo[i, j] = this.screen_bmp.GetPixel(area.X + i, area.Y + j);
                     }
                 }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MouseClicker.Form1;
 
 namespace MouseClicker
 {
@@ -21,6 +22,9 @@ namespace MouseClicker
             /// 영역에 대한 색상배열 
             /// </summary>
             public Color[,] colorInfo;
+            public int width;
+            public int height;
+
             /// <summary>
             /// 해당 문자의 컬러키.
             /// </summary>
@@ -30,14 +34,24 @@ namespace MouseClicker
             /// </summary>
             public Color discardKey;
 
+            /// <summary>
+            /// 컬러키에 매칭되는 픽셀들의 0~1 로 정규화된 위치들
+            /// </summary>
+            public List<PointFloat> matchingColorNormalizedPos;
+
+            /// <summary>
+            /// 컬러키에 매칭되는 픽셀이 몇개나 있는가 ? 
+            /// => 오차 허용 
+            /// </summary>
+            public int colorKeyMatchingCount;
+
+            /// <summary>
+            /// 컬러 매칭 개수 계산에 사용된 오차 범위 
+            /// </summary>
+            public int acceptRange;
+
             public ColorData()
             {
-            }
-            public ColorData(string str, Color[,] colorInfo, Color colorKey)
-            {
-                this.str = str;
-                this.colorInfo = colorInfo;
-                this.colorKey = colorKey;
             }
         }
 

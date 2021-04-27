@@ -67,7 +67,7 @@ namespace MouseClicker
                 var result = selectArea.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    var data = selectArea.Output;
+                    var data = selectArea.Output_ColorInfo;
                     uint curNumber = uint.Parse(comboBox_Number.Text);
 
                     //SetData(curNumber, new DataContainer.ColorData(curNumber.ToString(), data));
