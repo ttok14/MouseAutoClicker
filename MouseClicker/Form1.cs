@@ -31,6 +31,8 @@ namespace MouseClicker
         None = 0,
         ColorEquality = 0x1, // 특정 스크린 위치에 특정 Color RGB 값인 경우에만 Action 을 취함 
         Possibility = 0x1 << 1, // 확률로 Action 을 취함
+        ScreenColorMatching = 0x1 << 2, // 스크린 색상 비교로 선택  
+        FallBackClick = 0x1 << 3, // 모든 조건 다 실패시 마지막에 fallback 으로 클릭 시전용 
     }
 
     /// <summary>
@@ -38,7 +40,8 @@ namespace MouseClicker
     /// </summary>
     public enum ActionType
     {
-        MouseClick, // 마우스 클릭
+        SingleMouseClick, // 단순 단일 마우스 클릭
+        ConditionalClick, // 조건부 단일 마우스 클릭
         Typing, // 텍스트 타이핑 
         Esc // Esc 키 누름
     }
@@ -54,6 +57,16 @@ namespace MouseClicker
     }
 
     /// <summary>
+    /// 클릭 Action 일때 부가 기능 타입 
+    /// </summary>
+    public enum ClickDecoType
+    {
+        None = 0,
+        SingleClick,
+        SingleWithVariousCondition
+    }
+
+    /// <summary>
     /// 하나의 액션 정의 
     /// </summary>
     public struct SingleAction
@@ -66,7 +79,7 @@ namespace MouseClicker
         public List<string> str;
 
         public ActionConditionFlag conditionFlags;
-        public Form1.ConditionChecker.ConditionCheckParam conditionParam;
+        public Form1.ConditionChecker.ConditionEvaluateParam conditionParam;
 
         public double waitTime;
 
@@ -81,7 +94,7 @@ namespace MouseClicker
 
             this.str = null;
             conditionFlags = ActionConditionFlag.None;
-            conditionParam = default(Form1.ConditionChecker.ConditionCheckParam);
+            conditionParam = default(Form1.ConditionChecker.ConditionEvaluateParam);
         }
 
         /// <summary>
@@ -92,7 +105,7 @@ namespace MouseClicker
             , Point pos
             , double waitTime
             , ActionConditionFlag conditionFlag
-            , Form1.ConditionChecker.ConditionCheckParam conditionParam)
+            , Form1.ConditionChecker.ConditionEvaluateParam conditionParam)
         {
             this.type = type;
             this.pos = pos;
@@ -114,13 +127,13 @@ namespace MouseClicker
 
             pos = default(Point);
             conditionFlags = ActionConditionFlag.None;
-            conditionParam = default(Form1.ConditionChecker.ConditionCheckParam);
+            conditionParam = default(Form1.ConditionChecker.ConditionEvaluateParam);
         }
 
         /// <summary>
         /// 모든 데이터 생성자 
         /// </summary>
-        public SingleAction(ActionType type, Point pos, List<string> str, ActionConditionFlag conditionFlags, Form1.ConditionChecker.ConditionCheckParam conditionParam, double waitTime)
+        public SingleAction(ActionType type, Point pos, List<string> str, ActionConditionFlag conditionFlags, Form1.ConditionChecker.ConditionEvaluateParam conditionParam, double waitTime)
         {
             this.type = type;
             this.pos = pos;
@@ -199,6 +212,8 @@ namespace MouseClicker
             MouseCallBack.onWheelDown = OnWheelDown;
 
             InitializeComponent();
+            DataContainer.Instance.Initialize();
+
             speedMultiplier.Value = 1;
 
             foreach (var item in shortCutKeySelections.Items)
@@ -248,68 +263,158 @@ namespace MouseClicker
         /// </summary>
         public class ConditionChecker
         {
-            public struct ConditionCheckParam
+            public class ConditionEvaluateParam
             {
                 /// <summary>
                 /// 색상 체크용 
                 /// </summary>
-                public Point targetCursorPos;
-                public Color targetColor;
+                public Point pixelCheckTargetCursorPos;
+                public Color pixelCheckTargetColor;
+
+                /// <summary>
+                /// fall back 용 위치 
+                /// </summary>
+                public Point fallBackClickPos;
+                /// <summary>
+                /// 타겟 색상용 위치 
+                /// </summary>
+                public Point colorMatchingClickPos;
+                /// <summary>
+                /// 랜덤 확률용 위치 
+                /// </summary>
+                public Point randomPossibilityClickPos;
+                /// <summary>
+                /// 스크린 영역 매칭용 위치
+                /// </summary>
+                public Point screenColorMatchingClickPos;
 
                 /// <summary>
                 /// 랜덤 확률용 
                 /// </summary>
                 public int percentage;
 
-                public ConditionCheckParam(
-                    Point targetCursorPos
-                    , Color targetColor
-                    , int percentage)
+                /// <summary>
+                /// 조건분기따라 클릭하는용 
+                /// </summary>
+                // public List<PositionBySelection> posBySelection;
+                public List<Rectangle> screenColorMatchingAreas = new List<Rectangle>();
+                public string screenColorMatchingStringKey;
+                /// <summary>
+                /// 조건 성공 기준 값 0~1
+                /// </summary>
+                public float screenColorMatchingSimilarityThreshold;
+
+                public ConditionEvaluateParam() { }
+                public ConditionEvaluateParam(Point targetCursorPos, Color targetColor, Point fallBackPos, int percentage, string screenColorMatchingStringKey, List<Rectangle> areaColorMatching, float screenColorMatchingSimilarityThreshold)
                 {
-                    this.targetCursorPos = targetCursorPos;
-                    this.targetColor = targetColor;
+                    this.pixelCheckTargetCursorPos = targetCursorPos;
+                    this.pixelCheckTargetColor = targetColor;
+                    this.fallBackClickPos = fallBackPos;
                     this.percentage = percentage;
+                    this.screenColorMatchingStringKey = screenColorMatchingStringKey;
+                    this.screenColorMatchingAreas = areaColorMatching;
+                    this.screenColorMatchingSimilarityThreshold = screenColorMatchingSimilarityThreshold;
+                }
+
+                public void SetAllPos(Point pos)
+                {
+                    this.fallBackClickPos = pos;
+                    this.colorMatchingClickPos = pos;
+                    this.pixelCheckTargetCursorPos = pos;
+                    this.randomPossibilityClickPos = pos;
+                }
+            }
+
+            /// <summary>
+            /// 조건평과 결과 데이터 
+            /// </summary>
+            public class ConditionEvaluateResultInfo
+            {
+                public bool success;
+                public Point resultPoint;
+
+                public ConditionEvaluateResultInfo(bool success)
+                {
+                    this.success = success;
+                }
+                public ConditionEvaluateResultInfo(bool success, Point resultPoint)
+                {
+                    this.success = success;
+                    this.resultPoint = resultPoint;
                 }
             }
 
             public ConditionChecker(Func<Point, Color> colorGetter)
             {
                 this.colorGetter = colorGetter;
-
-                /// 색상 일치 체커
-                checkers.Add(ActionConditionFlag.ColorEquality, (param) =>
-                {
-                    return colorGetter(param.targetCursorPos) == param.targetColor;
-                });
-
-                checkers.Add(ActionConditionFlag.Possibility, (param) =>
-                {
-                    return Randomize.GetRandomNum(0, 101) <= param.percentage;
-                });
             }
 
             Func<Point, Color> colorGetter;
-            Dictionary<ActionConditionFlag, Predicate<ConditionCheckParam>> checkers = new Dictionary<ActionConditionFlag, Predicate<ConditionCheckParam>>();
+            Dictionary<ActionConditionFlag, Predicate<ConditionEvaluateParam>> checkers = new Dictionary<ActionConditionFlag, Predicate<ConditionEvaluateParam>>();
 
-            public bool Check(ActionConditionFlag flags, ConditionCheckParam param)
+            /// <summary>
+            /// 각종 조건 변수들을 체크해서 맞는 Result 정보를 리턴.
+            /// </summary>
+            public ConditionEvaluateResultInfo Evaluate(ActionConditionFlag flags, ConditionEvaluateParam param)
             {
-                if (flags == ActionConditionFlag.None)
-                    return true;
-
-                foreach (var condition in checkers)
+                /// 색상 일치 체커
+                if ((flags & ActionConditionFlag.ColorEquality) != 0)
                 {
-                    if ((condition.Key & flags) != 0)
+                    if (colorGetter(param.pixelCheckTargetCursorPos) == param.pixelCheckTargetColor)
                     {
-                        /// 210423 기준 하나라도 충족
-                        /// => 충족 판정 
-                        if (condition.Value.Invoke(param))
+                        return new ConditionEvaluateResultInfo(true, param.colorMatchingClickPos);
+                    }
+                }
+
+                /// 확률 체킹
+                if ((flags & ActionConditionFlag.Possibility) != 0)
+                {
+                    if (Randomize.GetRandomNum(0, 101) <= param.percentage)
+                    {
+                        return new ConditionEvaluateResultInfo(true, param.randomPossibilityClickPos);
+                    }
+                }
+
+                /// 컬러매칭 
+                if ((flags & ActionConditionFlag.ScreenColorMatching) != 0)
+                {
+                    for (int i = 0; i < param.screenColorMatchingAreas.Count; i++)
+                    {
+                        var targetColors = ScreenColorHelper.Instance.GetScreenColors(param.screenColorMatchingAreas[i]);
+                        float resultSimilarity;
+
+                        var targetColorData = DataContainer.Instance.GetScreenMatchingColorDataByKey(param.screenColorMatchingStringKey);
+
+                        if (targetColorData != null)
                         {
-                            return true;
+                            bool screenColorMatchingResult =
+                                ScreenColorHelper.Instance.IsTarget(
+                                targetColorData
+                                , targetColors
+                                , param.screenColorMatchingAreas[i].Width
+                                , param.screenColorMatchingAreas[i].Height
+                                , 10
+                                , param.screenColorMatchingSimilarityThreshold
+                                , out resultSimilarity);
+
+                            if (screenColorMatchingResult)
+                            {
+                                SystemSounds.Hand.Play();
+                                return new ConditionEvaluateResultInfo(true, param.screenColorMatchingClickPos);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("미리 로드해놓던지 하시오. 이 메시지는 보이면 안됨.");
                         }
                     }
                 }
 
-                return false;
+                /// FallBack 처리 
+                if ((flags & ActionConditionFlag.FallBackClick) != 0)
+                    return new ConditionEvaluateResultInfo(true, param.fallBackClickPos);
+
+                return new ConditionEvaluateResultInfo(success: false);
             }
         }
 
@@ -328,22 +433,43 @@ namespace MouseClicker
             /// => 조건부 마우스 클릭 기능 발동 
             if (IsKeyDown(Keys.RShiftKey))
             {
-                using (var form = new ConditionSelectionForm(GetColorAt))
+                using (var form = new ClickConditionSelection(GetColorAt))
                 {
                     lockState = true;
                     form.TopMost = true;
 
-                    form.Update();
+                    var result = form.ShowDialog();
 
-                    /// Open 함과 동시에 블록
-                    if (form.ShowDialog() == DialogResult.OK)
+                    if (result == DialogResult.OK)
                     {
-                        AddMouseClickAction(new Point(x, y), form.Flags, form.Param);
+                        AddMouseClickAction(new Point(x, y), form.OutputFlags, form.OutputEvaluateParam);
+                    }
+                    /// OK 가 아님 
+                    /// => 그냥 일반 클릭으로 판정하자 .
+                    else
+                    {
+                        AddMouseClickAction(new Point(x, y), ActionConditionFlag.None, new ConditionChecker.ConditionEvaluateParam());
                     }
 
-                    /// 이 시점에는 꺼진거 
                     lockState = false;
                 }
+
+                //using (var form = new ConditionSelectionForm(GetColorAt))
+                //{
+                //    lockState = true;
+                //    form.TopMost = true;
+
+                //    form.Update();
+
+                //    /// Open 함과 동시에 블록
+                //    if (form.ShowDialog() == DialogResult.OK)
+                //    {
+                //        AddMouseClickAction(new Point(x, y), form.Flags, form.Param);
+                //    }
+
+                //    /// 이 시점에는 꺼진거 
+                //    lockState = false;
+                //}
             }
             else
             {
@@ -363,7 +489,7 @@ namespace MouseClicker
         void AddMouseClickAction(
             Point pos
             , ActionConditionFlag conditionFlags = ActionConditionFlag.None
-            , ConditionChecker.ConditionCheckParam conditionParam = default(ConditionChecker.ConditionCheckParam)
+            , ConditionChecker.ConditionEvaluateParam conditionParam = default(ConditionChecker.ConditionEvaluateParam)
             , double? desiredRecordIntervalTime = null)
         {
             List<SingleAction> targetTrack = null;
@@ -380,7 +506,7 @@ namespace MouseClicker
             }
 
             targetTrack.Add(new SingleAction(
-                ActionType.MouseClick,
+                conditionFlags == ActionConditionFlag.None ? ActionType.SingleMouseClick : ActionType.ConditionalClick,
                 new Point(pos.X, pos.Y),
                 desiredRecordIntervalTime != null && desiredRecordIntervalTime.HasValue ? desiredRecordIntervalTime.Value : recordIntervalTime,
                 conditionFlags,
@@ -480,7 +606,7 @@ namespace MouseClicker
                     /// Open 함과 동시에 블록
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        targetTrack.Add(new SingleAction(ActionType.MouseClick, new Point(x, y), recordIntervalTime));
+                        targetTrack.Add(new SingleAction(ActionType.SingleMouseClick, new Point(x, y), recordIntervalTime));
                         recordIntervalTime = 0;
                         targetTrack.Add(new SingleAction(ActionType.Typing, form.Txts, 0.05f));
                     }
@@ -989,19 +1115,37 @@ namespace MouseClicker
             return (GetKeyState(key) & KEY_PRESSED) == KEY_PRESSED;
         }
 
+        /// <summary>
+        /// 액션
+        /// </summary>
         private void DoAction(SingleAction singleAction)
         {
-            /// 조건 체크 
-            if (this.conditionChecker.Check(singleAction.conditionFlags, singleAction.conditionParam) == false)
-                return;
+            ///// 조건 체크 
+            //if (this.conditionChecker.Check(singleAction.conditionFlags, singleAction.conditionParam) == false)
+            //    return;
 
-            if (singleAction.type == ActionType.MouseClick)
+            /// 단일 클릭 
+            /// => 걍 한번 클릭. 끝 
+            if (singleAction.type == ActionType.SingleMouseClick)
             {
                 var oriPos = Cursor.Position;
                 DoMouseClick(singleAction.pos.X, singleAction.pos.Y);
 
                 if (resetCursorPosCheckBox.Checked)
                     Cursor.Position = oriPos;
+            }
+            /// 조건부 단일 클릭
+            /// => 각종 조건 체크후 적절한 위치 클릭. 또는 클릭안될수도. 
+            else if (singleAction.type == ActionType.ConditionalClick)
+            {
+                var resultInfo = this.conditionChecker.Evaluate(singleAction.conditionFlags, singleAction.conditionParam);
+
+                /// success 가 True 일때만 
+                /// 액션을 취함.
+                if (resultInfo.success)
+                {
+                    DoMouseClick(resultInfo.resultPoint.X, resultInfo.resultPoint.Y);
+                }
             }
             else if (singleAction.type == ActionType.Typing)
             {

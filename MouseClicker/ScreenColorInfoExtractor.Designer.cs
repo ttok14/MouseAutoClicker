@@ -51,7 +51,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.discardColor_Rgb_r = new System.Windows.Forms.NumericUpDown();
             this.btnCheckMatchingCount = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numeric_acceptArrange = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.targetColor_Rgb_r)).BeginInit();
@@ -60,14 +60,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.discardColor_Rgb_b)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.discardColor_Rgb_g)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.discardColor_Rgb_r)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_acceptArrange)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("굴림", 15F);
-            this.label1.Location = new System.Drawing.Point(51, 78);
+            this.label1.Location = new System.Drawing.Point(48, 135);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(242, 20);
             this.label1.TabIndex = 2;
@@ -77,7 +77,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("굴림", 15F);
-            this.label2.Location = new System.Drawing.Point(51, 185);
+            this.label2.Location = new System.Drawing.Point(48, 242);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(222, 20);
             this.label2.TabIndex = 3;
@@ -85,7 +85,7 @@
             // 
             // btnSelectArea
             // 
-            this.btnSelectArea.Location = new System.Drawing.Point(105, 21);
+            this.btnSelectArea.Location = new System.Drawing.Point(105, 12);
             this.btnSelectArea.Name = "btnSelectArea";
             this.btnSelectArea.Size = new System.Drawing.Size(103, 23);
             this.btnSelectArea.TabIndex = 4;
@@ -95,7 +95,7 @@
             // 
             // btnSetTargetColorKey
             // 
-            this.btnSetTargetColorKey.Location = new System.Drawing.Point(120, 106);
+            this.btnSetTargetColorKey.Location = new System.Drawing.Point(117, 163);
             this.btnSetTargetColorKey.Name = "btnSetTargetColorKey";
             this.btnSetTargetColorKey.Size = new System.Drawing.Size(75, 23);
             this.btnSetTargetColorKey.TabIndex = 5;
@@ -105,7 +105,7 @@
             // 
             // btnSetBackgroundColorKey
             // 
-            this.btnSetBackgroundColorKey.Location = new System.Drawing.Point(120, 214);
+            this.btnSetBackgroundColorKey.Location = new System.Drawing.Point(117, 271);
             this.btnSetBackgroundColorKey.Name = "btnSetBackgroundColorKey";
             this.btnSetBackgroundColorKey.Size = new System.Drawing.Size(75, 23);
             this.btnSetBackgroundColorKey.TabIndex = 6;
@@ -115,27 +115,27 @@
             // 
             // txtTargetText
             // 
-            this.txtTargetText.Location = new System.Drawing.Point(13, 312);
+            this.txtTargetText.Location = new System.Drawing.Point(12, 98);
             this.txtTargetText.Name = "txtTargetText";
             this.txtTargetText.Size = new System.Drawing.Size(302, 21);
             this.txtTargetText.TabIndex = 7;
-            this.txtTargetText.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.txtTargetText.TextChanged += new System.EventHandler(this.txtTargetText_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("굴림", 15F);
-            this.label3.Location = new System.Drawing.Point(127, 289);
+            this.label3.Location = new System.Drawing.Point(86, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 20);
+            this.label3.Size = new System.Drawing.Size(167, 20);
             this.label3.TabIndex = 8;
-            this.label3.Text = "텍스트";
+            this.label3.Text = "식별 아이디 (Key)";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("굴림", 12F);
-            this.label4.Location = new System.Drawing.Point(102, 47);
+            this.label4.Location = new System.Drawing.Point(102, 43);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 16);
             this.label4.TabIndex = 9;
@@ -163,7 +163,7 @@
             // 
             // targetColor_Rgb_r
             // 
-            this.targetColor_Rgb_r.Location = new System.Drawing.Point(55, 144);
+            this.targetColor_Rgb_r.Location = new System.Drawing.Point(52, 201);
             this.targetColor_Rgb_r.Maximum = new decimal(new int[] {
             255,
             0,
@@ -177,7 +177,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(36, 146);
+            this.label5.Location = new System.Drawing.Point(33, 203);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(13, 12);
             this.label5.TabIndex = 13;
@@ -186,7 +186,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(125, 146);
+            this.label6.Location = new System.Drawing.Point(122, 203);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(14, 12);
             this.label6.TabIndex = 15;
@@ -194,7 +194,7 @@
             // 
             // targetColor_Rgb_g
             // 
-            this.targetColor_Rgb_g.Location = new System.Drawing.Point(144, 144);
+            this.targetColor_Rgb_g.Location = new System.Drawing.Point(141, 201);
             this.targetColor_Rgb_g.Maximum = new decimal(new int[] {
             255,
             0,
@@ -208,7 +208,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(212, 146);
+            this.label7.Location = new System.Drawing.Point(209, 203);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(13, 12);
             this.label7.TabIndex = 17;
@@ -216,7 +216,7 @@
             // 
             // targetColor_Rgb_b
             // 
-            this.targetColor_Rgb_b.Location = new System.Drawing.Point(231, 144);
+            this.targetColor_Rgb_b.Location = new System.Drawing.Point(228, 201);
             this.targetColor_Rgb_b.Maximum = new decimal(new int[] {
             255,
             0,
@@ -230,7 +230,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(211, 254);
+            this.label8.Location = new System.Drawing.Point(208, 311);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(13, 12);
             this.label8.TabIndex = 23;
@@ -238,7 +238,7 @@
             // 
             // discardColor_Rgb_b
             // 
-            this.discardColor_Rgb_b.Location = new System.Drawing.Point(230, 252);
+            this.discardColor_Rgb_b.Location = new System.Drawing.Point(227, 309);
             this.discardColor_Rgb_b.Maximum = new decimal(new int[] {
             255,
             0,
@@ -252,7 +252,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(124, 254);
+            this.label9.Location = new System.Drawing.Point(121, 311);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(14, 12);
             this.label9.TabIndex = 21;
@@ -260,7 +260,7 @@
             // 
             // discardColor_Rgb_g
             // 
-            this.discardColor_Rgb_g.Location = new System.Drawing.Point(143, 252);
+            this.discardColor_Rgb_g.Location = new System.Drawing.Point(140, 309);
             this.discardColor_Rgb_g.Maximum = new decimal(new int[] {
             255,
             0,
@@ -274,7 +274,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(35, 254);
+            this.label10.Location = new System.Drawing.Point(32, 311);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(13, 12);
             this.label10.TabIndex = 19;
@@ -282,7 +282,7 @@
             // 
             // discardColor_Rgb_r
             // 
-            this.discardColor_Rgb_r.Location = new System.Drawing.Point(54, 252);
+            this.discardColor_Rgb_r.Location = new System.Drawing.Point(51, 309);
             this.discardColor_Rgb_r.Maximum = new decimal(new int[] {
             255,
             0,
@@ -303,18 +303,18 @@
             this.btnCheckMatchingCount.UseVisualStyleBackColor = true;
             this.btnCheckMatchingCount.Click += new System.EventHandler(this.btnCheckMatchingCount_Click);
             // 
-            // numericUpDown1
+            // numeric_acceptArrange
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(25, 401);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.numeric_acceptArrange.Location = new System.Drawing.Point(25, 401);
+            this.numeric_acceptArrange.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 21);
-            this.numericUpDown1.TabIndex = 25;
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.numeric_acceptArrange.Name = "numeric_acceptArrange";
+            this.numeric_acceptArrange.Size = new System.Drawing.Size(120, 21);
+            this.numeric_acceptArrange.TabIndex = 25;
+            this.numeric_acceptArrange.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label11
             // 
@@ -342,7 +342,7 @@
             this.ClientSize = new System.Drawing.Size(339, 497);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numeric_acceptArrange);
             this.Controls.Add(this.btnCheckMatchingCount);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.discardColor_Rgb_b);
@@ -375,7 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.discardColor_Rgb_b)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.discardColor_Rgb_g)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.discardColor_Rgb_r)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_acceptArrange)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -405,7 +405,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown discardColor_Rgb_r;
         private System.Windows.Forms.Button btnCheckMatchingCount;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numeric_acceptArrange;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
     }

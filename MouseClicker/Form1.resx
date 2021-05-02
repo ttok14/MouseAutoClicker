@@ -751,7 +751,7 @@
     <value>NoControl</value>
   </data>
   <data name="txtCursorColor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 23</value>
+    <value>166, 26</value>
   </data>
   <data name="txtCursorColor.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>

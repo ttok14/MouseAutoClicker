@@ -12,9 +12,23 @@ namespace MouseClicker
 {
     public partial class ScreenColorInfoExtractor : Form
     {
-        public ScreenColorInfoExtractor()
+        public ScreenColorInfoExtractor(DataContainer.ColorData sourceData)
         {
             InitializeComponent();
+
+            if (sourceData != null)
+            {
+                sourceData.CopyTo(OutputData);
+
+                GlobalUtil.SetNumericRGB(targetColor_Rgb_r, targetColor_Rgb_g, targetColor_Rgb_b, OutputData.colorKey.R, OutputData.colorKey.G, OutputData.colorKey.B);
+                GlobalUtil.SetNumericRGB(discardColor_Rgb_r, discardColor_Rgb_b, discardColor_Rgb_b, OutputData.discardKey.R, OutputData.discardKey.G, OutputData.discardKey.B);
+                txtTargetText.Text = OutputData.key;
+                numeric_acceptArrange.Value = OutputData.acceptRange;
+
+                /// source 데이터존재할땐 바로 클릭 가능 상태로.
+                IsCaptureDone = true;
+                IsTargetTextSet = true;
+            }
         }
 
         public DataContainer.ColorData OutputData = new DataContainer.ColorData();
@@ -38,8 +52,8 @@ namespace MouseClicker
 
         int RefreshMatchingPixelCount()
         {
-            int acceptRange = (int)numericUpDown1.Value;
-            int resultCnt = ScreenColorStringExtractHelper.Instance.GetMatchingColorInfo(OutputData.colorInfo, OutputData.width, OutputData.height, OutputData.colorKey, acceptRange, out OutputData.matchingColorNormalizedPos);
+            int acceptRange = (int)numeric_acceptArrange.Value;
+            int resultCnt = ScreenColorHelper.Instance.GetMatchingColorInfo(OutputData.colorInfo, OutputData.width, OutputData.height, OutputData.colorKey, acceptRange, out OutputData.matchingColorNormalizedPos);
             OutputData.colorKeyMatchingCount = resultCnt;
             OutputData.acceptRange = acceptRange;
             return resultCnt;
@@ -122,10 +136,10 @@ namespace MouseClicker
             Close();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void txtTargetText_TextChanged(object sender, EventArgs e)
         {
             IsTargetTextSet = string.IsNullOrEmpty(txtTargetText.Text) == false;
-            OutputData.str = txtTargetText.Text;
+            OutputData.key = txtTargetText.Text;
             UpdateUI();
         }
 

@@ -27,7 +27,7 @@ namespace MouseClicker
         public Color[,] Output_ColorInfo { get; private set; }
         public int Output_Width { get; private set; }
         public int Output_Height { get; private set; }
-
+        public Rectangle Output_Rectangle { get; private set; }
         // Rectangle clearArea;
 
         // Rectangle rect = new Rectangle(125, 125, 50, 50);
@@ -149,6 +149,8 @@ namespace MouseClicker
 
                 Output_Width = area.Width;
                 Output_Height = area.Height;
+
+                Output_Rectangle = area;
 
                 for (int i = 0; i < area.Width; i++)
                 {

@@ -17,6 +17,12 @@ namespace MouseClicker
             InitializeComponent();
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            TopMost = true;
+        }
+
         public void Set(string msg)
         {
             txtMsg.Text = msg;

@@ -8,15 +8,15 @@ using static MouseClicker.Form1;
 
 namespace MouseClicker
 {
-    public class ScreenColorStringExtractHelper
+    public class ScreenColorHelper
     {
-        static ScreenColorStringExtractHelper instance;
-        public static ScreenColorStringExtractHelper Instance
+        static ScreenColorHelper instance;
+        public static ScreenColorHelper Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new ScreenColorStringExtractHelper();
+                    instance = new ScreenColorHelper();
                 return instance;
             }
         }
@@ -30,6 +30,10 @@ namespace MouseClicker
             return v;
         }
 
+        /// <summary>
+        /// 색상이 범위내에 있는지 체크 
+        /// </summary>
+        /// <param name="acceptRange"> 오차 허용 범위 </param>
         public bool IsColorInRange(Color color, Color checkColorKey, int acceptRange)
         {
             int min_r = checkColorKey.R - acceptRange;
@@ -51,6 +55,10 @@ namespace MouseClicker
                      && (color.B >= min_b && color.B <= max_b));
         }
 
+        /// <summary>
+        /// 매칭되는 색상들 가져오기 
+        /// => return : 매칭 색상 갯수 
+        /// </summary>
         public int GetMatchingColorInfo(Color[,] colorInfo, int width, int height, Color colorKey, int acceptRange, out List<PointFloat> resultNormalizedPos)
         {
             resultNormalizedPos = new List<PointFloat>();
@@ -159,24 +167,24 @@ namespace MouseClicker
 
 
         /// <summary>
-        /// 이미 color Key 의 position 이 세팅된 <paramref name="source"/> 를 
+        /// 이미 color Key 의 position 이 세팅된 <paramref name="normalizedSourceColorBuffer"/> 를 
         /// 체킹 대상인 <paramref name="destColor"/> 의 전체 색상에 대해서 
         /// 유사값 0~1 을 계산함. 
         /// </summary>
-        /// <param name="source"> 체킹할 원본의 색상 0~1 정규화된 위치 값 </param>
+        /// <param name="normalizedSourceColorBuffer"> 체킹할 원본의 색상 0~1 정규화된 위치 값 </param>
         /// <param name="destColor"> 체킹 대상 전체 색상 가로/세로 2차원 배열 </param>
         /// <param name="destWid"> 대상 색상 배열의 가로 픽셀 개수 Width </param>
         /// <param name="destHei"> 대상 색상 배열의 세로 픽셀 개수 Height </param>
         /// <param name="colorKey"> 유사성 검사 기준 색상 </param>
         /// <returns></returns>
-        public float GetSimilarityToDestColor(List<PointFloat> source, Color[,] destColor, int destWid, int destHei, Color colorKey)
+        public float GetSimilarityToDestColor(List<PointFloat> normalizedSourceColorBuffer, Color[,] destColor, int destWid, int destHei, Color colorKey)
         {
             float resultSimilarity = 0f;
-            float oneScore = 1 / (float)source.Count;
+            float oneScore = 1 / (float)normalizedSourceColorBuffer.Count;
 
-            for (int i = 0; i < source.Count; i++)
+            for (int i = 0; i < normalizedSourceColorBuffer.Count; i++)
             {
-                PointFloat s = source[i];
+                PointFloat s = normalizedSourceColorBuffer[i];
 
                 int xIdx = (int)(destWid * s.x);
                 int yIdx = (int)(destHei * s.y);
@@ -233,7 +241,7 @@ namespace MouseClicker
             /// 바로 빠꾸 . 
             if (source.colorKeyMatchingCount > destMatchingCount + acceptCountRange)
             {
-                return false;
+                //   return false;
             }
             //if ((source.colorKeyMatchingCount >= min_destCnt
             //    && source.colorKeyMatchingCount <= max_destCnt) == false)
@@ -254,5 +262,34 @@ namespace MouseClicker
 
             return true;
         }
+
+        /// <summary>
+        /// 스크린상에 Color 정보들을 가져옴 
+        /// </summary>
+        public Color[,] GetScreenColors(Rectangle area)
+        {
+            var colors = new Color[area.Width, area.Height];
+
+            using (var bm = new Bitmap(area.Width, area.Height))
+            {
+                using (var gp = Graphics.FromImage(bm))
+                {
+                    /// 여기서 비트맵에 카피됨. 
+                    gp.CopyFromScreen(area.X, area.Y, 0, 0, bm.Size);
+
+                    for (int i = 0; i < area.Width; i++)
+                    {
+                        for (int j = 0; j < area.Height; j++)
+                        {
+                            colors[i, j] = bm.GetPixel(i, j);
+                        }
+                    }
+                }
+            }
+
+            return colors;
+        }
+
+        //    public bool 
     }
 }

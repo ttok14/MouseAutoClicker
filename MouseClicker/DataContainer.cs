@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using static MouseClicker.Form1;
+using Newtonsoft.Json;
 
 namespace MouseClicker
 {
@@ -17,7 +19,8 @@ namespace MouseClicker
         [Serializable]
         public class ColorData
         {
-            public string str;
+            public string key;
+
             /// <summary>
             /// 영역에 대한 색상배열 
             /// </summary>
@@ -53,7 +56,67 @@ namespace MouseClicker
             public ColorData()
             {
             }
+
+            public void CopyTo(ColorData outputData)
+            {
+                outputData.key = key;
+                outputData.colorKey = colorKey;
+                outputData.discardKey = discardKey;
+                outputData.acceptRange = acceptRange;
+                outputData.width = width;
+                outputData.height = height;
+                outputData.matchingColorNormalizedPos = new List<PointFloat>(matchingColorNormalizedPos.Count);
+                for (int i = 0; i < matchingColorNormalizedPos.Count; i++)
+                {
+                    outputData.matchingColorNormalizedPos.Add(new PointFloat(matchingColorNormalizedPos[i].x, matchingColorNormalizedPos[i].y));
+                }
+                outputData.colorKeyMatchingCount = colorKeyMatchingCount;
+
+                outputData.colorInfo = new Color[width, height];
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        outputData.colorInfo[i, j] = colorInfo[i, j];
+                    }
+                }
+            }
         }
+
+        [Serializable]
+        public class ScreenTargetColorCheckData
+        {
+            /// <summary>
+            /// 한개의 area 
+            /// </summary>
+            [Serializable]
+            public class Area
+            {
+                public Color[,] colors;
+                public int width;
+                public int height;
+            }
+
+            public string key;
+            public List<Area> areaList = new List<Area>();
+
+            public void CopyTo(ScreenTargetColorCheckData dest)
+            {
+                dest.areaList.Clear();
+
+                dest.key = key;
+                for (int i = 0; i < areaList.Count; i++)
+                {
+                    var area = new Area();
+                    area.width = areaList[i].width;
+                    area.height = areaList[i].height;
+
+                    GlobalUtil.CopyColor(areaList[i].colors, areaList[i].width, areaList[i].height, ref area.colors);
+                    dest.areaList.Add(area);
+                }
+            }
+        }
+
 
         static DataContainer instance;
         public static DataContainer Instance
@@ -61,30 +124,143 @@ namespace MouseClicker
             get
             {
                 if (instance == null)
+                {
                     instance = new DataContainer();
+                }
                 return instance;
             }
         }
 
-        public static Dictionary<string, ColorData> ColorCompareBuffer = new Dictionary<string, ColorData>();
+        #region Screen Color Matching 데이터 관련 
+        public readonly static string CurScreenColorMatchingFileName = "ScreenColorMatchingData.txt";
+        public static string ColorDataBufferFilePath;
 
-        public void SetData_ColorCompare(string str, ColorData colorData)
+        public static Dictionary<string, ColorData> ScreenColorMatchingDataBuffer = new Dictionary<string, ColorData>();
+        public static bool IsScreenColorDataBufferDirty { get; private set; }
+        #endregion
+
+        #region Screen Target Color Check 데이터 관련 
+        public readonly static string CurScreenTargetCheckColorFileName = "ScreenColorTargetAreaData.txt";
+        public static string CurScreenTargetCheckColorFilePath;
+
+        public static Dictionary<string, ScreenTargetColorCheckData> ScreenTargetCheckColorDataBuffer = new Dictionary<string, ScreenTargetColorCheckData>();
+        public static bool IsScreenTargetCheckColorDataBufferDirty { get; private set; }
+        #endregion
+
+        public string CachePath { get; private set; }
+        public void Initialize()
         {
-            if (ColorCompareBuffer.ContainsKey(str) == false)
+            CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\MouseClicker";
+            ColorDataBufferFilePath = Path.Combine(CachePath, CurScreenColorMatchingFileName);
+            CurScreenTargetCheckColorFilePath = Path.Combine(CachePath, CurScreenTargetCheckColorFileName);
+
+            if (Directory.Exists(CachePath) == false)
             {
-                ColorCompareBuffer.Add(str, colorData);
+                Directory.CreateDirectory(CachePath);
+            }
+
+            if (File.Exists(ColorDataBufferFilePath) == false)
+            {
+                File.CreateText(ColorDataBufferFilePath);
+            }
+
+            if (File.Exists(CurScreenTargetCheckColorFilePath) == false)
+            {
+                File.CreateText(CurScreenTargetCheckColorFilePath);
+            }
+
+            ScreenColorMatchingDataBuffer.Clear();
+            ScreenTargetCheckColorDataBuffer.Clear();
+
+            /// 파일읽어서 screenColor 데이터 파싱해서 캐싱 
+            if (File.Exists(ColorDataBufferFilePath))
+            {
+                using (var sr = new StreamReader(ColorDataBufferFilePath))
+                {
+                    string str = sr.ReadToEnd();
+
+                    var data = JsonConvert.DeserializeObject<List<ColorData>>(str);
+
+                    if (data != null)
+                    {
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            SetData_ColorCompare(data[i].key, data[i]);
+                        }
+                    }
+                }
+            }
+
+            /// 파일 읽은후 데이터 파싱 및 캐싱
+            if (File.Exists(CurScreenTargetCheckColorFilePath))
+            {
+                using (var sr = new StreamReader(CurScreenTargetCheckColorFilePath))
+                {
+                    string str = sr.ReadToEnd();
+
+                    var data = JsonConvert.DeserializeObject<List<ScreenTargetColorCheckData>>(str);
+
+                    if (data != null)
+                    {
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            SetData_TargetCheckColor(data[i].key, data[i]);
+                        }
+                    }
+                }
+            }
+
+            IsScreenColorDataBufferDirty = false;
+            IsScreenTargetCheckColorDataBufferDirty = false;
+        }
+
+        #region ================= Screen Color Matching 관련 ================
+
+        public void SaveScreenColorData()
+        {
+            using (var sr = new StreamWriter(ColorDataBufferFilePath))
+            {
+                var dataBuffer = ScreenColorMatchingDataBuffer.Values.ToList();
+                string output = JsonConvert.SerializeObject(dataBuffer);
+                sr.Write(output);
+                IsScreenColorDataBufferDirty = false;
+            }
+        }
+
+        public int SetData_ColorCompare(string key, ColorData colorData)
+        {
+            if (ScreenColorMatchingDataBuffer.ContainsKey(key) == false)
+            {
+                ScreenColorMatchingDataBuffer.Add(key, colorData);
             }
             else
             {
-                ColorCompareBuffer[str] = colorData;
+                ScreenColorMatchingDataBuffer[key] = colorData;
             }
+
+            IsScreenColorDataBufferDirty = true;
+
+            int index = -1;
+
+            for (int i = 0; i < ScreenColorMatchingDataBuffer.Count; i++)
+            {
+                /// i 번쨰에 있는 dictionary 의 key 가 str 이랑 같은지 체크 . 같으면
+                /// 해당 index 임 . 
+                if (ScreenColorMatchingDataBuffer.ElementAt(i).Key == key)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
         }
 
         public bool IsNumberColorDataReady()
         {
             for (int i = 0; i < 10; i++)
             {
-                if (ColorCompareBuffer.ContainsKey(i.ToString()) == false)
+                if (ScreenColorMatchingDataBuffer.ContainsKey(i.ToString()) == false)
                 {
                     return false;
                 }
@@ -93,17 +269,156 @@ namespace MouseClicker
             return true;
         }
 
-        public ColorData GetColorData(string str)
+        //public ColorData GetColorData(string key)
+        //{
+        //    if (ScreenColorMatchingDataBuffer.ContainsKey(key) == false)
+        //    {
+        //        MessageBox.Show($"데이터가 존재하지 않습니다. key : {key}");
+        //        return null;
+        //    }
+
+        //    return ScreenColorMatchingDataBuffer[key];
+        //}
+
+        public ColorData GetScreenMatchingColorDataByKey(string screenColorMatchingStringKey)
         {
-            if (IsNumberColorDataReady() == false)
+            if (ScreenColorMatchingDataBuffer.ContainsKey(screenColorMatchingStringKey) == false)
             {
-                MessageBox.Show("ColorCompareData 가 존재하지 않습니다.");
                 return null;
             }
 
-            return ColorCompareBuffer[str];
+            return ScreenColorMatchingDataBuffer[screenColorMatchingStringKey];
         }
 
+        public void ClearScreenDataBuffer()
+        {
+            if (ScreenColorMatchingDataBuffer.Count > 0)
+                IsScreenColorDataBufferDirty = true;
+            ScreenColorMatchingDataBuffer.Clear();
+        }
+
+        public bool RemoveScreenColorData(string key)
+        {
+            bool removed = ScreenColorMatchingDataBuffer.Remove(key);
+            if (removed)
+                IsScreenColorDataBufferDirty = true;
+            return removed;
+        }
+
+        public ColorData GetScreenColorDataBufferByIndex(int selectedIndex)
+        {
+            if (selectedIndex >= ScreenColorMatchingDataBuffer.Count)
+            {
+                return null;
+            }
+
+            return ScreenColorMatchingDataBuffer.ElementAt(selectedIndex).Value;
+        }
+
+        public int GetScreenColorDataIndexByKey(string key)
+        {
+            int index = -1;
+
+            foreach (var data in ScreenColorMatchingDataBuffer)
+            {
+                index++;
+
+                if (data.Key == key)
+                {
+                    break;
+                }
+            }
+
+            return index;
+        }
+        #endregion
+
+        #region Screen Target Check Color 관련 
+
+        public void SaveScreenTargetCheckColorData()
+        {
+            using (var sr = new StreamWriter(CurScreenTargetCheckColorFileName))
+            {
+                var dataBuffer = ScreenTargetCheckColorDataBuffer.Values.ToList();
+                string output = JsonConvert.SerializeObject(dataBuffer);
+                sr.Write(output);
+                IsScreenTargetCheckColorDataBufferDirty = false;
+            }
+        }
+
+        public int SetData_TargetCheckColor(string key, ScreenTargetColorCheckData data)
+        {
+            if (ScreenTargetCheckColorDataBuffer.ContainsKey(key) == false)
+            {
+                ScreenTargetCheckColorDataBuffer.Add(key, data);
+            }
+            else
+            {
+                ScreenTargetCheckColorDataBuffer[key] = data;
+            }
+
+            IsScreenTargetCheckColorDataBufferDirty = true;
+
+            int index = -1;
+
+            for (int i = 0; i < ScreenTargetCheckColorDataBuffer.Count; i++)
+            {
+                if (ScreenTargetCheckColorDataBuffer.ElementAt(i).Key == key)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        }
+
+        public ScreenTargetColorCheckData GetTargetScreenTargetCheckColorDataByKey(string key)
+        {
+            if (ScreenTargetCheckColorDataBuffer.ContainsKey(key) == false)
+            {
+                return null;
+            }
+
+            return ScreenTargetCheckColorDataBuffer[key];
+        }
+
+        public void ClearScreenTargetCheckDataBuffer()
+        {
+            if (ScreenTargetCheckColorDataBuffer.Count > 0)
+                IsScreenTargetCheckColorDataBufferDirty = true;
+            ScreenTargetCheckColorDataBuffer.Clear();
+        }
+
+        public bool RemoveScreenTargetCheckColorData(string key)
+        {
+            bool removed = ScreenTargetCheckColorDataBuffer.Remove(key);
+            if (removed)
+                IsScreenTargetCheckColorDataBufferDirty = true;
+            return removed;
+        }
+
+        public ScreenTargetColorCheckData GetScreenTargetCheckColorDataBufferByIndex(int index)
+        {
+            if (index >= ScreenTargetCheckColorDataBuffer.Count)
+            {
+                return null;
+            }
+
+            return ScreenTargetCheckColorDataBuffer.ElementAt(index).Value;
+        }
+
+        public int GetScreenTargetCheckAreaCountByIndex(int index)
+        {
+            var data = GetScreenTargetCheckColorDataBufferByIndex(index);
+
+            if (data == null)
+                return 0;
+
+            return data.areaList.Count;
+        }
+
+        #endregion
         /// IO API ㄱㄱ 
     }
 }

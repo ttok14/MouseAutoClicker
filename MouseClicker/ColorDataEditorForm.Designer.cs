@@ -28,34 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnLoad = new System.Windows.Forms.Button();
-            this.txtSave = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenCacheFolder = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.txtLoadedFilePath = new System.Windows.Forms.Label();
-            this.btnAddData = new System.Windows.Forms.Button();
-            this.btnNew = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.listBox_data = new System.Windows.Forms.ListBox();
+            this.btnModify = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnLoad
+            // btnSave
             // 
-            this.btnLoad.Location = new System.Drawing.Point(12, 12);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(75, 23);
-            this.btnLoad.TabIndex = 0;
-            this.btnLoad.Text = "로드하기";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
-            // txtSave
-            // 
-            this.txtSave.Location = new System.Drawing.Point(12, 41);
-            this.txtSave.Name = "txtSave";
-            this.txtSave.Size = new System.Drawing.Size(75, 23);
-            this.txtSave.TabIndex = 1;
-            this.txtSave.Text = "저장하기";
-            this.txtSave.UseVisualStyleBackColor = true;
-            this.txtSave.Click += new System.EventHandler(this.txtSave_Click);
+            this.btnSave.Location = new System.Drawing.Point(93, 156);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "저장하기";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnOpenCacheFolder
             // 
@@ -70,7 +61,7 @@
             // button1
             // 
             this.button1.CausesValidation = false;
-            this.button1.Location = new System.Drawing.Point(113, 374);
+            this.button1.Location = new System.Drawing.Point(110, 249);
             this.button1.Name = "button1";
             this.button1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button1.Size = new System.Drawing.Size(92, 23);
@@ -79,46 +70,69 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txtLoadedFilePath
+            // btnAdd
             // 
-            this.txtLoadedFilePath.Location = new System.Drawing.Point(10, 109);
-            this.txtLoadedFilePath.Name = "txtLoadedFilePath";
-            this.txtLoadedFilePath.Size = new System.Drawing.Size(297, 115);
-            this.txtLoadedFilePath.TabIndex = 4;
-            this.txtLoadedFilePath.Text = "-";
+            this.btnAdd.Location = new System.Drawing.Point(12, 156);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.Text = "추가하기";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnAddData
+            // btnClear
             // 
-            this.btnAddData.Location = new System.Drawing.Point(93, 12);
-            this.btnAddData.Name = "btnAddData";
-            this.btnAddData.Size = new System.Drawing.Size(75, 23);
-            this.btnAddData.TabIndex = 5;
-            this.btnAddData.Text = "추가하기";
-            this.btnAddData.UseVisualStyleBackColor = true;
-            this.btnAddData.Click += new System.EventHandler(this.btnAddData_Click);
+            this.btnClear.Location = new System.Drawing.Point(174, 185);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 6;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // btnNew
+            // listBox_data
             // 
-            this.btnNew.Location = new System.Drawing.Point(12, 70);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(75, 23);
-            this.btnNew.TabIndex = 6;
-            this.btnNew.Text = "New";
-            this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_click);
+            this.listBox_data.FormattingEnabled = true;
+            this.listBox_data.ItemHeight = 12;
+            this.listBox_data.Location = new System.Drawing.Point(12, 12);
+            this.listBox_data.Name = "listBox_data";
+            this.listBox_data.Size = new System.Drawing.Size(167, 136);
+            this.listBox_data.TabIndex = 7;
+            this.listBox_data.SelectedIndexChanged += new System.EventHandler(this.listBox_data_SelectedIndexChanged);
+            // 
+            // btnModify
+            // 
+            this.btnModify.Location = new System.Drawing.Point(12, 185);
+            this.btnModify.Name = "btnModify";
+            this.btnModify.Size = new System.Drawing.Size(75, 23);
+            this.btnModify.TabIndex = 8;
+            this.btnModify.Text = "수정하기";
+            this.btnModify.UseVisualStyleBackColor = true;
+            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(174, 156);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.TabIndex = 9;
+            this.btnRemove.Text = "제거하기";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // ColorDataEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(321, 450);
-            this.Controls.Add(this.btnNew);
-            this.Controls.Add(this.btnAddData);
-            this.Controls.Add(this.txtLoadedFilePath);
+            this.ClientSize = new System.Drawing.Size(321, 282);
+            this.Controls.Add(this.btnRemove);
+            this.Controls.Add(this.btnModify);
+            this.Controls.Add(this.listBox_data);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnOpenCacheFolder);
-            this.Controls.Add(this.txtSave);
-            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.btnSave);
             this.Name = "ColorDataEditorForm";
             this.Text = "ColorDataEditorForm";
             this.Load += new System.EventHandler(this.ColorDataEditorForm_Load);
@@ -127,13 +141,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.Button txtSave;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnOpenCacheFolder;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label txtLoadedFilePath;
-        private System.Windows.Forms.Button btnAddData;
-        private System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.ListBox listBox_data;
+        private System.Windows.Forms.Button btnModify;
+        private System.Windows.Forms.Button btnRemove;
     }
 }

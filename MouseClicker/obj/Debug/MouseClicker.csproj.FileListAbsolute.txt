@@ -21,7 +21,6 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.AuthForm.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug\lg\MouseClicker.resources.dll
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\lg\MouseClicker.resources.dll
-C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ConditionSelectionForm.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Usage.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.SelectArea.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.NumberColorSetForm.resources
@@ -32,3 +31,9 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.csproj.CopyComplete
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ColorDataEditorForm.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.PromptForm.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ClickConditionSelection.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ConditionCheck_PixelTargetColor.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.RandomPossibilityForm.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ScreenTargetCheckColorSetForm.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.SelectAreaSetForm.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.SelectAreaSetAskForm.resources
