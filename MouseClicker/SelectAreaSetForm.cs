@@ -151,10 +151,12 @@ namespace MouseClicker
                             this.areas.Add(form.Output_Rectangle);
 
                             /// 추가 영역 존재하면 순회하며 ++
-                            int additionalX = form_prompt.Output_AdditionalWidX;
-                            int additioanlY = form_prompt.Output_AdditionalHeiY;
+                            int additionalRightX = form_prompt.Output_AdditionalRightX;
+                            int additioanlDownY = form_prompt.Output_AdditionalDownY;
+                            int additionalLeftX = form_prompt.Output_AdditionalLeftX;
+                            int additioanlUpY = form_prompt.Output_AdditionalUpY;
 
-                            for (int i = 0; i < additionalX; i++)
+                            for (int i = 0; i < additionalRightX; i++)
                             {
                                 this.areas.Add(new Rectangle(
                                     form.Output_Rectangle.X + 1 + i
@@ -163,11 +165,29 @@ namespace MouseClicker
                                     , form.Output_Rectangle.Height));
                             }
 
-                            for (int i = 0; i < additioanlY; i++)
+                            for (int i = 0; i < additioanlDownY; i++)
                             {
                                 this.areas.Add(new Rectangle(
                                     form.Output_Rectangle.X
                                     , form.Output_Rectangle.Y + 1 + i
+                                    , form.Output_Rectangle.Width
+                                    , form.Output_Rectangle.Height));
+                            }
+                            
+                            for (int i = 0; i < additionalLeftX; i++)
+                            {
+                                this.areas.Add(new Rectangle(
+                                    form.Output_Rectangle.X - 1 + (i * -1)
+                                    , form.Output_Rectangle.Y
+                                    , form.Output_Rectangle.Width
+                                    , form.Output_Rectangle.Height));
+                            }
+
+                            for (int i = 0; i < additioanlUpY; i++)
+                            {
+                                this.areas.Add(new Rectangle(
+                                    form.Output_Rectangle.X
+                                    , form.Output_Rectangle.Y - 1 + (i * -1)
                                     , form.Output_Rectangle.Width
                                     , form.Output_Rectangle.Height));
                             }

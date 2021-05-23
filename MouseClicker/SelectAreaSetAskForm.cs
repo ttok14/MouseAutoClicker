@@ -18,7 +18,7 @@ namespace MouseClicker
             TopMost = true;
         }
 
-        public int Output_AdditionalWidX
+        public int Output_AdditionalRightX
         {
             get
             {
@@ -26,11 +26,27 @@ namespace MouseClicker
             }
         }
 
-        public int Output_AdditionalHeiY
+        public int Output_AdditionalDownY
         {
             get
             {
                 return (int)numeric_Y.Value;
+            }
+        }
+
+        public int Output_AdditionalLeftX
+        {
+            get
+            {
+                return (int)numeric_left_X.Value;
+            }
+        }
+
+        public int Output_AdditionalUpY
+        {
+            get
+            {
+                return (int)numeric_up_Y.Value;
             }
         }
 
@@ -48,6 +64,16 @@ namespace MouseClicker
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void numeric_X_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numeric_left_X_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -48,16 +48,12 @@ namespace MouseClicker
             this.remainedCntTextBox = new System.Windows.Forms.TextBox();
             this.remainedCntInfoText = new System.Windows.Forms.Label();
             this.resetCursorPosCheckBox = new System.Windows.Forms.CheckBox();
-            this.speedMultiplier = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSpeedApply = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.shortCutKeySelections = new System.Windows.Forms.ListBox();
             this.txtShortCutKeyStatus = new System.Windows.Forms.Label();
             this.btnShortCutFunction = new System.Windows.Forms.Button();
             this.currentPosAutoClickShortCutCheck = new System.Windows.Forms.CheckBox();
-            this.txtCurrentSpeed = new System.Windows.Forms.Label();
             this.txtCursorColor = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnShowInstruction = new System.Windows.Forms.Button();
@@ -69,7 +65,13 @@ namespace MouseClicker
             this.idleConv_clickAtFirst = new System.Windows.Forms.CheckBox();
             this.btnColorExtractor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).BeginInit();
+            this.btnGlobalSetting = new System.Windows.Forms.Button();
+            this.btnEditAction = new System.Windows.Forms.Button();
+            this.btnRecord_writeFile = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtCurActionGroupKey = new System.Windows.Forms.Label();
+            this.btnActivateActionGroup = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMainKeyFunction
@@ -151,41 +153,6 @@ namespace MouseClicker
             this.resetCursorPosCheckBox.Name = "resetCursorPosCheckBox";
             this.resetCursorPosCheckBox.UseVisualStyleBackColor = true;
             // 
-            // speedMultiplier
-            // 
-            resources.ApplyResources(this.speedMultiplier, "speedMultiplier");
-            this.speedMultiplier.DecimalPlaces = 2;
-            this.speedMultiplier.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.speedMultiplier.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.speedMultiplier.Name = "speedMultiplier";
-            this.speedMultiplier.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-            this.speedMultiplier.ValueChanged += new System.EventHandler(this.speedMultiplier_ValueChanged);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // btnSpeedApply
-            // 
-            resources.ApplyResources(this.btnSpeedApply, "btnSpeedApply");
-            this.btnSpeedApply.DialogResult = System.Windows.Forms.DialogResult.Ignore;
-            this.btnSpeedApply.Name = "btnSpeedApply";
-            this.btnSpeedApply.UseVisualStyleBackColor = true;
-            this.btnSpeedApply.Click += new System.EventHandler(this.btnSpeedApply_Click);
-            // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
@@ -224,11 +191,6 @@ namespace MouseClicker
             resources.ApplyResources(this.currentPosAutoClickShortCutCheck, "currentPosAutoClickShortCutCheck");
             this.currentPosAutoClickShortCutCheck.Name = "currentPosAutoClickShortCutCheck";
             this.currentPosAutoClickShortCutCheck.UseVisualStyleBackColor = true;
-            // 
-            // txtCurrentSpeed
-            // 
-            resources.ApplyResources(this.txtCurrentSpeed, "txtCurrentSpeed");
-            this.txtCurrentSpeed.Name = "txtCurrentSpeed";
             // 
             // txtCursorColor
             // 
@@ -294,10 +256,60 @@ namespace MouseClicker
             resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
             // 
+            // btnGlobalSetting
+            // 
+            resources.ApplyResources(this.btnGlobalSetting, "btnGlobalSetting");
+            this.btnGlobalSetting.Name = "btnGlobalSetting";
+            this.btnGlobalSetting.UseVisualStyleBackColor = true;
+            this.btnGlobalSetting.Click += new System.EventHandler(this.btnGlobalSetting_Click);
+            // 
+            // btnEditAction
+            // 
+            resources.ApplyResources(this.btnEditAction, "btnEditAction");
+            this.btnEditAction.Name = "btnEditAction";
+            this.btnEditAction.UseVisualStyleBackColor = true;
+            this.btnEditAction.Click += new System.EventHandler(this.btnEditAction_Click);
+            // 
+            // btnRecord_writeFile
+            // 
+            resources.ApplyResources(this.btnRecord_writeFile, "btnRecord_writeFile");
+            this.btnRecord_writeFile.Name = "btnRecord_writeFile";
+            this.btnRecord_writeFile.UseVisualStyleBackColor = true;
+            this.btnRecord_writeFile.Click += new System.EventHandler(this.btnRecord_writeFile_Click);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // txtCurActionGroupKey
+            // 
+            resources.ApplyResources(this.txtCurActionGroupKey, "txtCurActionGroupKey");
+            this.txtCurActionGroupKey.Name = "txtCurActionGroupKey";
+            // 
+            // btnActivateActionGroup
+            // 
+            resources.ApplyResources(this.btnActivateActionGroup, "btnActivateActionGroup");
+            this.btnActivateActionGroup.Name = "btnActivateActionGroup";
+            this.btnActivateActionGroup.UseVisualStyleBackColor = true;
+            this.btnActivateActionGroup.Click += new System.EventHandler(this.btnActivateActionGroup_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnActivateActionGroup);
+            this.Controls.Add(this.txtCurActionGroupKey);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnRecord_writeFile);
+            this.Controls.Add(this.btnEditAction);
+            this.Controls.Add(this.btnGlobalSetting);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnColorExtractor);
             this.Controls.Add(this.idleConv_clickAtFirst);
@@ -309,16 +321,12 @@ namespace MouseClicker
             this.Controls.Add(this.btnShowInstruction);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtCursorColor);
-            this.Controls.Add(this.txtCurrentSpeed);
             this.Controls.Add(this.currentPosAutoClickShortCutCheck);
             this.Controls.Add(this.btnShortCutFunction);
             this.Controls.Add(this.txtShortCutKeyStatus);
             this.Controls.Add(this.shortCutKeySelections);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnSpeedApply);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.speedMultiplier);
             this.Controls.Add(this.resetCursorPosCheckBox);
             this.Controls.Add(this.remainedCntInfoText);
             this.Controls.Add(this.remainedCntTextBox);
@@ -336,7 +344,6 @@ namespace MouseClicker
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
-            ((System.ComponentModel.ISupportInitialize)(this.speedMultiplier)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,16 +368,12 @@ namespace MouseClicker
         private TextBox remainedCntTextBox;
         private Label remainedCntInfoText;
         private CheckBox resetCursorPosCheckBox;
-        private NumericUpDown speedMultiplier;
-        private Label label1;
-        private Button btnSpeedApply;
         private Label label3;
         private Label label5;
         private ListBox shortCutKeySelections;
         private Label txtShortCutKeyStatus;
         private Button btnShortCutFunction;
         private CheckBox currentPosAutoClickShortCutCheck;
-        private Label txtCurrentSpeed;
         private Label txtCursorColor;
         private Label label9;
         private Button btnShowInstruction;
@@ -382,6 +385,13 @@ namespace MouseClicker
         private CheckBox idleConv_clickAtFirst;
         private Button btnColorExtractor;
         private Label label8;
+        private Button btnGlobalSetting;
+        private Button btnEditAction;
+        private Button btnRecord_writeFile;
+        private Label label1;
+        private Label label10;
+        private Label txtCurActionGroupKey;
+        private Button btnActivateActionGroup;
     }
 }
 

@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ActionEditor.Designer.cs">
+      <DependentUpon>ActionEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="AuthForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,13 @@
     <Compile Include="Form_InputBox.Designer.cs">
       <DependentUpon>Form_InputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalSettingForm.Designer.cs">
+      <DependentUpon>GlobalSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSettingManager.cs" />
     <Compile Include="GlobalUtil.cs" />
     <Compile Include="NumberColorSetForm.cs">
       <SubType>Form</SubType>
@@ -117,6 +130,12 @@
     </Compile>
     <Compile Include="RandomPossibilityForm.Designer.cs">
       <DependentUpon>RandomPossibilityForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RecordFinishTaskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecordFinishTaskForm.Designer.cs">
+      <DependentUpon>RecordFinishTaskForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ScreenColorInfoExtractor.cs">
       <SubType>Form</SubType>
@@ -151,12 +170,21 @@
     <Compile Include="SelectAreaSetForm.Designer.cs">
       <DependentUpon>SelectAreaSetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextWriter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextWriter.Designer.cs">
+      <DependentUpon>TextWriter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Usage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Usage.Designer.cs">
       <DependentUpon>Usage.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ActionEditor.resx">
+      <DependentUpon>ActionEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AuthForm.resx">
       <DependentUpon>AuthForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_InputBox.resx">
       <DependentUpon>Form_InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalSettingForm.resx">
+      <DependentUpon>GlobalSettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NumberColorSetForm.resx">
       <DependentUpon>NumberColorSetForm.cs</DependentUpon>
@@ -210,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectAreaSetForm.resx">
       <DependentUpon>SelectAreaSetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextWriter.resx">
+      <DependentUpon>TextWriter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Usage.resx">
       <DependentUpon>Usage.cs</DependentUpon>

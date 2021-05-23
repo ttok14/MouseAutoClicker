@@ -12,6 +12,11 @@ using System.Diagnostics;
 using System.Media;
 using System.IO;
 
+/// <summary>
+/// 이슈 정리
+/// - 알고리즘 보강  (자세한건 해당 함수 주석 ㄱㄱ)
+///     => <see cref="MouseClicker.ScreenColorHelper.IsTarget(MouseClicker.DataContainer.ColorData, System.Drawing.Color[,], int, int, int, float, out float) "/>
+/// </summary>
 namespace MouseClicker
 {
     public enum Mode
@@ -53,7 +58,8 @@ namespace MouseClicker
     {
         MainKey, // 주 타입
         ShortCutKey, // 쇼컷 타입 
-        IdleConvenient // idle 상태 편의기능
+        IdleConvenient, // idle 상태 편의기능
+        WriteFile, // 파일 Write 용 
     }
 
     /// <summary>
@@ -66,93 +72,100 @@ namespace MouseClicker
         SingleWithVariousCondition
     }
 
-    /// <summary>
-    /// 하나의 액션 정의 
-    /// </summary>
-    public struct SingleAction
-    {
-        public ActionType type;
-
-        // click
-        public Point pos;
-        // typing
-        public List<string> str;
-
-        public ActionConditionFlag conditionFlags;
-        public Form1.ConditionChecker.ConditionEvaluateParam conditionParam;
-
-        public double waitTime;
-
-        /// <summary>
-        /// 클릭 데이터 생성자 - 조건 X 
-        /// </summary>
-        public SingleAction(ActionType type, Point pos, double waitTime)
-        {
-            this.type = type;
-            this.pos = pos;
-            this.waitTime = waitTime;
-
-            this.str = null;
-            conditionFlags = ActionConditionFlag.None;
-            conditionParam = default(Form1.ConditionChecker.ConditionEvaluateParam);
-        }
-
-        /// <summary>
-        /// 클릭 데이터 생성자 - 조건 O
-        /// </summary>
-        public SingleAction(
-            ActionType type
-            , Point pos
-            , double waitTime
-            , ActionConditionFlag conditionFlag
-            , Form1.ConditionChecker.ConditionEvaluateParam conditionParam)
-        {
-            this.type = type;
-            this.pos = pos;
-            this.waitTime = waitTime;
-            this.conditionFlags = conditionFlag;
-            this.conditionParam = conditionParam;
-
-            this.str = null;
-        }
-
-        /// <summary>
-        /// 타이핑 데이터 생성자
-        /// </summary>
-        public SingleAction(ActionType type, List<string> str, double waitTime)
-        {
-            this.type = type;
-            this.str = str;
-            this.waitTime = waitTime;
-
-            pos = default(Point);
-            conditionFlags = ActionConditionFlag.None;
-            conditionParam = default(Form1.ConditionChecker.ConditionEvaluateParam);
-        }
-
-        /// <summary>
-        /// 모든 데이터 생성자 
-        /// </summary>
-        public SingleAction(ActionType type, Point pos, List<string> str, ActionConditionFlag conditionFlags, Form1.ConditionChecker.ConditionEvaluateParam conditionParam, double waitTime)
-        {
-            this.type = type;
-            this.pos = pos;
-            this.str = str;
-            this.conditionFlags = conditionFlags;
-            this.conditionParam = conditionParam;
-            this.waitTime = waitTime;
-        }
-
-        internal string PickRandomString()
-        {
-            if (str.Count == 0)
-                return "empty";
-            return str[Form1.Randomize.GetRandomNum(0, str.Count)];
-        }
-    }
-
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// 하나의 액션 정의 
+        /// </summary>
+        [Serializable]
+        public class SingleAction
+        {
+            public ActionType type;
+
+            // click
+            public Point pos;
+            // typing
+            public List<string> typingTexts;
+
+            public ActionConditionFlag conditionFlags;
+            public Form1.ConditionChecker.ConditionEvaluateParam conditionParam;
+
+            public double waitTime;
+
+            public SingleAction() { }
+            /// <summary>
+            /// 클릭 데이터 생성자 - 조건 X 
+            /// </summary>
+            public SingleAction(ActionType type, Point pos, double waitTime)
+            {
+                this.type = type;
+                this.pos = pos;
+                this.waitTime = waitTime;
+
+                this.typingTexts = null;
+                conditionFlags = ActionConditionFlag.None;
+                conditionParam = default(Form1.ConditionChecker.ConditionEvaluateParam);
+            }
+
+            /// <summary>
+            /// 클릭 데이터 생성자 - 조건 O
+            /// </summary>
+            public SingleAction(
+                ActionType type
+                , Point pos
+                , double waitTime
+                , ActionConditionFlag conditionFlag
+                , Form1.ConditionChecker.ConditionEvaluateParam conditionParam)
+            {
+                this.type = type;
+                this.pos = pos;
+                this.waitTime = waitTime;
+                this.conditionFlags = conditionFlag;
+                this.conditionParam = conditionParam;
+
+                this.typingTexts = null;
+            }
+
+            /// <summary>
+            /// 타이핑 데이터 생성자
+            /// </summary>
+            public SingleAction(ActionType type, List<string> str, double waitTime)
+            {
+                this.type = type;
+                this.typingTexts = str;
+                this.waitTime = waitTime;
+
+                pos = default(Point);
+                conditionFlags = ActionConditionFlag.None;
+                conditionParam = default(Form1.ConditionChecker.ConditionEvaluateParam);
+            }
+
+            /// <summary>
+            /// 모든 데이터 생성자 
+            /// </summary>
+            public SingleAction(ActionType type, Point pos, List<string> str, ActionConditionFlag conditionFlags, Form1.ConditionChecker.ConditionEvaluateParam conditionParam, double waitTime)
+            {
+                this.type = type;
+                this.pos = pos;
+                this.typingTexts = str;
+                this.conditionFlags = conditionFlags;
+                this.conditionParam = conditionParam;
+                this.waitTime = waitTime;
+            }
+
+            internal string PickRandomString()
+            {
+                if (typingTexts.Count == 0)
+                    return "empty";
+                return typingTexts[Form1.Randomize.GetRandomNum(0, typingTexts.Count)];
+            }
+
+            public double GetWaitTime()
+            {
+                return this.waitTime + Form1.Randomize.GetRandomNum_Double(GlobalSettingManager.RandomDelayBetweenActionMin, GlobalSettingManager.RandomDelayBetweenActionMax);
+            }
+        }
+
         private const int KEY_PRESSED = 0x80;
 
         private readonly string[] serials =
@@ -186,16 +199,20 @@ namespace MouseClicker
         /// Idle 편의 기능용 action 
         /// </summary>
         List<SingleAction> idleConvenientKeys = new List<SingleAction>();
+        /// <summary>
+        /// File Write 용 action 
+        /// </summary>
+        List<SingleAction> fileWriteKeys = new List<SingleAction>();
+
+        DataContainer.ActionGroup curActionGroup;
 
         List<SingleAction> curTrack;
         string desiredRecordShortCut;
         string desiredExeShortCut;
         int curIndex;
-        double remainedTimeForNextClick;
+        double remainedTimeForNextAction;
 
         double recordIntervalTime;
-
-        double curSpeedMutliplier;
 
         bool useAutoDisableTimer;
         double remainedTimerSeconds;
@@ -214,8 +231,6 @@ namespace MouseClicker
             InitializeComponent();
             DataContainer.Instance.Initialize();
 
-            speedMultiplier.Value = 1;
-
             foreach (var item in shortCutKeySelections.Items)
             {
                 shortCutKeys.Add(item.ToString(), new List<SingleAction>());
@@ -223,7 +238,6 @@ namespace MouseClicker
 
             this.conditionChecker = new ConditionChecker(GetColorAt);
 
-            ApplySpeed();
             SetMode(Mode.Idle);
             Initialize_HandleOtherWindow();
             Loop();
@@ -256,13 +270,21 @@ namespace MouseClicker
             {
                 return random.Next(min, max);
             }
+
+            public static double GetRandomNum_Double(double min, double max)
+            {
+                var zeroToOne = random.NextDouble();
+                return min + ((max - min) * zeroToOne);
+            }
         }
 
         /// <summary>
         /// 조건 검사 담당 클래스 
         /// </summary>
+        [Serializable]
         public class ConditionChecker
         {
+            [Serializable]
             public class ConditionEvaluateParam
             {
                 /// <summary>
@@ -399,7 +421,7 @@ namespace MouseClicker
 
                             if (screenColorMatchingResult)
                             {
-                                SystemSounds.Hand.Play();
+                                //  SystemSounds.Hand.Play();
                                 return new ConditionEvaluateResultInfo(true, param.screenColorMatchingClickPos);
                             }
                         }
@@ -500,6 +522,8 @@ namespace MouseClicker
                 targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
             else if (curRecordKeyType == RecordKeyType.IdleConvenient)
                 targetTrack = idleConvenientKeys;
+            else if (curRecordKeyType == RecordKeyType.WriteFile)
+                targetTrack = fileWriteKeys;
             else
             {
                 MessageBox.Show($"Handle this type. {curRecordKeyType}");
@@ -515,6 +539,7 @@ namespace MouseClicker
             recordIntervalTime = 0;
         }
 
+        /// 현재 상태에서 Activate 상태로 전환 시도 . 
         void TryActivate(string shortCut = "")
         {
             if (curRecordKeyType == RecordKeyType.MainKey && mainTrackKeys != null && mainTrackKeys.Count > 0)
@@ -528,6 +553,13 @@ namespace MouseClicker
             else if (curRecordKeyType == RecordKeyType.IdleConvenient && idleConvenientKeys != null && idleConvenientKeys.Count > 0)
             {
                 SetMode(Mode.Activated);
+            }
+            else if (curRecordKeyType == RecordKeyType.WriteFile && fileWriteKeys != null && fileWriteKeys.Count > 0)
+            {
+                /// 지금까지 record 된거 List 를 넘겨줌 . 
+                OpenActionEditor(this.fileWriteKeys);
+                /// writeFIle 같은 경우는 바로 idle 로 . 
+                SetMode(Mode.Idle);
             }
             else
             {
@@ -543,7 +575,7 @@ namespace MouseClicker
 
             if (curMode == Mode.Idle)
             {
-                if (useIdleConvenientFeature.Checked)
+                if (useIdleConvenientFeature.Checked && idleConvenientKeys.Count > 0)
                 {
                     SetMode(Mode.Activated, RecordKeyType.IdleConvenient.ToString());
                 }
@@ -561,6 +593,10 @@ namespace MouseClicker
                 else if (curRecordKeyType == RecordKeyType.IdleConvenient)
                 {
                     SetMode(Mode.Idle);
+                }
+                else if (curRecordKeyType == RecordKeyType.WriteFile)
+                {
+                    TryActivate();
                 }
             }
             else if (curMode == Mode.Activated || curMode == Mode.Pause)
@@ -639,6 +675,7 @@ namespace MouseClicker
             btnMainKeyFunction.Enabled = true;
             btnShortCutFunction.Enabled = true;
             btnRecordIdle.Enabled = true;
+            btnRecord_writeFile.Enabled = true;
 
             curActivatedKeyType = RecordKeyType.MainKey;
 
@@ -654,6 +691,7 @@ namespace MouseClicker
                         btnMainKeyFunction.Text = "녹화시작";
                         btnShortCutFunction.Text = "녹화시작";
                         btnRecordIdle.Text = "녹화시작";
+                        // btnRecord_writeFile.Text = "Action 녹화하기";
 
                         if (prevMode == Mode.Activated)
                         {
@@ -666,6 +704,7 @@ namespace MouseClicker
                         btnMainKeyFunction.Enabled = false;
                         btnShortCutFunction.Enabled = false;
                         btnRecordIdle.Enabled = false;
+                        btnRecord_writeFile.Enabled = false;
 
                         /// subInfo 에 어떤 모드로 녹화하는지 식별 타입이 있음 
                         if (subInfo.Equals(RecordKeyType.MainKey.ToString()))
@@ -689,84 +728,95 @@ namespace MouseClicker
                             curRecordKeyType = RecordKeyType.IdleConvenient;
                             idleConvenientKeys.Clear();
                         }
+                        else if (subInfo.Equals(RecordKeyType.WriteFile.ToString()))
+                        {
+                            btnRecord_writeFile.Enabled = true;
+                            // btnRecord_writeFile.Text = "녹화 중단";
+                            curRecordKeyType = RecordKeyType.WriteFile;
+                            fileWriteKeys.Clear();
+                        }
 
                         SystemSounds.Hand.Play();
                         WindowState = FormWindowState.Minimized;
                     }
                     break;
                 case Mode.Activated:
-                    if (subInfo.Equals(string.Empty) ||
-                        subInfo == RecordKeyType.MainKey.ToString())
                     {
-                        btnPause.Visible = true;
-                        curActivatedKeyType = RecordKeyType.MainKey;
-                        curTrack = mainTrackKeys;
-                        btnMainKeyFunction.Text = "중지";
-                    }
-                    else if (subInfo == RecordKeyType.ShortCutKey.ToString())
-                    {
-                        curActivatedKeyType = RecordKeyType.ShortCutKey;
-                        curTrack = shortCutKeys[desiredExeShortCut];
-                        btnShortCutFunction.Text = "중지";
-
-                        /// 시작시 클릭 효과 기능 사용
-                        if (currentPosAutoClickShortCutCheck.Checked)
+                        /// Activated 상태로 전환됐을때 
+                        /// 타입별 처리 
+                        if (subInfo.Equals(string.Empty) ||
+                            subInfo == RecordKeyType.MainKey.ToString())
                         {
-                            var oriPos = Cursor.Position;
-                            DoMouseClick(oriPos.X, oriPos.Y);
+                            btnPause.Visible = true;
+                            curActivatedKeyType = RecordKeyType.MainKey;
+                            curTrack = mainTrackKeys;
+                            btnMainKeyFunction.Text = "중지";
                         }
-                    }
-                    else if (subInfo == RecordKeyType.IdleConvenient.ToString())
-                    {
-                        btnRecordIdle.Enabled = true;
-                        btnRecordIdle.Text = "중지";
-                        curActivatedKeyType = RecordKeyType.IdleConvenient;
-                        curTrack = idleConvenientKeys;
-
-                        /// 시작시 클릭 효과 기능 사용
-                        if (idleConv_clickAtFirst.Checked)
+                        else if (subInfo == RecordKeyType.ShortCutKey.ToString())
                         {
-                            DoMouseClick(Cursor.Position.X, Cursor.Position.Y);
-                        }
-                    }
+                            curActivatedKeyType = RecordKeyType.ShortCutKey;
+                            curTrack = shortCutKeys[desiredExeShortCut];
+                            btnShortCutFunction.Text = "중지";
 
-                    //  string str = "";
-
-                    //     for (int i = 0; i < keys.Count; i++)
-                    //    {
-                    //        str += keys[i].waitTime + " ";
-                    //     }
-
-                    if (prevMode != Mode.Pause)
-                    {
-                        curIndex = 0;
-                        remainedTimeForNextClick = curTrack[0].waitTime;
-                    }
-
-                    useAutoDisableTimer = false;
-                    useAutoDisableRemainedCnt = false;
-
-                    if (subInfo == string.Empty ||
-                        subInfo == RecordKeyType.MainKey.ToString())
-                    {
-                        if (autoDisableTimerCheckBox.Checked)
-                        {
-                            if (double.TryParse(remainedTimeTextBox.Text, out remainedTimerSeconds))
+                            /// 시작시 클릭 효과 기능 사용
+                            if (currentPosAutoClickShortCutCheck.Checked)
                             {
-                                useAutoDisableTimer = remainedTimerSeconds > 0;
+                                var oriPos = Cursor.Position;
+                                DoMouseClick(oriPos.X, oriPos.Y);
+                            }
+                        }
+                        else if (subInfo == RecordKeyType.IdleConvenient.ToString())
+                        {
+                            btnRecordIdle.Enabled = true;
+                            btnRecordIdle.Text = "중지";
+                            curActivatedKeyType = RecordKeyType.IdleConvenient;
+                            curTrack = idleConvenientKeys;
+
+                            /// 시작시 클릭 효과 기능 사용
+                            if (idleConv_clickAtFirst.Checked)
+                            {
+                                DoMouseClick(Cursor.Position.X, Cursor.Position.Y);
                             }
                         }
 
-                        if (autoDisableRemainedCntCheckBox.Checked)
+                        //  string str = "";
+
+                        //     for (int i = 0; i < keys.Count; i++)
+                        //    {
+                        //        str += keys[i].waitTime + " ";
+                        //     }
+
+                        if (prevMode != Mode.Pause)
                         {
-                            if (int.TryParse(remainedCntTextBox.Text, out remainedCnt))
+                            curIndex = 0;
+                            remainedTimeForNextAction = curTrack[0].GetWaitTime();
+                        }
+
+                        useAutoDisableTimer = false;
+                        useAutoDisableRemainedCnt = false;
+
+                        if (subInfo == string.Empty ||
+                            subInfo == RecordKeyType.MainKey.ToString())
+                        {
+                            if (autoDisableTimerCheckBox.Checked)
                             {
-                                useAutoDisableRemainedCnt = remainedCnt > 0;
+                                if (double.TryParse(remainedTimeTextBox.Text, out remainedTimerSeconds))
+                                {
+                                    useAutoDisableTimer = remainedTimerSeconds > 0;
+                                }
+                            }
+
+                            if (autoDisableRemainedCntCheckBox.Checked)
+                            {
+                                if (int.TryParse(remainedCntTextBox.Text, out remainedCnt))
+                                {
+                                    useAutoDisableRemainedCnt = remainedCnt > 0;
+                                }
                             }
                         }
-                    }
 
-                    //                 MessageBox.Show("Start Play : " + keys.Count);
+                        //                 MessageBox.Show("Start Play : " + keys.Count);
+                    }
                     break;
                 case Mode.Pause:
                     {
@@ -866,10 +916,12 @@ namespace MouseClicker
                         {
                             bool cycleDone = false;
 
-                            remainedTimeForNextClick -= delay.TotalSeconds * curSpeedMutliplier;
-                            remainedTimerSeconds -= delay.TotalSeconds * curSpeedMutliplier;
+                            /// 다음 Action 을 위해 시간 차감 업데이트 
+                            remainedTimeForNextAction -= delay.TotalSeconds * GlobalSettingManager.SpeedMultiplier;
+                            /// 기능 자동 종료 시간 차감 업데이트 
+                            remainedTimerSeconds -= delay.TotalSeconds * GlobalSettingManager.SpeedMultiplier;
 
-                            if (remainedTimeForNextClick <= 0)
+                            if (remainedTimeForNextAction <= 0)
                             {
                                 DoAction(curTrack[curIndex]);
                                 curIndex++;
@@ -880,7 +932,7 @@ namespace MouseClicker
                                     cycleDone = true;
                                 }
 
-                                remainedTimeForNextClick = curTrack[curIndex].waitTime;
+                                remainedTimeForNextAction = curTrack[curIndex].GetWaitTime();
                             }
 
                             if (useAutoDisableTimer)
@@ -908,14 +960,14 @@ namespace MouseClicker
                                     }
                                 }
                             }
-                            if (curActivatedKeyType == RecordKeyType.ShortCutKey)
+                            else if (curActivatedKeyType == RecordKeyType.ShortCutKey)
                             {
                                 if (cycleDone)
                                 {
                                     SetMode(Mode.Idle);
                                 }
                             }
-                            if (curActivatedKeyType == RecordKeyType.IdleConvenient)
+                            else if (curActivatedKeyType == RecordKeyType.IdleConvenient)
                             {
                                 if (cycleDone)
                                 {
@@ -1040,6 +1092,8 @@ namespace MouseClicker
                         targetTrack = shortCutKeys[shortCutKeySelections.SelectedItem.ToString()];
                     else if (curRecordKeyType == RecordKeyType.IdleConvenient)
                         targetTrack = idleConvenientKeys;
+                    else if (curRecordKeyType == RecordKeyType.WriteFile)
+                        targetTrack = fileWriteKeys;
 
                     if (targetTrack.Count > 0)
                     {
@@ -1158,6 +1212,37 @@ namespace MouseClicker
             }
         }
 
+        private void OpenActionEditor(List<SingleAction> fileWriteKeys)
+        {
+            lockState = true;
+            using (var form = new ActionEditor(fileWriteKeys))
+            {
+                form.TopMost = true;
+                var result = form.ShowDialog();
+                WindowState = FormWindowState.Normal;
+                lockState = false;
+
+                if (result == DialogResult.OK)
+                {
+                    txtCurActionGroupKey.Text = form.ResultActionGroup.key;
+                    curActionGroup = form.ResultActionGroup;
+                }
+                else
+                {
+                    /// 만약 지금 세팅돼있는 ActionGroup 이 삭제됐거나 하면 그에따른 필요한 처리
+                    if (curActionGroup != null && string.IsNullOrEmpty(curActionGroup.key) == false)
+                    {
+                        if (DataContainer.Instance.IsTargetActionGroupExist(curActionGroup.key) == false)
+                        {
+                            curActionGroup = null;
+                        }
+                    }
+                }
+
+                btnActivateActionGroup.Enabled = this.curActionGroup != null && this.curActionGroup.actions.Count > 0;
+            }
+        }
+
         [DllImport("USER32.dll")]
         public static extern short GetKeyState(Keys nVirtKey);
 
@@ -1175,7 +1260,7 @@ namespace MouseClicker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.btnActivateActionGroup.Enabled = false;
         }
 
         private void OnClickMainKeyFunctionButton(object sender, EventArgs e)
@@ -1256,12 +1341,6 @@ namespace MouseClicker
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
         }
 
-        private void ApplySpeed()
-        {
-            curSpeedMutliplier = (double)speedMultiplier.Value;
-            txtCurrentSpeed.Text = "현재 스피드 : " + curSpeedMutliplier.ToString();
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
 
@@ -1334,18 +1413,6 @@ namespace MouseClicker
 
         }
 
-        private void btnSpeedApply_Click(object sender, EventArgs e)
-        {
-            if (authenticated == false)
-            {
-                MessageBox.Show("인증 안됨");
-                return;
-            }
-
-            SystemSounds.Hand.Play();
-            ApplySpeed();
-        }
-
         private void shortCutKeySelections_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (authenticated == false)
@@ -1394,6 +1461,44 @@ namespace MouseClicker
             {
                 var result = form.ShowDialog();
             }
+        }
+
+        private void btnGlobalSetting_Click(object sender, EventArgs e)
+        {
+            using (var form = new GlobalSettingForm())
+            {
+                var result = form.ShowDialog();
+            }
+        }
+
+        private void btnEditAction_Click(object sender, EventArgs e)
+        {
+            OpenActionEditor(null);
+        }
+
+        private void btnRecord_writeFile_Click(object sender, EventArgs e)
+        {
+            if (curMode == Mode.Idle)
+            {
+                SetMode(Mode.Recording, RecordKeyType.WriteFile.ToString());
+            }
+            else
+            {
+                SetMode(Mode.Idle);
+            }
+        }
+
+        private void btnActivateActionGroup_Click(object sender, EventArgs e)
+        {
+            if (curMode != Mode.Idle || curActionGroup == null || curActionGroup.actions.Count == 0)
+                return;
+
+            /// MainKey Track 으로 Play 
+            mainTrackKeys = curActionGroup.actions;
+            curRecordKeyType = RecordKeyType.MainKey;
+            WindowState = FormWindowState.Minimized;
+
+            TryActivate();
         }
     }
 }

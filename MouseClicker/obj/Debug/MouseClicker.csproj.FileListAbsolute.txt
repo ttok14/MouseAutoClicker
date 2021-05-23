@@ -24,8 +24,6 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Usage.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.SelectArea.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.NumberColorSetForm.resources
-C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.resources
-C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.lg.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ScreenColorInfoExtractor.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.csproj.CopyComplete
@@ -37,3 +35,8 @@ C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ScreenTargetCheckColorSetForm.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.SelectAreaSetForm.resources
 C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.SelectAreaSetAskForm.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.GlobalSettingForm.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.Form1.lg.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.ActionEditor.resources
+C:\Users\Jayce\source\repos\MouseClicker\MouseAutoClicker\MouseClicker\obj\Debug\MouseClicker.TextWriter.resources

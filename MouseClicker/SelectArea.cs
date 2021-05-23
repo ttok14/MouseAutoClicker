@@ -75,6 +75,10 @@ namespace MouseClicker
                 this.brsBackground = new TextureBrush(screen_bmp);
 
             BackgroundImage = screen_bmp;
+
+            txtRect.Visible = false;
+            txtRect.BackColor = System.Drawing.Color.Transparent;
+            txtRect.ForeColor = Color.Red;
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -108,11 +112,11 @@ namespace MouseClicker
         {
             base.OnMouseDown(e);
 
-
             if (type == Type.SelectArea)
             {
                 isDragging = true;
                 pos_dragStart = Cursor.Position;
+                txtRect.Visible = true;
             }
             else if (type == Type.PickPixel)
             {
@@ -193,6 +197,10 @@ namespace MouseClicker
 
             // Invalidate(clearArea);
             Invalidate();
+            
+            /// 커서쪽에 현재 드래깅 영역 표시 
+            txtRect.SetBounds(Cursor.Position.X + 2, Cursor.Position.Y + 2, txtRect.DisplayRectangle.Width, txtRect.DisplayRectangle.Height);
+            txtRect.Text = area.ToString();
         }
 
         protected override void OnPaint(PaintEventArgs e)

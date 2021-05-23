@@ -221,6 +221,10 @@ namespace MouseClicker
         /// <param name="similarityThreshold"></param>
         /// <param name="resultSimilarity"></param>
         /// <returns></returns>
+        /// 
+        /// 근데 이 함수 현재 discard color 영역들에 대한 체크는 .. 없을거라서 . 지금 알고리즘은
+        /// matching Color 만 체크하는거라 예를들어 모든 컬러가 하얀색인 image 를 ABC 를 target 체크했을때
+        /// ABC 영역이 하얀색이기만하면 matching 으로 판정이 날거란 거지 . discard 체크 알고리즘 추가해야할듯.
         public bool IsTarget(
             DataContainer.ColorData source
             , Color[,] destColorInfo

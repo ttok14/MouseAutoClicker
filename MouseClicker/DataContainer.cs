@@ -13,6 +13,19 @@ namespace MouseClicker
 {
     public class DataContainer
     {
+        [Serializable]
+        public class ActionGroup
+        {
+            public string key;
+            public List<SingleAction> actions;
+
+            public ActionGroup(string key, List<SingleAction> actions)
+            {
+                this.key = key;
+                this.actions = actions;
+            }
+        }
+
         /// <summary>
         /// IO 용 색상 데이터 
         /// </summary>
@@ -117,7 +130,6 @@ namespace MouseClicker
             }
         }
 
-
         static DataContainer instance;
         public static DataContainer Instance
         {
@@ -130,6 +142,14 @@ namespace MouseClicker
                 return instance;
             }
         }
+
+        #region ActionGroup Data 관련
+        public readonly static string CurActionGroupFileName = "ActionGroup.txt";
+        public static string ActionGroupFilePath;
+
+        public static Dictionary<string, ActionGroup> ActionGroupDataBuffer = new Dictionary<string, ActionGroup>();
+        public static bool IsActionGroupDataBufferDirty { get; private set; }
+        #endregion
 
         #region Screen Color Matching 데이터 관련 
         public readonly static string CurScreenColorMatchingFileName = "ScreenColorMatchingData.txt";
@@ -151,12 +171,19 @@ namespace MouseClicker
         public void Initialize()
         {
             CachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\MouseClicker";
+
+            ActionGroupFilePath = Path.Combine(CachePath, CurActionGroupFileName);
             ColorDataBufferFilePath = Path.Combine(CachePath, CurScreenColorMatchingFileName);
             CurScreenTargetCheckColorFilePath = Path.Combine(CachePath, CurScreenTargetCheckColorFileName);
 
             if (Directory.Exists(CachePath) == false)
             {
                 Directory.CreateDirectory(CachePath);
+            }
+
+            if (File.Exists(ActionGroupFilePath) == false)
+            {
+                File.CreateText(ActionGroupFilePath);
             }
 
             if (File.Exists(ColorDataBufferFilePath) == false)
@@ -169,8 +196,27 @@ namespace MouseClicker
                 File.CreateText(CurScreenTargetCheckColorFilePath);
             }
 
+            ActionGroupDataBuffer.Clear();
             ScreenColorMatchingDataBuffer.Clear();
             ScreenTargetCheckColorDataBuffer.Clear();
+
+            if (File.Exists(ActionGroupFilePath))
+            {
+                using (var sr = new StreamReader(ActionGroupFilePath))
+                {
+                    string str = sr.ReadToEnd();
+
+                    var data = JsonConvert.DeserializeObject<List<ActionGroup>>(str);
+
+                    if (data != null)
+                    {
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            SetData_ActionGroup(data[i].key, data[i].actions);
+                        }
+                    }
+                }
+            }
 
             /// 파일읽어서 screenColor 데이터 파싱해서 캐싱 
             if (File.Exists(ColorDataBufferFilePath))
@@ -213,6 +259,110 @@ namespace MouseClicker
             IsScreenColorDataBufferDirty = false;
             IsScreenTargetCheckColorDataBufferDirty = false;
         }
+
+        #region ====================== ActionGroup 관련 ==========================
+        public void SaveActionGroupData()
+        {
+            using (var sr = new StreamWriter(ActionGroupFilePath))
+            {
+                var dataBuffer = ActionGroupDataBuffer.Values.ToList();
+                string output = JsonConvert.SerializeObject(dataBuffer);
+                sr.Write(output);
+                IsActionGroupDataBufferDirty = false;
+            }
+        }
+
+        public int SetData_ActionGroup(string key, List<SingleAction> data)
+        {
+            if (ActionGroupDataBuffer.ContainsKey(key) == false)
+            {
+                ActionGroupDataBuffer.Add(key, new ActionGroup(key, data));
+            }
+            else
+            {
+                ActionGroupDataBuffer[key] = new ActionGroup(key, data);
+            }
+
+            IsActionGroupDataBufferDirty = true;
+
+            int index = -1;
+
+            for (int i = 0; i < ActionGroupDataBuffer.Count; i++)
+            {
+                /// i 번쨰에 있는 dictionary 의 key 가 str 이랑 같은지 체크 . 같으면
+                /// 해당 index 임 . 
+                if (ActionGroupDataBuffer.ElementAt(i).Key == key)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        }
+
+        public void ClearActionGroupDataBuffer()
+        {
+            if (ActionGroupDataBuffer.Count > 0)
+                IsActionGroupDataBufferDirty = true;
+            ActionGroupDataBuffer.Clear();
+        }
+
+        public bool RemoveActionGroupData(string key)
+        {
+            bool removed = ActionGroupDataBuffer.Remove(key);
+            if (removed)
+                IsActionGroupDataBufferDirty = true;
+            return removed;
+        }
+
+        public bool ChangeActionGroupKey(string from, string to)
+        {
+            if (ActionGroupDataBuffer.ContainsKey(from) == false)
+                return false;
+
+            if (ActionGroupDataBuffer.ContainsKey(to))
+                return false;
+
+            var actionData = ActionGroupDataBuffer[from].actions;
+            ActionGroupDataBuffer.Remove(from);
+            ActionGroupDataBuffer.Add(to, new ActionGroup(to, actionData));
+            return true;
+        }
+
+        public ActionGroup GetActionGroupDataBufferByIndex(int selectedIndex)
+        {
+            if (selectedIndex >= ActionGroupDataBuffer.Count)
+            {
+                return null;
+            }
+
+            return ActionGroupDataBuffer.ElementAt(selectedIndex).Value;
+        }
+
+        public int GetActionGroupDataIndexByKey(string key)
+        {
+            int index = -1;
+
+            foreach (var data in ActionGroupDataBuffer)
+            {
+                index++;
+
+                if (data.Key == key)
+                {
+                    break;
+                }
+            }
+
+            return index;
+        }
+
+        public bool IsTargetActionGroupExist(string key)
+        {
+            return ActionGroupDataBuffer.ContainsKey(key);
+        }
+
+        #endregion
 
         #region ================= Screen Color Matching 관련 ================
 
