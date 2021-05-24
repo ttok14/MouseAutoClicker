@@ -79,8 +79,7 @@ namespace MouseClicker
                 return;
             }
 
-            var key = listBox_data.Items[listBox_data.SelectedIndex];
-            DataContainer.Instance.RemoveActionGroupData((string)key);
+            DataContainer.Instance.RemoveActionGroupDataByIndex(listBox_data.SelectedIndex);
             RefreshListBoxData();
             UpdateBtnState();
         }
@@ -94,7 +93,7 @@ namespace MouseClicker
         {
             DataContainer.Instance.ClearActionGroupDataBuffer();
             RefreshListBoxData();
-            UpdateDefaultButton();
+            UpdateBtnState();
         }
 
 
@@ -172,6 +171,17 @@ namespace MouseClicker
                     }
                 }
             }
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            this.textBox1.Text += "1";
+            DataContainer.Instance.SetData_ActionGroup(this.textBox1.Text, new List<Form1.SingleAction>() { new Form1.SingleAction(ActionType.SingleMouseClick, new Point(0, 1), 10) });
+
+            curActionData = null;
+
+            RefreshListBoxData();
+            UpdateBtnState();
         }
     }
 }

@@ -712,7 +712,8 @@ namespace MouseClicker
                             btnMainKeyFunction.Enabled = true;
                             btnMainKeyFunction.Text = "매크로 시작";
                             curRecordKeyType = RecordKeyType.MainKey;
-                            mainTrackKeys.Clear();
+                            /// 참조관계땜에 new 로 새로할당함 .
+                            mainTrackKeys = new List<SingleAction>();
                         }
                         else if (subInfo.Equals(RecordKeyType.ShortCutKey.ToString()))
                         {
@@ -1234,6 +1235,7 @@ namespace MouseClicker
                     {
                         if (DataContainer.Instance.IsTargetActionGroupExist(curActionGroup.key) == false)
                         {
+                            txtCurActionGroupKey.Text = "없음";
                             curActionGroup = null;
                         }
                     }

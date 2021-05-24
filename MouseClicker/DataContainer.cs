@@ -316,6 +316,12 @@ namespace MouseClicker
             return removed;
         }
 
+        public bool RemoveActionGroupDataByIndex(int selectedIndex)
+        {
+            var target = GetActionGroupDataBufferByIndex(selectedIndex);
+            return RemoveActionGroupData(target.key);
+        }
+
         public bool ChangeActionGroupKey(string from, string to)
         {
             if (ActionGroupDataBuffer.ContainsKey(from) == false)

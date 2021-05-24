@@ -37,6 +37,8 @@
             this.listBox_data = new System.Windows.Forms.ListBox();
             this.btnChangeKey = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.btnTest = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -129,11 +131,30 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(194, 279);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(75, 23);
+            this.btnTest.TabIndex = 23;
+            this.btnTest.Text = "저장하기";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(195, 250);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.TabIndex = 24;
+            // 
             // ActionEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(335, 410);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnChangeKey);
             this.Controls.Add(this.btnSelect);
@@ -161,5 +182,7 @@
         private System.Windows.Forms.ListBox listBox_data;
         private System.Windows.Forms.Button btnChangeKey;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
