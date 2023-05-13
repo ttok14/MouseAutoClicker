@@ -178,7 +178,7 @@ namespace MouseClicker
         bool isAuthFileExist = false;
 
         public Mode curMode = Mode.Idle;
-        TimeSpan delay = TimeSpan.FromSeconds(0.1f);
+        TimeSpan delay = TimeSpan.FromMilliseconds(1000 / 60);
 
         RecordKeyType curRecordKeyType;
         RecordKeyType curActivatedKeyType;
@@ -240,7 +240,8 @@ namespace MouseClicker
 
             SetMode(Mode.Idle);
             Initialize_HandleOtherWindow();
-            Loop();
+
+            Task.Run(() => UpdateLoop());
         }
 
         /// <summary>
@@ -832,7 +833,7 @@ namespace MouseClicker
         /// <summary>
         /// 업데이트 루프 
         /// </summary>
-        async void Loop()
+        async Task UpdateLoop()
         {
             while (true)
             {

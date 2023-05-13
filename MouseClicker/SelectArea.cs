@@ -25,6 +25,7 @@ namespace MouseClicker
         Type type = Type.None;
 
         public Color[,] Output_ColorInfo { get; private set; }
+        public Bitmap Output_BitmapImg { get; private set; }
         public int Output_Width { get; private set; }
         public int Output_Height { get; private set; }
         public Rectangle Output_Rectangle { get; private set; }
@@ -150,6 +151,7 @@ namespace MouseClicker
                 this.DialogResult = DialogResult.OK;
 
                 Output_ColorInfo = new Color[area.Width, area.Height];
+                Output_BitmapImg = new Bitmap(area.Width, area.Height);
 
                 Output_Width = area.Width;
                 Output_Height = area.Height;
@@ -162,7 +164,9 @@ namespace MouseClicker
                     {
                         /// GetPixel 이 존나 빠름 
                         /// DC 로 복사하고 긁어오고 그거 존나느림 진짜 
-                        Output_ColorInfo[i, j] = this.screen_bmp.GetPixel(area.X + i, area.Y + j);
+                        var color = this.screen_bmp.GetPixel(area.X + i, area.Y + j);
+                        Output_ColorInfo[i, j] = color;
+                        Output_BitmapImg.SetPixel(i, j, color);
                     }
                 }
 
